@@ -1,0 +1,60 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="complaint-heading">Complaint Form</div>
+    <div id="without-error"></div>
+    <div class="clear"></div>
+    <%=form_for :customer, :url => add_complaint_path, :html => { :onsubmit => "return complaint_submit_check()"} do |f| %>
+
+      <div class="complaint-fields">
+        <div class="complaint-lables">Customer Type </div>
+        <span><%= radio_button "customer", "amc_type", "with parts", :onclick => "customers_for_selected_type('with parts');" %>with parts</span>
+        <span><%= radio_button "customer", "amc_type", "without parts", :onclick => "customers_for_selected_type('without parts');" %>without parts</span>
+				<span><%= radio_button "customer", "amc_type", "within warrunty", :onclick => "customers_for_selected_type('without parts');" %>within warrunty</span>
+        <span><%= radio_button "customer", "amc_type", "other", :onclick => "customers_for_selected_type('other');" %>others</span>
+      </div>
+      <div class="clear"></div>
+      <%= f.fields_for :complaint do |complaint|%>
+        <div class="complaint-fields">
+          <div class="complaint-lables"><%= complaint.label :date %></div>
+          <div class="complaint-boxes"><%= complaint.text_field :date, :class => "selectboxLength", :name => "complaint[date]", :value => Date.today.strftime('%m/%d/%Y') %>
+            <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'complaint_date', :type => "button" }) %></span></div>
+        </div>
+        <div class="clear"></div>
+        <div class="complaint-fields">
+          <div class="complaint-lables"><%= f.label :identity %></div>
+          <div class="complaint-boxes"><%= f.text_field :identity, :disabled => true, :class => "selectboxLength" %></div>
+        </div>
+        <div class="clear"></div>
+        <div id="customer_information"></div>
+        <div class="clear"></div>
+        <div class="complaint-fields">
+          <div class="complaint-lables"><%= complaint.label :description %></div>
+          <div class="complaint-boxes"><%= complaint.text_area :description, :rows => 2, :cols => 34, :class => "selectboxLength", :name => "complaint[description]" %></div>
+        </div>
+      <% end %>
+
+      <div class="clear"></div>
+      <div id = "complaint-button">
+        <%= submit_tag "Create Complaint" %>
+      </div>
+
+    <% end %>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  Zapatec.Calendar.setup({
+            inputField     :    "customer_complaint_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "complaint_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+  var e=$('customer_amc_type_with_parts');
+  e.checked = true;
+  window.onload = customers_for_selected_type('with parts');
+</script>

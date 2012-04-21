@@ -1,0 +1,120 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="complaint-heading">View Complaint</div>
+    <div id="without-error"></div>
+    <div class="clear"></div>
+
+   <div class="clear"></div>
+   <div class="complaint-fields"> 
+    <div class="complaint-lables">Customer Type</div>
+  <div class="complaint-boxes"><%= text_field :amc_type ,:amc_type   ,:readonly =>true, :class => "selectboxLength",:value => @complaint.customer.amc_type  %></div>
+  </div>
+
+   <div class="clear"></div>
+   <div class="complaint-fields"> 
+    <div class="complaint-lables">Date</div>
+  <div class="complaint-boxes"><%= text_field :date,:date  ,:readonly =>true, :class => "selectboxLength",:value => @complaint.date %></div>
+  </div>
+
+   <div class="clear"></div>
+   <div class="complaint-fields"> 
+    <div class="complaint-lables">Identity</div>
+  <div class="complaint-boxes"><%= text_field :city,:city  ,:readonly =>true, :class => "selectboxLength",:value => @complaint.customer.city %></div>
+  </div>
+   
+   <div class="clear"></div>
+   <div class="complaint-fields"> 
+    <div class="complaint-lables">Name</div>
+  <div class="complaint-boxes"><%= text_field :name,:name  ,:readonly =>true, :class => "selectboxLength",:value => @complaint.customer.name %></div>
+  </div>
+   
+   <div class="complaint-fields">
+  <div class="complaint-lables">House Number</div>
+  <div class="complaint-boxes"><%= text_field :customer, :house_number, :readonly =>true, :class => "selectboxLength",:value => @complaint.customer.house_number %></div>
+  </div>
+ 
+  <div class="clear"></div>
+  <div class="complaint-fields">
+  <div class="complaint-lables">Street</div>
+  <div class="complaint-boxes"><%= text_field :street,:street ,:readonly =>true, :class => "selectboxLength",:value => @complaint.customer.street %></div>
+ </div>
+  <div class="clear"></div>
+  <div class="complaint-fields">
+  <div class="complaint-lables">Colony</div>
+  <div class="complaint-boxes"><%= text_field :colony,:colony, :readonly =>true, :class => "selectboxLength",:value => @complaint.customer.colony %></div>
+ </div>
+ <div class="clear"></div>
+   <div class="complaint-fields">
+  <div class="complaint-lables">Landmark</div>
+  <div class="complaint-boxes"><%= text_field :landmark, :landmark, :readonly =>true, :class => "selectboxLength",:value => @complaint.customer.landmark %></div>
+ </div>
+
+ <div class="clear"></div>
+   <div class="complaint-fields">
+  <div class="complaint-lables">City</div>
+  <div class="complaint-boxes"><%= text_field :city, :city, :readonly =>true, :class => "selectboxLength",:value => @complaint.customer.city %></div>
+ </div>
+
+ <div class="clear"></div>
+   <div class="complaint-fields">
+  <div class="complaint-lables">Zipcode</div>
+  <div class="complaint-boxes"><%= text_field :zipcode, :zipcode, :readonly =>true, :class => "selectboxLength",:value => @complaint.customer.zipcode %></div>
+ </div>
+
+ <div class="clear"></div>
+   <div class="complaint-fields">
+  <div class="complaint-lables">State</div>
+  <div class="complaint-boxes"><%= text_field :state , :state , :readonly =>true, :class => "selectboxLength",:value => @complaint.customer.state  %></div>
+ </div>
+
+ <div class="clear"></div>
+   <div class="complaint-fields">
+  <div class="complaint-lables">Mobile Number</div>
+  <div class="complaint-boxes"><%= text_field :mobile_number , :mobile_number , :readonly =>true, :class => "selectboxLength",:value => @complaint.customer.mobile_number  %></div>
+ </div>
+
+ <div class="clear"></div>
+   <div class="complaint-fields">
+  <div class="complaint-lables">Phone Number</div>
+  <div class="complaint-boxes"><%= text_field :phone_number , :phone_number , :readonly =>true, :class => "selectboxLength",:value => @complaint.customer.phone_number  %></div>
+ </div>
+ <div class="clear"></div>
+  <div class="complaint-fields">
+  <div class="complaint-lables">Model Name</div>
+  <div class="complaint-boxes"><%= text_field :model_name, :model_name, :readonly =>true, :class => "selectboxLength",:value => @complaint.customer.model_name %></div>
+ </div>
+ <div class="clear"></div>
+  <div class="complaint-fields">
+  <div class="complaint-lables">Complaint No</div>
+  <div class="complaint-boxes"><%= text_field :complaint_no , :complaint_no , :readonly =>true, :class => "selectboxLength",:value => @complaint.complaint_no  %></div>
+ </div>
+ <div class="clear"></div>
+  <div class="complaint-fields">
+  <div class="complaint-lables">Description</div>
+  <div class="complaint-boxes"><%= text_area :description, :description, :readonly =>true, :class => "selectboxLength",:value => @complaint.description,:rows=>2 %></div>
+ </div>
+  <div class="clear"></div>
+  <div class="clear"></div>
+  <div class="complaint-fields">
+   <div class="edit-complaint" style="css" margin-left :200px ><%= link_to "Edit",'javascript:void(0);', :onclick => "edit_complaint(#{@complaint.id})" %></div>
+  </div>
+  
+ </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  Zapatec.Calendar.setup({
+            inputField     :    "customer_complaint_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "complaint_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+  var e=$('customer_amc_type_with_parts');
+  e.checked = true;
+  window.onload = customers_for_selected_type('with parts');
+</script>

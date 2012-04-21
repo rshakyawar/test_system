@@ -1,0 +1,60 @@
+<% is_disable = false %>
+<div class="complaint-fields">
+  <div class="complaint-lables">Name</div>
+<% if params[:id] == "without parts" || params[:id] == "with parts" || params[:id] == "within warrunty"%>
+  <div class="complaint-boxes"><%= collection_select(:customer, :id, Customer.find(:all, :conditions => ["amc_type = ? AND contract_date >= ?", params[:id], Time.now - 1.year]), :id, :name, {:prompt => true}, {:onchange=> "var e=$('customer_id'); customer_select(e.options[e.selectedIndex].value)", :class => "selectboxLength"}) %></div>
+  <% is_enable = true %>
+<% else %>
+  <div class="complaint-boxes"><%= text_field :customer, :name, :class => "selectboxLength" %></div>
+<% end %>
+</div>
+<div class="clear"></div>
+<div class="complaint-fields">
+  <div class="complaint-lables">House Number</div>
+  <div class="complaint-boxes"><%= text_field :customer, :house_number, :disabled => is_enable, :class => "selectboxLength" %></div>
+</div>
+<div class="clear"></div>
+<div class="complaint-fields">
+  <div class="complaint-lables">Street</div>
+  <div class="complaint-boxes"><%= text_field :customer, :street, :disabled => is_enable, :class => "selectboxLength" %></div>
+</div>
+<div class="clear"></div>
+<div class="complaint-fields">
+  <div class="complaint-lables">Colony</div>
+  <div class="complaint-boxes"><%= text_field :customer, :colony, :disabled => is_enable, :class => "selectboxLength" %></div>
+</div>
+<div class="clear"></div>
+<div class="complaint-fields">
+  <div class="complaint-lables">Landmark</div>
+  <div class="complaint-boxes"><%= text_field :customer, :landmark, :disabled => is_enable, :class => "selectboxLength" %></div>
+</div>
+<div class="clear"></div>
+<div class="complaint-fields">
+  <div class="complaint-lables">City</div>
+  <div class="complaint-boxes"><%= text_field :customer, :city, :disabled => is_enable, :class => "selectboxLength" %></div>
+</div>
+<div class="clear"></div>
+<div class="complaint-fields">
+  <div class="complaint-lables">Zipcode</div>
+  <div class="complaint-boxes"><%= text_field :customer, :zipcode, :disabled => is_enable, :class => "selectboxLength" %></div>
+</div>
+<div class="clear"></div>
+<div class="complaint-fields">
+  <div class="complaint-lables">State</div>
+  <div class="complaint-boxes"><%= text_field :customer, :state, :disabled => is_enable, :class => "selectboxLength" %></div>
+</div>
+<div class="clear"></div>
+<div class="complaint-fields">
+  <div class="complaint-lables">Mobile Number</div>
+  <div class="complaint-boxes"><%= text_field :customer, :mobile_number, :disabled => is_enable, :class => "selectboxLength" %></div>
+</div>
+<div class="clear"></div>
+<div class="complaint-fields">
+  <div class="complaint-lables">Phone Number</div>
+  <div class="complaint-boxes"><%= text_field :customer, :phone_number, :disabled => is_enable, :class => "selectboxLength" %></div>
+</div>
+<div class="clear"></div>
+<div class="complaint-fields">
+    <div class="complaint-lables">Model Name</div>
+    <div class="complaint-boxes"><%= text_field :customer, :model_name, :disabled => is_enable, :class => "selectboxLength" %></div>
+</div>

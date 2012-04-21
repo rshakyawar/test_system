@@ -1,0 +1,60 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="service-register-heading">AMC Not Serviced</div>
+    <div class="bottom_padding"></div>
+    <div class="bottom_padding"></div>
+    <fieldset>
+      <legend>Serach By:</legend>
+      <div class="amc-not-serviced-fields">
+        <div class="amc-not-serviced-lables">Name</div>
+        <div class="amc-not-serviced-boxes"><input type="text" id="name" class="search-length" onkeyup="ordered_amc_not_serviced(this);"></div>
+      </div>
+      <div class="amc-not-serviced-fields">
+        <div class="amc-not-serviced-lables">Colony</div>
+        <div class="amc-not-serviced-boxes"><input type="text" id="colony" class="search-length" onkeyup="ordered_amc_not_serviced(this);"></div>
+      </div>
+      <div class="amc-not-serviced-fields">
+        <div class="amc-not-serviced-lables">Landmark</div>
+        <div class="amc-not-serviced-boxes"><input type="text" id="landmark" class="search-length" onkeyup="ordered_amc_not_serviced(this);"></div>
+      </div>
+      <div class="amc-not-serviced-fields">
+      <div class="amc-not-serviced-lables">AMC Type</div>
+      <div class="amc-not-serviced-boxes"><select id="amc_type" class="search-length" onchange="ordered_amc_not_serviced(this);">
+                                        <option value="all">all</option>
+                                        <option value="with parts">with parts</option>
+                                        <option value="without parts">without parts</option>
+																				<option value="within warrunty">within warrunty</option>
+                                      </select></div>
+      </div>
+      <div class="amc-not-serviced-fields">
+        <div style="width :200px; float :left; text-align :center;">Not Serviced Last</div>
+        <div class="amc-not-serviced-boxes"><input type="text" id="days" class="search-length" onkeyup="ordered_amc_not_serviced(this);">days</div>
+      </div>
+    </fieldset>
+    <div id="amc-not-serviced-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="amc-not-serviced-last-service-date-first" id="date desc" onclick="ordered_amc_not_serviced(this);">Last Service Date</div>
+      <div class="amc-not-serviced-name-first" id="name desc" onclick="ordered_amc_not_serviced(this);">Customer Name</div>
+      <div class="amc-not-serviced-address-first" id="address desc" onclick="ordered_amc_not_serviced(this);">Address</div>
+      <div class="amc-not-serviced-contact-first">Contact Numbers</div>
+      <div class="amc-not-serviced-model-first">Model Name</div>
+      <div class="amc-not-serviced-amc-type-first" id="amc_type desc" onclick="ordered_amc_not_serviced(this);">AMC Type</div>
+    </div>
+    <div class="clear"></div>
+    <div id="service-register-content"></div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  $("name").value = "";
+  $("days").value = 60;
+  $("colony").value = "";
+  $("landmark").value = "";
+  $("amc_type").selectedIndex = 0;
+window.onload = ordered_amc_not_serviced($);
+</script>

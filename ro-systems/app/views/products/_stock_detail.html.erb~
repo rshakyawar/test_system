@@ -1,0 +1,23 @@
+<% if stocks.length > 0 %>
+  <% stocks.each do |stock| %>
+    <div class="stock-detail-rows">
+      <div class="serial-numbers"><%= serial_number=(counter+1) %></div>
+      <div class="stock-detail-names"><%= stock["product_name"] %></div>
+      <div class="stock-detail-description"><%= stock["description"] %></div>
+      <div class="stock-detail-quantity"><%= stock["quantity"] %></div>
+      <div class="stock-detail-operations-first"><%= link_to "Edit", product_edit_path(stock["product_id"]) %></div>
+      <div class="stock-detail-operations-second"><%= link_to image_tag("close.jpeg", :height => 20, :width => 20 ), product_delete_path(stock["product_id"]), :confirm => 'Are you sure?', :method => :delete %></div>
+      <% counter = counter + 1 %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% else %>
+  <div id = "rows-not-found">" No Details Found "</div>
+  <div class="clear"></div>
+<% end %>
+  <div class="bottom_padding"></div>  <div class="bottom_padding"></div>
+  <div class="clear"></div>
+<div id = "left-padding"><%= link_to "New Product/Part", product_new_path%></div>
+<% current_page = (Float(counter) / 25).ceil %>
+<div class="clear"></div>
+<%= render :partial => "layouts/get_paginated", :locals => { :current_page => current_page, :total_pages => total_pages, :function_name => "ordered_stock" }%>

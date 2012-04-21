@@ -1,0 +1,20 @@
+<div id="cheque<%=params[:id]%>" class="sales-fields" style="border:1px solid grey;">
+
+        <div class="sales-lables">Cheque No.<span class='necessary'>*</span> </div>
+        <div class="sales-boxes"><%= text_field :payments, :cheque_no, :id => "payment_cheque_no_#{params[:id]}", :name => "payment[cheque_no][]", :class => "selectboxLength" %></div>
+
+        <div class="sales-lables">Cheque Amount<span class='necessary'>*</span></div>
+        <div class="sales-boxes"><%= text_field :payments, :cheque_amount, :id => "payment_cheque_amount_#{params[:id]}", :name => "payment[cheque_amount][]", :class => "selectboxLength" %></div>
+
+        <div class="sales-lables">Post Date<span class='necessary'>*</span> </div>
+        <div class="sales-boxes"><%= text_field :payments, :post_date , :id => "payment_post_date_#{params[:id]}", :name => "payment[post_date][]", :class => "selectboxLength" %>
+        <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => "post_date_#{params[:id]}", :type => "button",:onclick=>"date_field(#{params[:id]})" }) %></span></div>
+
+        <div class="sales-lables">Bank Name<span class='necessary'>*</span> </div>
+        <div class="sales-boxes"><%= text_field :payments, :bank_name ,  :id => "payment_bank_name_#{params[:id]}", :name => "payment[bank_name][]", :class => "selectboxLength" %></div>
+
+        <%= link_to "Remove ", 'javascript:void(0);', :onclick => "sales_remove_payment_cheque('#{params[:id]}')" %>
+</div>
+<div class="clear"></div>
+
+

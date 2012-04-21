@@ -1,0 +1,85 @@
+<div id="order-balance-detail-first-row" >
+  <div class="serial-number-first">S. No.</div>
+  <div class="order-balance-detail-date-first">Date</div>
+  <div class="order-balance-detail-order-balance-first">Order Balance</div>
+  <div class="order-balance-detail-paid-balance-first">Paid Balance</div>
+</div>
+<% if orders.length > 0 %>
+  <% orders.each do |status| %>
+      <div class="order-balance-detail-rows">
+      <div class="serial-numbers"><%= serial_number = counter + 1 %></div>
+      <div class="order-balance-detail-dates"><%= status[:date].blank? ? "-" : status[:date].strftime('%d/%m/%Y') %></div>
+      <div class="order-balance-detail-order-balances"><%= status[:ordered_balance] %></div>
+      <div class="order-balance-detail-paid-balances"><%= status[:paid_balance] %></div>
+      <% counter = counter + 1 %>
+    </div>
+  <% end %>
+<% else %>
+  <div id = "rows-not-found">"No Record found"</div>
+  <div class="clear"></div>
+<% end %>
+<% current_page = (Float(counter) / 5).ceil %>
+<% counter = 1 %>
+<div class="clear"></div>
+<div class="bottom_padding"></div>  <div class="bottom_padding"></div>
+<div id="paginated-link">
+  <% if total_pages > 1 %>
+    <% unless current_page == 1 %>
+      <%=  link_to "<<First ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},1)" %>
+      <%= link_to("<Previous ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 1})") %>
+    <% end %>
+    <% if total_pages > 5 %>
+      <% if current_page == 1 %>
+        <%= current_page %>
+        <%= link_to " #{current_page + 1} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page + 1})" %>
+        <%= link_to " #{current_page + 2} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page + 2})" %>
+        <%= link_to " #{current_page + 3} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page + 3})" %>
+        <%= link_to " #{current_page + 4} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page + 4})" %>
+        ...
+      <% elsif current_page == 2 %>
+        <%= link_to " #{current_page - 1} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 1})" %>
+        <%= current_page %>
+        <%= link_to " #{current_page + 1} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page + 1})" %>
+        <%= link_to " #{current_page + 2} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page + 2})" %>
+        <%= link_to " #{current_page + 3} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page + 3})" %>
+        ...
+      <% elsif current_page == total_pages %>
+        ...
+        <%= link_to " #{current_page - 4} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 4})" %>
+        <%= link_to " #{current_page - 3} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 3})" %>
+        <%= link_to " #{current_page - 2} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 2})" %>
+        <%= link_to " #{current_page - 1} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 1})" %>
+        <%= current_page %>
+      <% elsif current_page == total_pages - 1 %>
+        ...
+        <%= link_to " #{current_page - 3} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 3})" %>
+        <%= link_to " #{current_page - 2} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 2})" %>
+        <%= link_to " #{current_page - 1} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 1})" %>
+        <%= current_page %>
+        <%= link_to " #{current_page + 1} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page + 1})" %>
+      <% else %>
+        <% unless current_page - 2 == 1 %>
+          ...
+        <% end %>
+        <%= link_to " #{current_page - 2} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 2})" %>
+        <%= link_to " #{current_page - 1} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page - 1})" %>
+        <%= current_page %>
+        <%= link_to " #{current_page + 1} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page + 1})" %>
+        <%= link_to " #{current_page + 2} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{current_page + 2})" %>
+        <% unless current_page + 2 == total_pages %>
+          ...
+        <% end %>
+      <% end %>
+    <% else %>
+      <% while counter <= total_pages %>
+        <%= current_page == counter ? current_page : (link_to " #{counter} ", "javascript:void(0);", :onclick => "get_balance_detail(#{company_id},#{counter})") %>
+        <% counter = counter + 1 %>
+      <% end %>
+    <% end %>
+    <% unless total_pages == current_page %>
+      <%= link_to " Next>", "javascript:void(0);" ,:onclick => "get_balance_detail(#{company_id},#{current_page + 1})" %>
+      <%= link_to " Last>>", "javascript:void(0);" ,:onclick => "get_balance_detail(#{company_id},#{total_pages})" %>
+    <% end %>
+  <% end %>
+</div>
+<%= link_to "Pay",'javascript:void(0);', :onclick => "order_pay_installment(#{company_id},'#{action}')" %>

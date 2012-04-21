@@ -1,0 +1,132 @@
+<% if session[:customer_id].present? %>
+  <% customer_id = session[:customer_id] %>
+  <% session[:customer_id] = nil %>
+  <script type="text/javascript">
+    window.onload = print_amc(<%= customer_id %>);
+  </script>
+<% end %>
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="new-customer-heading">AMC Form</div>
+    <div id="without-error"></div>
+    <div class="clear"></div>
+    <%=form_for :customer, :url => customer_create_path , :html => { :onsubmit => "return amc_submit_check()" } do |f| %>
+
+      <div class="new-customer-fields">
+        <div class="new-customer-lables"><%= f.label :identity %></div>
+        <div class="new-customer-boxes"><%= f.text_field :identity, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+        <div class="new-customer-lables"><%= f.label :contract_date %>(mm/dd/yyyy)<span class="necessary">*</span></div>
+        <div class="new-customer-boxes"><%= f.text_field :contract_date, :value => Date.today.strftime('%m/%d/%Y'),:class => "selectboxLength" %>
+        <%= submit_tag("...", { :name => 'button', :id => 'contract_date', :type => "button" }) %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+        <div class="new-customer-lables"><%= f.label :amc_type %><span class="necessary">*</span></div>
+        <div class="new-customer-boxes"><%= f.select :amc_type, ["with parts","without parts","within warrunty"],{ :prompt => true },{ :class => "selectboxLength"} %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :service_type %></div>
+          <div class="new-customer-boxes"><%= f.select :service_type,ServiceType.find_service_types,{ :prompt => true },{ :class => "selectboxLength"} %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :name %><span class="necessary">*</span></div>
+          <div class="new-customer-boxes"><%= f.text_field :name, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :house_number %></div>
+          <div class="new-customer-boxes"><%= f.text_field :house_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :street %></div>
+          <div class="new-customer-boxes"><%= f.text_field :street, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :colony %></div>
+          <div class="new-customer-boxes"><%= f.text_field :colony, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :landmark %></div>
+          <div class="new-customer-boxes"><%= f.text_field :landmark, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :city %><span class="necessary">*</span></div>
+          <div class="new-customer-boxes"><%= f.text_field :city,:value=> "Indore", :class => "selectboxLength",:onchange=> "citi_info_select(value)" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :zipcode %></div>
+          <div class="new-customer-boxes"><%= f.text_field :zipcode,:value=> "452001" , :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :state %><span class="necessary">*</span></div>
+          <div class="new-customer-boxes"><%= f.text_field :state,:value=> "M.P.", :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :contract_person %></div>
+          <div class="new-customer-boxes" width="200px"><%= collection_select(:company, :id, Technician.all, :id, :name, {:prompt => true}, :class => "selectboxLength")%></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :mobile_number %></div>
+          <div class="new-customer-boxes"><%= f.text_field :mobile_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :phone_number %></div>
+          <div class="new-customer-boxes" ><%# f.text_field :phone_number,:value=> "0731", :class => "selectboxLength",:readonly => "true" %></div>
+          <div class="new-customer-boxes"><%= f.text_field :phone_number, :class => "selectboxLength",:value=> "0731" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :contract_amount %><span class="necessary">*</span></div>
+          <div class="new-customer-boxes"><%= f.text_field :contract_amount, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+          <div class="new-customer-lables"><%= f.label :model_name %><span class="necessary">*</span></div>
+          <div class="new-customer-boxes"><%= f.text_field :model_name, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+        <div class="new-customer-lables"><%= f.label :prefilter %></div>
+          <div class="new-customer-boxes"><%= f.text_field :prefilter, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="new-customer-fields">
+        <div class="new-customer-lables"><%= f.label :remarks %></div>
+        <div class="new-customer-boxes"><%= f.text_area :remarks, :rows => 2, :cols => 34, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="new-customer-button">
+          <%= submit_tag "Create AMC" %>
+      </div>
+
+    <% end %>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  Zapatec.Calendar.setup({
+            inputField     :    "customer_contract_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "contract_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+</script>

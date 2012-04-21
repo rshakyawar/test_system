@@ -1,0 +1,27 @@
+<%serial_number = 0%>
+<% if companies.length > 0 %>
+  <% companies.each do |company| %>
+      <div class="show-company-rows">
+      <div class="serial-numbers1"><%= serial_number=(serial_number+1) %></div>
+      <div class="show-company-names"><%= company["name"] %></div>
+      <div class="show-company-addresses"><%= company["address"] %></div>
+      <div class="show-user-operations1"><%= link_to 'Edit', company_edit_path(company["id"]) %></div><div class="show-user-operations2"><%= link_to 'Delete', company_delete_path(company), :confirm => 'Are you sure?', :method => :delete %></div>
+    </div>
+    <% counter = counter + 1 %>
+    <div class="clear"></div>
+  <% end %>
+<% else %>
+  <div id = "rows-not-found">"No Company found"</div>
+  <div class="clear"></div>
+<% end %>
+<% current_page = (Float(counter) / 25).ceil %>
+<div class="clear"></div>
+<%= render :partial => "layouts/get_paginated", :locals => { :current_page => current_page, :total_pages => total_pages, :function_name => "ordered_show_company" }%>
+
+
+
+
+
+
+
+

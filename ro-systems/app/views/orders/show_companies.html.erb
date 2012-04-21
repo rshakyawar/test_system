@@ -1,0 +1,50 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="show-company-heading">Company List</div>
+    <div class="bottom_padding"></div>
+    <div class="bottom_padding"></div>
+    <fieldset>
+      <legend>Serach By:</legend>
+      <div class="show-company-fields">
+        <div class="show-company-lables">Name</div>
+        <div class="show-company-boxes"><input type="text" id="name" class="search-length" onkeyup="ordered_show_company(this);"></div>
+      </div>
+      <div class="show-company-fields">
+        <div class="show-company-lables">Colony</div>
+        <div class="show-company-boxes"><input type="text" id="colony" class="search-length" onkeyup="ordered_show_company(this);"></div>
+      </div>
+      <div class="show-company-fields">
+        <div class="show-company-lables">Landmark</div>
+        <div class="show-company-boxes"><input type="text" id="landmark" class="search-length" onkeyup="ordered_show_company(this);"></div>
+      </div>
+    </fieldset>
+
+  <div class="clear"></div>
+    <div id="show-company-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="show-company-name-first" id="name desc" onclick="ordered_show_company(this);">Company Name</div>
+      <div class="show-company-address-first" id="address desc" onclick="ordered_show_company(this);">Address</div>
+      <div class="technicain-operation-first">Operations</div>
+    </div>
+    <div class="clear"></div>
+    <div id="company-content"></div>
+    <div class="clear"></div>
+    <div id = "left-padding"><%= link_to "New Company", company_new_path%></div>
+    <div class="clear"></div>
+    <div class="bottom_padding"></div>
+    <div class="clear"></div>
+    <div class="print-stock"><%= image_tag "print1.jpeg", :onclick=>"print_company_list();", :id => "print-image-setup" %></div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  $("name").value = "";
+  $("colony").value = "";
+  $("landmark").value = "";
+window.onload = ordered_show_company($);
+</script>

@@ -1,0 +1,40 @@
+<html style="background :white;">
+<body style="background :white">
+<div id = "print-wrapper">
+  <div style="font-size :18px; text-align :center; font-weight :bold;">H<sub>2</sub>O Solutions</div>
+  <div style="padding-bottom :10px;"></div>
+  <div class="clear"></div>
+  <div style="text-align :center; font-size :16px; font-weight :bold;">Customer Balance Report</div>
+  <div style="padding-bottom :10px;"></div>
+  <div class="clear"></div>
+
+  <div id="print-table-wrapper">
+    <table align="center" border="1px solid" style="border-collapse :collapse;">
+      <tr>
+        <th width="65" style="padding :5px;">Sr No.</th>
+        <th width="80">Last Payment Date</th>
+        <th width="108">Customer Name</th>
+        <th width="107">Contact Numbers</th>
+        <th width="99">Balance Remaining</th>
+        <th width="80">Next Payment Date</th>
+        <th width="98">Payment For</th>
+      </tr>
+      <% if @serial.length > 0 %>
+        <% for i in 0...@serial.length %>
+          <tr>
+            <td width="65" style="padding :5px; text-align :center;"><%= @serial[i] %></div>
+            <td width="80" style="padding :5px;"><%= @payment_dates[i] %></td>
+            <td width="108" style="padding :5px;"><%= @customer_name[i] %></td>
+            <td width="107" style="padding :5px;"><%= @contact_numbers[i] %></td>
+            <td width="99" style="padding :5px;"><%= @remain_balance[i] %></td>
+            <td width="80" style="padding :5px;"><%= @next_payment_dates[i] %></td>
+            <td width="98" style="padding :5px;"><%= @payment_for[i] %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+</div>
+<script type="text/javascript">
+  window.onload = window.print();
+</script>

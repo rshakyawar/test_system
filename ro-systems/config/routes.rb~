@@ -1,0 +1,202 @@
+RoSystems::Application.routes.draw do
+
+  root :to => "users#login"
+  match "sales/auto_complete_for_technician_delivery_person_name", :to => "sales#auto_complete_for_technician_delivery_person_name"
+  match "sales/auto_complete_for_technician_installation_person_name", :to => "sales#auto_complete_for_technician_installation_person_name"
+  match "sales/auto_complete_for_technician_enquiry_from", :to => "sales#auto_complete_for_technician_enquiry_from" 
+  match "sales/auto_complete_for_sale_customer_name", :to => "sales#auto_complete_for_sale_customer_name" 
+
+  match "user/new", :to => "users#new"
+  match "home", :to => "users#home"
+  match "user/create", :to => "users#create"
+  match "user/check", :to => "users#check_login"
+  match "logout", :to => "users#logout"
+  match "user/change_password", :to => "users#change_password"
+  match "user/set_password", :to => "users#set_password"
+  match "user/show", :to => "users#show"
+  match "user/delete/:id", :to => "users#destroy#:id", :as => "user/delete"
+#route for city info
+  match "user/citi_info", :to => "users#citi_info"
+  match "user/insert_citi_info", :to => "users#insert_citi_info"
+
+
+  match "product/new", :to => "products#new_product"
+  match "product/create", :to => "products#create_product"
+  match "product/edit/:id", :to => "products#edit_product#:id", :as => "product/edit" 
+  match "product/delete/:id", :to => "products#destroy#:id", :as => "product/delete"
+  match "product/update/:id", :to => "products#update_product#:id", :as => "product/update"
+  match "product/stock", :to => "products#stock_detail"
+  match "ordered_stock", :to => "products#ordered_stock_detail"
+  match "print_stock", :to => "products#print_stock"
+
+
+  match "technician/new", :to => "technicians#new_technician"
+  match "technician/create", :to => "technicians#create_technician"
+  match "technician/show", :to => "technicians#show"
+  match "technician/edit/:id", :to => "technicians#edit_technician#:id", :as => "technician/edit"
+  match "technician/delete/:id", :to => "technicians#destroy#:id", :as => "technician/delete"
+  match "technician/update/:id", :to => "technicians#update_technician#:id", :as => "technician/update"
+
+
+  match "order", :to => "orders#order"
+  match "order/create", :to => "orders#create_order"
+  match "order/edit/:id", :to => "orders#edit_order#:id", :as => "order/edit"
+	match "order/edit/:id", :to => "orders#edit_order#:id", :as => "order/edit"
+  match "order/update/:id", :to => "orders#update_order#:id", :as => "order/update"
+  match "print_order", :to => "orders#print_order"
+  match "order_destroy/:id", :to => "orders#destroy_order#:id"
+  match "product_row/:id" => "orders#product_row#:id"
+  match "selected_company/:id" => "orders#selected_company#:id"
+  match "selected_product/:id" => "orders#selected_product#:id"
+  match "order/status", :to => "orders#order_status"
+  match "ordered_status", :to => "orders#ordered_order_status"
+  match "print_order_status", :to => "orders#print_order_status"
+  match "order/status_details/:id", :to => "orders#order_status_details#:id"
+  match "update_quantity/:id", :to => "orders#add_received_quantity#:id"
+  match "update_same_quantity/:id", :to => "orders#update_same_received_quantity#:id"
+  match "receive_quantity", :to => "orders#receive_quantity#:id"
+  match "order/balance", :to => "orders#order_balance"
+  match "ordered_order_balance", :to => "orders#ordered_order_balance"
+  match "order/balance_detail/:id", :to => "orders#order_balance_details#:id"
+  match "print_order_balance", :to => "orders#print_order_balance"
+  match "print_company_pay", :to => "orders#print_company_pay"
+
+  match "company/new", :to => "orders#new_company"
+  match "company/show", :to => "orders#show_companies"
+  match "company/create", :to => "orders#create_company"
+  match "company/edit/:id", :to => "orders#edit_company#:id", :as => "company/edit"
+  #match  :to => "orders#destroy_company#:id", :as => "company/destroy"
+  match "/company/delete/:id", :to => "orders#destroy_company#:id", :as => "company/delete"
+
+  match "company/update/:id", :to => "orders#update_company#:id", :as => "company/update"
+  match "ordered_show", :to => "orders#ordered_show_companies"
+  match "print_company_list", :to => "orders#print_companies"
+
+  match "customer/new", :to => "customers#new_customer"
+  match "customer/create", :to=> "customers#create_customer"
+  match "print_amc", :to=> "customers#print_amc"
+  match "complaint", :to => "customers#complaint_form"
+  match "customer/view/:id", :to => "customers#view_complaint#:id"
+  match "customer/edit_complaint/:id", :to => "customers#edit_complaint#:id"
+	match "customer/delete_complaint/:id", :to => "customers#delete_complaint#:id"
+  match "add_complaint", :to => "customers#add_complaint"
+  match "update_complaint", :to => "customers#update_complaint"
+  match "customer/information/:id", :to => "customers#customer_information#:id"
+  match "selected_customer/:id" => "customers#selected_customer#:id"
+  match "customer/complaint_register", :to=> "customers#complaint_register"
+  match "ordered_complaint_register", :to=> "customers#ordered_complaint_register"
+  match "print_complaint_register", :to=> "customers#print_complaint_register"
+  match "customer/service_form/:id", :to=> "customers#service_form#:id"
+  match "customer/reprint_service_form/:id", :to=> "customers#reprint_service_form#:id"
+  match "customer/product_row/:id" => "customers#product_row#:id"
+  match "edit_product_row/:id/:product_id" => "customers#edit_product_row#:id#:product_id"
+  match "selected_citi_info/:citi_name" => "customers#selected_citi_info#:citi_name"
+
+  match "customer/process_complaint" => "customers#process_complaint"
+  match "customer/balance_report" => "customers#balance_report"
+  match "ordered_balance_report" => "customers#ordered_balance_report"
+  match "print_customer_balance" => "customers#print_customer_balance_report"
+  match "customer/balance_detail/:id", :to => "customers#customer_balance_details#:id"
+  match "customer/pay_installment/:id", :to => "customers#pay_installment#:id"
+  match "order/pay_installment/:id", :to => "customers#order_pay_installment#:id"
+  match "customer/installment_pay", :to => "customers#installment_pay"
+  match "customer/service_register", :to => "customers#service_register"
+  match "ordered_service_register", :to => "customers#ordered_service_register"
+  match "customer/service_detail/:id", :to => "customers#service_details#:id"
+  match "customer/amc_expiry_report", :to => "customers#amc_expiry"
+  match "ordered_amc_expiry", :to => "customers#ordered_amc_expiry"
+  match "print_amc_expiry", :to => "customers#print_amc_expiry"
+  match "customer/renew/:id", :to => "customers#renew_customer#:id"
+  match "customer/update", :to=> "customers#update"
+  match "customer/edit_amc/:id", :to => "customers#edit_amc#:id", :as => "customer/edit_amc"
+  match "customer/view_amc/:id", :to => "customers#view_amc#:id", :as => "customer/view_amc"
+  match "/update_amc/:id", :to => "customers#update_amc#:id", :as => "customer/update"
+  
+  match "customer/amc_not_serviced", :to => "customers#amc_not_serviced"
+  match "ordered_amc_not_serviced", :to => "customers#ordered_amc_not_serviced"
+  match "customer/show_amc", :to => "customers#show_amc",:as =>"customer/show_amc"
+  match "customer/ordered_show_amc", :to => "customers#ordered_show_amc",:as =>"ordered_show_amc"
+  match "amc_customer/delete/:id", :to => "customers#destroy#:id", :as => "amc_customer/delete"
+  match "create_complaint/:id", :to => "customers#create_complaint#:id"
+  match "print_customer_installment", :to => "customers#print_customer_installment"
+
+  match"selected_bill_book_series/:id" => "Sales#selected_bill_book_series#:id"
+  match "get_customer_details", :to => "sales#get_customer_details"
+  match "sales/sale", :to => "sales#sales"
+  match "sales/create_bill", :to => "sales#create_bill"
+  match "sales/edit/:id", :to => "sales#edit_sales_order#:id"
+  match "sales/view/:id",:to => "sales#view_sales_order#:id"
+  match "sales/update/:id", :to => "sales#update_sales_order#:id", :as =>"sales/update"
+  match "sales_destroy/:id", :to => "sales#sales_destroy#:id"
+  match "sale_product_row/:id" => "sales#sale_product_row#:id"
+  match "sale_add_payment_cheque/:id" => "sales#sale_add_payment_cheque#:id"
+  match "selected_description/:id" => "sales#selected_description#:id"
+  match "sales/sales_register", :to => "sales#sales_register"
+  match "ordered_sales_register", :to => "sales#ordered_sales_register"
+  match "print_sales_register", :to => "sales#print_sales_register"
+  match "print_sales", :to => "sales#print_sales"
+
+  match"/sales/bill_book_series/new", :to => "sales#new_bill_book_series"
+  match"/sales/bill_book_series/create", :to => "sales#create_bill_book_series"
+  match "/sales/bill_book_series/show", :to => "sales#show_bill_book_series"
+  match "/bill_book_series/edit/:id", :to => "sales#edit_bill_book_series#:id", :as => "bill_book_series/edit"
+  match "/bill_book_series/update/:id", :to => "sales#update_bill_book_series#:id", :as => "biil_book_series/update"
+  match "/bill_book_series/delete/:id", :to => "sales#destroy_bill_book_series#:id", :as => "bill_book_series/delete"
+
+# The priority is based upon order of creation:
+  # first created -> highest priority.
+
+  # Sample of regular route:
+  #   match 'products/:id' => 'catalog#view'
+  # Keep in mind you can assign values other than :controller and :action
+
+  # Sample of named route:
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # This route can be invoked with purchase_url(:id => product.id)
+
+  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
+
+  # Sample resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
+
+  # Sample resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
+
+  # Sample resource route with more complex sub-resources
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
+  #   end
+
+  # Sample resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
+
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => "welcome#index"
+
+  # See how all your routes lay out with "rake routes"
+
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id(.:format)))'
+end

@@ -1,0 +1,105 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="service-heading">Service Form</div>
+    <div id="without-error"></div>
+    <div class="clear"></div>
+    <%=form_for :service, :url => customer_process_complaint_path, :html => { :onsubmit => "return check_service_fields()"} do |f| %>
+      <div class="service-fields">
+        <div class="service-lables"><%= f.label :service_date %>(mm/dd/yyyy)<span class='necessary'>*</span></div>
+        <div class="service-boxes"><%= f.text_field :service_date, :class => "selectboxLength", :value => Date.today.strftime('%m/%d/%Y') %>
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'service_date', :type => "button" }) %></span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="service-fields">
+          <div class="service-lables">Complaint Number</div>
+          <div class="service-boxes"><%= f.text_field :complaint_no, :value => @complaint.complaint_no, :disabled => true, :class => "selectboxLength" %> </div>
+      </div>
+      <div class="clear"></div>
+      <div class="service-fields">
+          <div class="service-lables">Complaint Date</div>
+          <div class="service-boxes"><%= f.text_field :complaint_date, :value => @complaint.date.strftime('%m/%d/%Y'), :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="service-fields">
+          <div class="service-lables">Technician<span class='necessary'>*</span></div>
+          <div class="service-boxes"><%= collection_select "service", "technician_id", Technician.find(:all), :id, :name, {:prompt => true}, { :class => "selectboxLength"} %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="dynamic-service-product-first-row">
+        <div class="serial-number-first">Sr No</div>
+        <div class="dynamic-service-name-first">Products /Parts</div>
+        <div class="dynamic-service-description-first">Desciption</div>
+        <div class="dynamic-service-quantity-first">Quantity</div>
+        <div class="dynamic-service-rate-first">Rate</div>
+        <div class="dynamic-service-total-first">Total</div>
+      </div>
+      <div class="clear"></div>
+      <div id="1"></div>
+      <div class="clear"></div>
+      <div class="dynamic_rows"><%= link_to "Add", 'javascript:void(0);', :onclick => "service_add_row()" %></div>
+      <div class="clear"></div>
+      <%= f.hidden_field :complaint_id, :class => "selectboxLength", :value => "#{params[:id]}" %>
+      <div class="service-fields">
+        <div class="service-lables"><%= f.label :service_charge %><span class='necessary'>*</span></div>
+        <% if @customer.amc_type == "with parts" || @customer.amc_type == "without parts" %>
+          <div class="service-boxes"><%= f.text_field :service_charge, :class => "selectboxLength", :value=> 0, :disabled => false , :onblur => "add_service_charge(1);" %></div>
+        <% else %>
+          <div class="service-boxes"><%= f.text_field :service_charge, :class => "selectboxLength", :onblur => "add_service_charge(1);" %></div>
+        <% end %>
+      </div>
+      <div class="clear"></div>
+      <div class="service-fields">
+        <div class="service-lables">Total </div>
+        <div class="service-boxes" id=""><%= f.text_field :amount, :value=> 0, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="service-fields">
+        <div class="service-lables">Paid Amount<span class='necessary'>*</span></div>
+        <div class="service-boxes"><%= text_field :payments, :paid_amount, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="service-fields">
+        <div class="service-lables">Remaining Amount</div>
+        <div class="service-boxes"><%= f.text_field :remaining_amount, :value=> 0, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="service-fields">
+        <div class="service-lables">Next Pay Date(mm/dd/yyyy)</div>
+        <div class="service-boxes"><%= text_field :payments, :next_pay_date, :class => "selectboxLength" %>
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'next_pay_date', :type => "button" }) %></span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="service-fields">
+        <div class="service-lables">Remarks</div>
+        <div class="service-boxes"><%= f.text_area :remarks, :rows => 2, :cols => 34, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id = "service-button">
+        <%= submit_tag "Processed" %>
+      </div>
+
+    <% end %>
+    <div class="service-fields"><%= link_to 'Back', customer_complaint_register_path %> </div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  Zapatec.Calendar.setup({
+            inputField     :    "service_service_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "service_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+  Zapatec.Calendar.setup({
+            inputField     :    "payments_next_pay_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "next_pay_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+  window.onload = service_add_row();
+</script>

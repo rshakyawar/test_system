@@ -1,0 +1,12 @@
+class InserIntoUserType < ActiveRecord::Migration
+  def self.up
+    change_table :user_type_id do |t|
+      UserType.create :name => "Service only"
+      UserType.create :name => "AMC only"
+      UserType.create :name => "Service and AMC both"
+      end
+  end
+  
+  def self.down
+    end
+end

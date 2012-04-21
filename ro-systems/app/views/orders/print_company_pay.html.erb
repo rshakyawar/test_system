@@ -1,0 +1,35 @@
+<html style="background :white;">
+<body style="background :white">
+<div id = "print-wrapper">
+  <div style="font-size :18px; text-align :center; font-weight :bold;">H<sub>2</sub>O Solutions</div>
+  <div style="padding-bottom :10px;"></div>
+  <div class="clear"></div>
+  <div style="text-align :center; font-size :16px; font-weight :bold;">Order Payment</div>
+  <div style="padding-bottom :10px;"></div>
+  <div class="clear"></div>
+
+  <div id="print-table-wrapper">
+    <table style="text-align :left;" width="495px" cellspacing="5px">
+      <tr>
+        <th width="200px" style="padding-left :100px;">Company Name</th>
+        <td><%= @company_name %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Address</th>
+        <td><%= @address %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Payment Date(dd/mm/yyyy)</th>
+        <td><%= @pay_date %></td>
+      </tr>
+      <tr>
+          <th width="200px" style="padding-left :100px;">Amount Paid</th>
+          <td><%= @amount %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="clear"></div>
+</div>
+<script type="text/javascript">
+  window.onload = window.print();
+</script>

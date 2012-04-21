@@ -1,0 +1,42 @@
+<%= form_for @product, :url => create_product_path do |f|%>
+  <% if flash[:notice] %>
+    <%= flash[:notice] %>
+  <% end %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this login from being saved:</h2>
+
+      <ul>
+        <% @product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <p>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </p>
+  </div>
+
+  <div class="field">
+    <p>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+    </p>
+  </div>
+
+  <div class="field">
+    <p>
+      <%= f.label :current_stock %>
+      <%= f.text_field :current_stock, :value => 0 %>
+    </p>
+  </div>
+
+  <div id="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

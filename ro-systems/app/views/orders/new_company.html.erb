@@ -1,0 +1,68 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="technician-heading">Create Company</div>
+    <% if flash[:notice] %>
+      <div id="error">
+        <%= flash[:notice] %>
+      </div>
+    <% else %>
+      <div id="without-error">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <div class="clear"></div>
+    <%= form_for @company, :url => company_create_path, :html => { :onsubmit => "return check_company_fields()" } do |f|%>
+
+      <div class="technician-fields">
+        <div class="technician-lables"><%= f.label :name %><span class="necessary">*</span></div>
+        <div class="technician-boxes"><%= f.text_field :name, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="technician-fields">
+        <div class="technician-lables"><%= f.label :house_number %></div>
+        <div class="technician-boxes"><%= f.text_field :house_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="technician-fields">
+        <div class="technician-lables"><%= f.label :street %></div>
+        <div class="technician-boxes"><%= f.text_field :street, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="technician-fields">
+        <div class="technician-lables"><%= f.label :colony %></div>
+        <div class="technician-boxes"><%= f.text_field :colony, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="technician-fields">
+        <div class="technician-lables"><%= f.label :landmark %></div>
+        <div class="technician-boxes"><%= f.text_field :landmark, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="technician-fields">
+        <div class="technician-lables"><%= f.label :city %><span class="necessary">*</span></div>
+        <div class="technician-boxes"><%= f.text_field :city, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="technician-fields">
+        <div class="technician-lables"><%= f.label :zipcode %></div>
+        <div class="technician-boxes"><%= f.text_field :zipcode, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="technician-fields">
+        <div class="technician-lables"><%= f.label :state %><span class="necessary">*</span></div>
+        <div class="technician-boxes"><%= f.text_field :state, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="technician-button">
+        <%= f.submit %>
+      </div>
+
+    <% end %>
+    <div class="technician-fields"><%= link_to 'Back', company_show_path %> </div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>

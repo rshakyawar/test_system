@@ -1,0 +1,2634 @@
+/* General Setting */
+.clear
+  {
+ height:0px;
+clear:both;
+}
+
+html {
+  background-color: #D7D7D0;
+  font-family: arial,times,sans-serif;
+}
+
+#header
+{
+  padding-top :10px;
+}
+
+a img
+{
+  border : 0px;
+  padding-left : 10px;
+  cursor :pointer;
+}
+
+body
+{
+  padding-top :20px;
+  background :#D7D7D0;
+  font-size :15px;
+}
+#wrapper
+{
+  width :1000px;
+  background :#EEEEEE;
+  margin : 0 auto;
+  font-size :15px;
+  height :auto;
+  padding-top :10px;
+}
+
+#print-wrapper
+{
+  width :595px;
+  background :white;
+  margin : 0 auto;
+  font-size :15px;
+  height :auto;
+  padding-top :10px;
+}
+
+#print-image-setup
+{
+  height :50px;
+  cursor : pointer;
+}
+#print-image-setup2
+{
+  height :24px;
+  cursor : pointer;
+width :24px;
+}
+
+#print-table-wrapper
+{
+  margin-left :20px;
+  margin-right :20px;
+}
+
+.print-stock
+{
+  text-align :right;
+}
+.print-sales
+{
+  text-align :right;
+}
+
+#error
+{
+  text-align :center;
+  color :red;
+  font-size :13px;
+  padding :1px;
+}
+#without-error
+{
+  padding : 9px;
+}
+
+#inner-wrapper
+{
+  margin :0 auto;
+  width :650px;
+}
+
+
+#left-padding
+{
+  padding-left :5px;
+  float : left;
+}
+
+.bottom_padding
+{
+  padding-bottom :10px;
+}
+
+.selectboxLength
+{
+  width :200px;
+}
+
+.error_fields
+{
+  background-color :red;
+  width :200px;
+}
+
+a
+{
+  cursor :pointer;
+  text-decoration : none;
+}
+
+#paginated-link
+{
+  text-align :right;
+  font-size :13px;
+}
+
+.footer-content
+{
+  text-align :center;
+  color : Highlight;
+  padding : 2px;
+  font-size: 11px;
+}
+/* End of General Setting */
+
+/* Login Page CSS */
+#login-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+
+#login-wrapper
+{
+  margin :0 auto;
+  width :335px;
+}
+
+.login-fields
+{
+  float :left;
+  margin : 0 auto;
+  padding-bottom :3px;
+}
+
+.login-lables
+{
+  float :left;
+  width :137px;
+}
+
+.login-boxes
+{
+  float :left;
+}
+
+#submit-button
+{
+  text-align :center;
+}
+/* End of login CSS */
+
+/* New User Page CSS */
+#user-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+  margin-left : 102px;
+}
+
+.user-fields
+{
+  float :left;
+  margin-left : 102px;
+  padding-bottom :3px;
+}
+
+.user-lables
+{
+  float :left;
+  width :173px;
+}
+
+.user-boxes
+{
+  float :left;
+}
+/* End of New User CSS */
+
+/* Change Password CSS */
+#change-button
+{
+  text-align :center;
+  padding-left :33px;
+}
+/* End of change password css */
+
+/* Technician CSS */
+#technician-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+  margin-left : 102px;
+}
+#technician-button
+{
+  padding-left :100px;
+  margin-left :102px;
+}
+
+.technician-fields
+{
+  float :left;
+  margin-left : 102px;
+  padding-bottom :3px;
+}
+
+.technician-lables
+{
+  float :left;
+  width :100px;
+}
+
+.technician-boxes
+{
+  float :left;
+}
+
+#technician-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+  margin-left : 102px;
+}
+
+.technician-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+  margin-left : 102px;
+}
+
+.serial-number-first
+{
+  float :left;
+  width :55px;
+  text-align :center;
+}
+
+.technicain-name-first
+{
+  float :left;
+  width :275px;
+}
+
+.technicain-operation-first
+{
+  float :left;
+  width :110px;
+  text-align :center;
+}
+
+.serial-numbers
+{
+  float :left;
+  width :65px;
+  text-align :center;
+}
+
+.technicain-names
+{
+  float :left;
+  width :275px;
+}
+
+.operations-first
+{
+  float :left;
+  width :50px;
+  padding-left :5px;
+
+}
+
+.operations-second
+{
+  float :left;
+  width :50px;
+  padding-right :5px;
+}
+#technician-left-padding
+{
+  padding-left :100px;
+  float : left;
+}
+/* End of Technician css */
+
+/* Products CSS */
+#product-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+  margin-left : 102px;
+}
+#product-button
+{
+  padding-left :150px;
+  margin-left :102px;
+}
+
+.product-fields
+{
+  float :left;
+  margin-left : 102px;
+  padding-bottom :3px;
+}
+
+.product-lables
+{
+  float :left;
+  width :150px;
+}
+
+.product-boxes
+{
+  float :left;
+}
+/* End of Products css */
+
+/* For Stock details */
+.stock-lables
+{
+  float :left;
+  width :165px;
+  text-align :right;
+  padding-right : 5px;
+}
+
+.stock-boxes
+{
+  float :left;
+}
+
+#stock-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#stock-detail-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.stock-detail-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.stock-detail-name-first
+{
+  float :left;
+  width :150px;
+  cursor :pointer;
+}
+
+.stock-detail-description-first
+{
+  float :left;
+  width :141px;
+  cursor :pointer;
+}
+
+.stock-detail-quantity-first
+{
+  float :left;
+  width :92px;
+  cursor :pointer;
+}
+
+.stock-detail-operation-first
+{
+  float :left;
+  width :102px;
+  text-align :right;
+}
+
+.stock-detail-names
+{
+  float :left;
+  width :150px;
+}
+
+.stock-detail-description
+{
+  float :left;
+  width :141px;
+}
+
+.stock-detail-quantity
+{
+  float :left;
+  width :92px;
+  text-align :center;
+}
+
+.stock-detail-operations-first
+{
+  float :left;
+  width :50px;
+  padding-left :1px;
+}
+
+.stock-detail-operations-second
+{
+  float :left;
+  width :50px;
+  padding-right :1px;
+}
+/* End of Stock details */
+
+/* Order Form css */
+#order-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+  margin-left : 102px;
+}
+#order-button
+{
+  padding-left :150px;
+  margin-left : 161px;
+}
+
+.order-fields
+{
+  float :left;
+  margin-left : 102px;
+  padding-bottom :3px;
+}
+
+.order-lables
+{
+  float :left;
+  width :210px;
+}
+
+.order-boxes
+{
+  float :left;
+}
+
+#dynamic-product-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.dynamic-product-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.dynamic-name-first
+{
+  float :left;
+  width :125px;
+  text-align :center;
+}
+
+.dynamic-description-first
+{
+  float :left;
+  width :160px;
+  text-align :center;
+}
+
+.dynamic-quantity-first
+{
+  float :left;
+  width :100px;
+  text-align :center;
+}
+
+.dynamic-rate-first
+{
+  float :left;
+  width :100px;
+  text-align :center;
+}
+
+.dynamic-total-first
+{
+  float :left;
+  width :100px;
+  text-align :center;
+}
+
+.dynamic-product-names
+{
+  float :left;
+  width :115px;
+  padding-left :10px;
+}
+
+.dynamic-product-description
+{
+  float :left;
+  width :150px;
+  padding-left :10px;
+}
+
+.dynamic-product-quantity
+{
+  float :left;
+  width :90px;
+  padding-left :10px;
+}
+
+.dynamic-product-rate
+{
+  float :left;
+  width :90px;
+  padding-left :10px;
+}
+
+.dynamic-product-total
+{
+  float :left;
+  width :90px;
+  padding-left :10px;
+}
+
+.necessary
+{
+  color :red;
+}
+
+.dynamic-box-length
+{
+  float :left;
+  width :90px;
+}
+
+.dynamic-name-box-length
+{
+  float :left;
+  width :115px;
+}
+
+.dynamic-description-box-length
+{
+  float :left;
+  width :150px;
+}
+
+.error-dynamic-box
+{
+  float :left;
+  background-color :red;
+  width :90px;
+}
+
+.error-dynamic-name-box
+{
+  float :left;
+  background-color :red;
+  width :115px;
+}
+
+.error-dynamic-description-box
+{
+  float :left;
+  background-color :red;
+  width :150px;
+}
+/* End of order form css */
+
+/* Order Balance css */
+.order-balance-fields
+{
+  float :left;
+}
+.order-balance-lables
+{
+  float :left;
+  width :165px;
+  text-align :center;
+}
+
+.order-balance-date-lables
+{
+  float :left;
+  width :152px;
+  text-align :center;
+}
+
+.show-order-balance-boxes
+{
+  float :left;
+  padding-right : 5px;
+}
+
+#order-balance-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#order-balance-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+#order-balance-fields
+{
+  text-align :center;
+}
+
+.order-balance-rows fieldset
+{
+  width :625px;
+}
+
+.order-balance-labels
+{
+  float :left;
+  width :100px;
+  text-align :center;
+}
+
+.order-balance-boxes
+{
+  float :left;
+}
+
+.order-balance-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.order-balance-company-name-first
+{
+  float :left;
+  width :200px;
+  cursor :pointer;
+}
+
+.order-balance-company-address-first
+{
+  float :left;
+  width :260px;
+  cursor :pointer;
+}
+
+.order-balance-company-balance-first
+{
+  float :left;
+  width :125px;
+  cursor :pointer;
+}
+
+.order-balance-company-names
+{
+  float :left;
+  width :200px;
+}
+
+.order-balance-company-address
+{
+  float :left;
+  width :260px;
+}
+
+.order-balance-balances
+{
+  float :left;
+  width :125px;
+}
+
+#remaning
+{
+  color :red;
+}
+
+#exceed
+{
+  color :green;
+}
+/* End of Order balance css */
+
+/* Order Balance Details css */
+#order-balance-detail-first-row
+{
+  font-size :14px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+  margin-left : 20px;
+}
+
+.order-balance-detail-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+  margin-left : 20px;
+}
+
+.order-balance-detail-date-first
+{
+  float :left;
+  width :125px;
+}
+
+.order-balance-detail-order-balance-first
+{
+  float :left;
+  width :190px;
+}
+
+.order-balance-detail-paid-balance-first
+{
+  float :left;
+  width :190px;
+}
+
+.order-balance-detail-dates
+{
+  float :left;
+  width :125px;
+}
+
+.order-balance-detail-order-balances
+{
+  float :left;
+  width :190px;
+}
+
+.order-balance-detail-paid-balances
+{
+  float :left;
+  width :190px;
+}
+/* End of Order balance details css */
+
+/* Complaint Form css*/
+#complaint-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+  margin-left : 102px;
+}
+
+#complaint-button
+{
+  padding-left :145px;
+  margin-left : 102px;
+}
+
+.complaint-fields
+{
+  float :left;
+  margin-left : 102px;
+  padding-bottom :3px;
+}
+
+.complaint-lables
+{
+  float :left;
+  width :145px;
+}
+
+.complaint-boxes
+{
+  float :left;
+}
+
+/* End of Complaint form css */
+
+/* New Customer Form css */
+#new-customer-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+  margin-left : 102px;
+}
+#new-customer-button
+{
+  padding-left :195px;
+  margin-left : 102px;
+}
+
+.new-customer-fields
+{
+  float :left;
+  margin-left : 102px;
+  padding-bottom :3px;
+}
+
+.new-customer-lables
+{
+  float :left;
+  width :195px;
+}
+
+.new-customer-boxes
+{
+  float :left;
+}
+/* End of New Customer Form css */
+
+/* Order Status css */
+.order-status-lables
+{
+  float :left;
+  width :70px;
+  padding-left:5px;
+}
+
+.order-status-boxes
+{
+  float :left;
+  padding-right : 5px;
+}
+
+.search-length
+{
+  width : 95px;
+}
+
+#order-status-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#order-status-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.order-status-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.order-status-company-name-first
+{
+  float :left;
+  width :224px;/*280px*/
+  cursor :pointer;
+}
+
+.order-date-first
+{
+  float :left;
+  width :116px;    /*102px*/
+  cursor :pointer;
+  text-align :center;
+}
+
+.order-status-first
+{
+  float :left;
+  width :142px;/*100px*/
+  cursor :pointer;
+  text-align :justify;
+}
+
+.company-names
+{
+  float :left;
+  width :257px;/*280*/
+
+}
+
+.order-dates
+{
+  float :left;
+  width :102px;
+  text-align :center;
+}
+
+.order-status
+{
+  float :left;
+  width :62px;/*100*/
+  text-align :center;
+}
+
+.order-status-operation-first
+{
+  float :left;
+  width :102px;
+  cursor :pointer;
+  text-align :left;/*center*/
+}
+
+.order-operations
+{
+  float :left;
+  width :102px;  /*  width :102px*/
+  text-align :center;
+}
+/* End of order status css */
+
+/* Order Status Detail css */
+#order-status-detail-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+  margin-left : 102px;
+}
+#order-status-detail-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.order-status-detail-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.order-status-detail-name-first
+{
+  float :left;
+  width :125px;
+}
+
+.order-status-detail-description-first
+{
+  float :left;
+  width :125px;
+}
+
+.order-status-detail-qunatity-first
+{
+  float :left;
+  width :85px;
+}
+
+.order-status-detail-update-first
+{
+  float :left;
+  width :80px;
+  text-align :center;
+}
+
+.order-status-detail-names
+{
+  float :left;
+  width :125px;
+}
+
+.order-status-detail-descriptions
+{
+  float :left;
+  width :125px;
+}
+
+.order-status-detail-qunatities
+{
+  float :left;
+  width :85px;
+}
+
+.order-status-detail-updates
+{
+  float :left;
+  width :75px;
+  padding-left :5px;
+}
+
+.order-status-detail-updates2
+{
+  float :left;
+  width :25px;
+  padding-left :5px;
+}
+/* End of order status details css */
+
+/* Add Serial Numbers css */
+#serial-button
+{
+  margin-left : 310px;
+}
+
+.serial-fields
+{
+  float :left;
+  margin-left : 102px;
+  padding-bottom :3px;
+}
+
+.serial-lables
+{
+  float :left;
+  width :210px;
+}
+
+.serial-boxes
+{
+  float :left;
+}
+
+#serial-heading
+{
+  color :#660000;
+  font-size :14px;
+  font-weight :bold;
+  text-align :center;
+}
+/* End of Add Serial Numbers css */
+
+/* Sales Form css */
+#sales-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+  margin-left : 102px;
+}
+#sales-button
+{
+  padding-left :150px;
+  margin-left : 161px;
+}
+
+.sales-fields
+{
+  float :left;
+  margin-left : 102px;
+  padding-bottom :3px;
+}
+
+.sales-lables
+{
+  float :left;
+  width :210px;
+}
+
+.sales-boxes
+{
+  float :left;
+}
+
+#dynamic-sales-product-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.dynamic-sales-product-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.dynamic-sales-name-first
+{
+  float :left;
+  width :80px;
+  text-align :center;
+}
+
+.dynamic-sales-description-first
+{
+  float :left;
+  width :145px;
+  text-align :center;
+}
+
+.dynamic-sales-serial-number-first
+{
+  float :left;
+  width :92px;
+  text-align :center;
+}
+
+.dynamic-sales-service-type-first
+{
+  float :left;
+  width :68px;
+  text-align :center;
+}
+
+.dynamic-sales-quantity-first
+{
+  float :left;
+  width :50px;
+  text-align :center;
+}
+
+.dynamic-sales-rate-first
+{
+  float :left;
+  width :70px;
+  text-align :center;
+}
+
+.dynamic-sales-total-first
+{
+  float :left;
+  width :90px;
+  text-align :center;
+}
+
+.dynamic-sales-product-names
+{
+  float :left;
+  width :90px;
+}
+
+.dynamic-sales-product-description
+{
+  float :left;
+  width :115px;
+  padding-left :2px;
+}
+
+.dynamic-sales-serial-number
+{
+  float :left;
+  width :80px;
+  padding-left :2px;
+}
+
+.dynamic-sales-service-type
+{
+  float :left;
+  width :75px;
+  padding-left :2px;
+}
+
+.dynamic-sales-product-quantity
+{
+  float :left;
+  width :60px;
+  padding-left :2px;
+}
+
+.dynamic-sales-product-rate
+{
+  float :left;
+  width :58px;
+  padding-left :2px;
+  margin-left:15px;
+}
+
+.dynamic-sales-product-total
+{
+  float :left;
+  width :80px;
+  padding-left :2px;
+}
+
+.dynamic-sales-box-length
+{
+  float :left;
+  width :105px;
+	margin-left:15px
+}
+
+.dynamic-sales-box-length1
+{
+  float :left;
+  width :75px;
+	margin-left:2px
+}
+
+.dynamic-sales-quantity-box-length
+{
+  float :left;
+  width :40px;
+	margin-left:20px
+}
+
+.dynamic-sales-rate-box-length
+{
+  float :left;
+  width :65px;
+	margin-left:-10px
+}
+
+.dynamic-sales-service-box-length
+{
+  float :left;
+  width :57px;
+	margin-left:40px
+}
+
+.dynamic-sales-name-box-length
+{
+  float :left;
+  width :90px;
+  margin-left:-20px
+}
+
+.dynamic-sales-description-box-length
+{
+  float :left;
+  width :150px;
+	margin-left:-20px
+}
+
+.error-dynamic-sales-box
+{
+  float :left;
+  background-color :red;
+  width :80px;
+}
+
+.error-dynamic-sales-quantity-box
+{
+  float :left;
+  width :55px;
+  background-color :red;
+}
+
+.error-dynamic-sales-rate-box
+{
+  float :left;
+  width :65px;
+  background-color :red;
+}
+
+.error-dynamic-sales-service-box
+{
+  float :left;
+  width :75px;
+  background-color :red;
+}
+
+.error-dynamic-name-sales-box
+{
+  float :left;
+  background-color :red;
+  width :90px;
+}
+
+.error-dynamic-description-sales-box
+{
+  float :left;
+  background-color :red;
+  width :115px;
+}
+/* End of sales form css */
+
+/* Complaint Register css */
+.complaint-reg-fields
+{
+  float :left;
+  padding-bottom :3px;
+}
+
+.complaint-reg-lables
+{
+  float :left;
+  width :70px;
+  padding-left :10px;
+}
+
+.complaint-reg-boxes
+{
+  float :left;
+}
+
+#complaint-reg-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#complaint-reg-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.complaint-reg-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.complaint-reg-name-first
+{
+  float :left;
+  width :100px;
+  cursor :pointer;
+}
+
+.complaint-reg-address-first
+{
+  float :left;
+  width :125px;
+  cursor :pointer;
+}
+
+.complaint-reg-contact-first
+{
+  float :left;
+  width :90px;
+}
+
+.complaint-reg-model-name-first
+{
+  float :left;
+  width :60px;
+  cursor :pointer;
+}
+
+.complaint-reg-description-first
+{
+  float :left;
+  width :115px;
+  cursor :pointer;
+}
+
+.complaint-reg-date-first
+{
+  float :left;
+  width :90px;
+  cursor :pointer;
+}
+
+.complaint-reg-names
+{
+  float :left;
+  width :100px;
+}
+
+.complaint-reg-addresses
+{
+  float :left;
+  width :125px;
+}
+
+.complaint-reg-contacts
+{
+  float :left;
+  width :90px;
+}
+
+.complaint-reg-model-names
+{
+  float :left;
+  width :60px;
+}
+
+.complaint-reg-descriptions
+{
+  float :left;
+  width :115px;
+}
+
+.complaint-reg-dates
+{
+  float :left;
+  width :90px;
+}
+/* End of Complaint Register css */
+
+/* Service Form css */
+#service-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+  margin-left : 102px;
+}
+#service-button
+{
+  padding-left :140px;
+  margin-left : 161px;
+}
+
+.service-fields
+{
+  float :left;
+  margin-left : 102px;
+  padding-bottom :3px;
+}
+
+.service-lables
+{
+  float :left;
+  width :200px;
+}
+
+.service-boxes
+{
+  float :left;
+}
+
+#dynamic-service-product-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.dynamic-service-product-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.dynamic-service-name-first
+{
+  float :left;
+  width :125px;
+  text-align :center;
+}
+
+.dynamic-service-description-first
+{
+  float :left;
+  width :160px;
+  text-align :center;
+}
+
+.dynamic-service-quantity-first
+{
+  float :left;
+  width :100px;
+  text-align :center;
+}
+
+.dynamic-service-rate-first
+{
+  float :left;
+  width :100px;
+  text-align :center;
+}
+
+.dynamic-service-total-first
+{
+  float :left;
+  width :100px;
+  text-align :center;
+}
+
+.dynamic-service-product-names
+{
+  float :left;
+  width :115px;
+  padding-left :10px;
+}
+
+.dynamic-service-product-description
+{
+  float :left;
+  width :150px;
+  padding-left :10px;
+}
+
+.dynamic-service-product-quantity
+{
+  float :left;
+  width :90px;
+  padding-left :10px;
+}
+
+.dynamic-service-product-rate
+{
+  float :left;
+  width :90px;
+  padding-left :10px;
+}
+
+.dynamic-service-product-total
+{
+  float :left;
+  width :90px;
+  padding-left :10px;
+}
+
+.error-dynamic-sales-box
+{
+  float :left;
+  background-color :red;
+  width :80px;
+}
+
+.error-dynamic-sales-quantity-box
+{
+  float :left;
+  width :55px;
+  background-color :red;
+}
+
+.error-dynamic-sales-rate-box
+{
+  float :left;
+  width :65px;
+  background-color :red;
+}
+
+.error-dynamic-sales-service-box
+{
+  float :left;
+  width :75px;
+  background-color :red;
+}
+
+.error-dynamic-name-sales-box
+{
+  float :left;
+  background-color :red;
+  width :90px;
+}
+
+.error-dynamic-description-sales-box
+{
+  float :left;
+  background-color :red;
+  width :115px;
+}
+/* End of Service from css */
+
+/* Customer Balance Report css */
+#customer-balance-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#customer-balance-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.customer-balance-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.customer-balance-name-first
+{
+  float :left;
+  width :122px;
+  cursor :pointer;
+}
+
+.customer-balance-payment-date-first
+{
+  float :left;
+  width :85px;
+  cursor :pointer;
+}
+
+.customer-balance-contact-first
+{
+  float :left;
+  width :90px;
+}
+
+.customer-balance-remain-first
+{
+  float :left;
+  width :105px;
+  cursor :pointer;
+}
+
+.customer-balance-payment-for-first
+{
+  float :left;
+  width :97px;
+  cursor :pointer;
+}
+
+.customer-balance-names
+{
+  float :left;
+  width :125px;
+}
+
+.customer-balance-payment-dates
+{
+  float :left;
+  width :85px;
+}
+
+.customer-balance-contacts
+{
+  float :left;
+  width :90px;
+}
+
+.customer-balance-remain
+{
+  float :left;
+  width :105px;
+}
+
+.customer-balance-payment-for
+{
+  float :left;
+  width :95px;
+}
+/* End of Customer Balance Report css */
+
+/* Customer Detailed Balance Report css */
+#customer-balance-detail-first-row
+{
+  font-size :14px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+  margin-left :20px;
+}
+
+.customer-balance-detail-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+  margin-left :20px;
+}
+
+.customer-balance-detail-date-first
+{
+  float :left;
+  width :90px;
+}
+
+.customer-balance-detail-amount-first
+{
+  float :left;
+  width :140px;
+}
+
+.customer-balance-detail-dates
+{
+  float :left;
+  width :90px;
+}
+
+.customer-balance-detail-remain
+{
+  float :left;
+  width :140px;
+}
+/* End of Customer Detailed Balance Report css */
+
+/* Installment Payments css */
+#installment-pay-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+  margin-left : 102px;
+}
+#installment-pay-button
+{
+  padding-left :90px;
+  margin-left : 161px;
+}
+
+.installment-pay-fields
+{
+  float :left;
+  margin-left : 102px;
+  padding-bottom :3px;
+}
+
+.installment-pay-lables
+{
+  float :left;
+  width :150px;
+}
+
+.installment-pay-boxes
+{
+  float :left;
+}
+/* End of Installment Payment css */
+
+/* Service Register */
+.service-register-fields
+{
+  float :left;
+  padding-bottom :3px;
+}
+
+.service-register-lables
+{
+  float :left;
+  width :70px;
+  padding-left :10px;
+}
+
+.service-register-amc-lables
+{
+  float :left;
+  width :115px;
+  text-align :right;
+  padding-right : 5px;
+}
+
+.service-register-boxes
+{
+  float :left;
+}
+
+#service-register-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#service-register-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.service-register-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.service-register-name-first
+{
+  float :left;
+  width :100px;
+  cursor :pointer;
+}
+
+.service-register-last-service-date-first
+{
+  float :left;
+  width :90px;
+  cursor :pointer;
+}
+
+.service-register-contact-first
+{
+  float :left;
+  width :90px;
+}
+
+.service-register-address-first
+{
+  float :left;
+  width :155px;
+  cursor :pointer;
+}
+
+.service-register-model-first
+{
+  float :left;
+  width :87px;
+  cursor :pointer;
+}
+
+.service-register-amc-type-first
+{
+  float :left;
+  width :63px;
+  cursor :pointer;
+}
+
+.service-register-names
+{
+  float :left;
+  width :100px;
+}
+
+.service-register-last-service-dates
+{
+  float :left;
+  width :90px;
+}
+
+.service-register-contacts
+{
+  float :left;
+  width :90px;
+}
+
+.service-register-addresses
+{
+  float :left;
+  width :155px;
+}
+
+.service-register-models
+{
+  float :left;
+  width :87px;
+}
+
+.service-register-amc-type
+{
+  float :left;
+  width :63px;
+}
+/* End of Service Register */
+
+/* Service Register Details */
+#service-register-detail-first-row
+{
+  font-size :14px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.service-register-detail-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.service-register-detail-date-first
+{
+  float :left;
+  width :90px;
+}
+
+.service-register-detail-print-first
+{
+  float :left;
+  width :40px;
+}
+
+.service-register-detail-amount-first
+{
+  float :left;
+  width :100px;
+}
+
+.service-register-detail-remark-first
+{
+  float :left;
+  width :165px;
+}
+
+.service-register-detail-technician-first
+{
+  float :left;
+  width :100px;
+}
+
+.service-register-detail-dates
+{
+  float :left;
+  width :90px;
+}
+
+.service-register-detail-amounts
+{
+  float :left;
+  width :100px;
+}
+
+.service-register-detail-remarks
+{
+  float :left;
+  width :165px;
+}
+
+.service-register-detail-technicians
+{
+  float :left;
+  width :100px;
+}
+/* End of Service Register Details */
+
+/* AMC Expiry css */
+#amc-expiry-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#amc-expiry-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.amc-expiry-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.amc-expiry-name-first
+{
+  float :left;
+  width :100px;
+  cursor :pointer;
+}
+
+.amc-expiry-contact-first
+{
+  float :left;
+  width :90px;
+}
+
+.amc-expiry-address-first
+{
+  float :left;
+  width :155px;
+  cursor :pointer;
+}
+
+.amc-expiry-expiry-first
+{
+  float :left;
+  width :87px;
+  cursor :pointer;
+}
+
+.amc-expiry-remarks-first
+{
+  float :left;
+  width :90px;
+}
+
+.amc-expiry-option-first
+{
+  float :left;
+  width :60px;
+}
+
+.amc-expiry-names
+{
+  float :left;
+  width :100px;
+}
+
+.amc-expiry-contacts
+{
+  float :left;
+  width :90px;
+}
+
+.amc-expiry-addresses
+{
+  float :left;
+  width :155px;
+}
+
+.amc-expiry-expiries
+{
+  float :left;
+  width :90px;
+}
+
+.amc-expiry-remarks
+{
+  float :left;
+  width :90px;
+}
+
+.amc-expiry-options
+{
+  float :left;
+  width :60px;
+}
+
+#rows-not-found
+{
+  font-size :14px;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding :5px;
+  text-align :center;
+  width : 650px;
+}
+/* End of AMC Expiry css */
+
+/* AMC Not Serviced css */
+.amc-not-serviced-fields
+{
+  float :left;
+  padding-bottom :3px;
+}
+
+.amc-not-serviced-lables
+{
+  float :left;
+  width :100px;
+  padding-left :6px;
+}
+
+.amc-not-serviced-amc-lables
+{
+  float :left;
+  width :110px;
+  padding-right : 5px;
+}
+
+.amc-not-serviced-boxes
+{
+  float :left;
+}
+
+#amc-not-serviced-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#amc-not-serviced-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.amc-not-serviced-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.amc-not-serviced-name-first
+{
+  float :left;
+  width :100px;
+  cursor :pointer;
+}
+
+.amc-not-serviced-last-service-date-first
+{
+  float :left;
+  width :90px;
+  cursor :pointer;
+}
+
+.amc-not-serviced-contact-first
+{
+  float :left;
+  width :90px;
+}
+
+.amc-not-serviced-address-first
+{
+  float :left;
+  width :152px;
+  cursor :pointer;
+}
+
+.amc-not-serviced-model-first
+{
+  float :left;
+  width :90px;
+  cursor :pointer;
+}
+
+.amc-not-serviced-amc-type-first
+{
+  float :left;
+  width :63px;
+  cursor :pointer;
+}
+
+.amc-not-serviced-names
+{
+  float :left;
+  width :100px;
+}
+
+.amc-not-serviced-last-service-dates
+{
+  float :left;
+  width :90px;
+}
+
+.amc-not-serviced-contacts
+{
+  float :left;
+  width :90px;
+}
+
+.amc-not-serviced-addresses
+{
+  float :left;
+  width :152px;
+}
+
+.amc-not-serviced-models
+{
+  float :left;
+  width :90px;
+}
+
+.amc-not-serviced-amc-type
+{
+  float :left;
+  width :63px;
+}
+/* End of AMC Not Serviced css */
+
+/* Sales Register */
+#sales-reg-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#sales-reg-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.sales-reg-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.sales-reg-name-first
+{
+  float :left;
+  width :110px;
+  cursor :pointer;
+}
+
+.sales-reg-address-first
+{
+  float :left;
+  width :115px;
+  cursor :pointer;
+}
+
+.sales-reg-contact-first
+{
+  float :left;
+  width :90px;
+}
+
+.sales-reg-date-first
+{
+  float :left;
+  width :80px;
+  cursor :pointer;
+}
+
+.sales-reg-amount-first
+{
+  float :left;
+  width :80px;
+  cursor :pointer;
+  padding-right:30px;
+}
+
+.sales-reg-names
+{
+  float :left;
+  width :110px;
+}
+
+.sales-reg-addresses
+{
+  float :left;
+  width :115px;
+}
+
+.sales-reg-contacts
+{
+  float :left;
+  width :90px;
+}
+
+.sales-reg-dates
+{
+  float :left;
+  width :80px;
+}
+
+.sales-reg-amounts
+{
+  float :left;
+  width :80px;
+}
+/* End of sales register */
+
+/* Show Company */
+.show-company-fields
+{
+  float :left;
+  padding-bottom :3px;
+}
+
+.show-company-lables
+{
+  float :left;
+  width :106px;
+  text-align :center;
+}
+
+.show-company-boxes
+{
+  float :left;
+}
+
+#show-company-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#show-company-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.show-company-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.show-company-name-first
+{
+  float :left;
+  width :200px;
+  cursor :pointer;
+}
+
+.show-company-address-first
+{
+  float :left;
+  width :275px;
+  cursor :pointer;
+}
+
+.show-company-names
+{
+  float :left;
+  width :200px;
+}
+
+.show-company-addresses
+{
+  float :left;
+  width :275px;
+}
+/* End of show company */
+
+/* For Show Users details */
+#show-user-heading
+{
+  color :#660000;
+  font-size :18px;
+  font-weight :bold;
+}
+#show-user-first-row
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.show-user-rows
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+.show-user-name-first
+{
+  float :left;
+  width :200px;
+  cursor :pointer;
+}
+
+.show-user-password-first
+{
+  float :left;
+  width :100px;
+  cursor :pointer;
+}
+
+.show-user-type-first
+{
+ float :left;
+ width :102px;
+ text-align :center;
+}
+
+.show-user-operation-first
+{
+  float :left;
+  width :102px;
+  text-align :center;
+}
+
+.technicain-operations-first
+{
+  float :left;
+  width :102px;
+  cursor :pointer;
+}
+
+
+.show-user-delete-operations
+{
+  float :left;
+  width :80px;
+}
+
+.show-user-names
+{
+  float :left;
+  width :200px;
+}
+
+.show-user-password
+{
+  float :left;
+  width :100px;
+}
+
+.show-user-type
+{
+  float :left;
+  width :102px;
+
+}
+
+.show-user-operations
+{
+  float :left;
+  width :110px;
+  text-align :center;
+
+}
+
+.show-user-operations1
+{
+  float :left;
+  width :50px;
+  padding-left :5px;
+}
+.show-user-operations2
+{
+ float :left;
+  width :50px;
+  padding-right :5px;
+}
+
+/* End of Show Users details */
+
+/*Show amc start*/
+.serial-number-first1
+{
+  float :left;
+  width :50px;
+  text-align :center;
+  cursor :pointer;
+}
+.show-amc-name-first
+{
+  float :left;
+  width :110px;
+  cursor :pointer;
+
+}
+
+.show-amc-address-first
+{
+  float :left;
+  width :200px;
+  cursor :pointer;
+
+}
+
+.show-amc-model-name-first
+{
+  float :left;
+  width :110px;
+  cursor :pointer;
+
+}
+
+.show-amc-type-first
+{
+  float :left;
+  width :100px;
+  cursor :pointer;
+
+}
+
+.show-amc-date-first
+{
+  float :left;
+  width :120px;
+  cursor :pointer;
+
+}
+
+.show-amc-amount-first
+{
+  float :left;
+  width :75px;
+  cursor :pointer;
+}
+
+.serial-numbers1
+{
+  float :left;
+  width :40px;
+  text-align :center;
+}
+
+.show-amc-names
+{
+  float :left;
+  width :105px;
+  margin-left:2px;
+}
+
+
+.show-amc-type
+{
+  float :left;
+  width :95px;
+  margin-left:2px;
+
+}
+
+.show-amc-date
+{
+  float :left;
+  width :115px;
+  margin-left:2px;
+}
+
+.show-amc-address
+{
+  float :left;
+  width :205px;
+  margin-left:2px;
+ 
+}
+
+.show-amc-model-name
+{
+   float :left;
+   width :110px;
+   margin-left:2px;
+}
+
+.show-amc-amount
+{
+   float :left;
+  width :75px;
+ text-align:left;
+   margin-left:2px;
+}
+
+#show-user-first-row5
+{
+  font-size :16px;
+  font-weight :bold;
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :20px;
+}
+
+.show-user-row5
+{
+  float :left;
+  border-bottom: 1px solid Peru;
+  padding-top :5px;
+  padding-bottom :5px;
+}
+
+#inner-wrapper1
+{
+  margin :0 auto;
+  width :950px;
+}
+
+.show-user-operation-amc1
+{
+  float :left;
+  width :105px;
+  padding-left :5px;
+}
+/*.show-user-operation-amc2
+{
+ float :left;
+  width :30px;
+  padding-right :5px;
+}*/
+
+.technicain-operation-first-amc
+{
+  float :left;
+  width :100px;
+  text-align :center;
+}
+
+/*End of Show AMC*/
+.edit-complaint
+{
+   margin-left :200px;
+}
+
+
+.edit-sales-view
+{
+
+   margin-left: 290px;
+
+}

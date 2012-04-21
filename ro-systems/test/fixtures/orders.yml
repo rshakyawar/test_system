@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  order_date: 2010-12-06
+  contact_person: MyString
+  phone_number: 9.99
+  mobile_number: 9.99
+  total_amount: 1.5
+  companies: 
+
+two:
+  order_date: 2010-12-06
+  contact_person: MyString
+  phone_number: 9.99
+  mobile_number: 9.99
+  total_amount: 1.5
+  companies: 

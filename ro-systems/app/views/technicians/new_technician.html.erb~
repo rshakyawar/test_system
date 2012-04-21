@@ -1,0 +1,33 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="technician-heading">Add Technician</div>
+    <% if flash[:notice] %>
+      <div id="error">
+        <%= flash[:notice] %>
+      </div>
+    <% else %>
+      <div id="without-error">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <div class="clear"></div>
+    <%= form_for @technician, :url => technician_create_path do |f|%>
+
+      <div class="technician-fields">
+        <div class="technician-lables"><%= f.label :name %></div>
+        <div class="technician-boxes"><%= f.text_field :name, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="technician-button">
+        <%= f.submit %>
+      </div>
+
+    <% end %>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>

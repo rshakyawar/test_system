@@ -1,0 +1,215 @@
+<% if session[:sale_id].present? %>
+  <% sale_id = session[:sale_id] %>
+  <% session[:sale_id] = nil %>
+  <script type="text/javascript">
+    window.onload = print_sales(<%= sale_id %>);
+  </script>
+<% end %>
+<style type="text/css">
+.navigation {
+    text-align:left;
+    vertical-align:top;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 140%;
+    line-height: 16px;
+    font-weight: bold;
+    background-color: #DAE5EF;
+    color: #003066;
+    text-decoration:none;
+    margin-top: .5em;
+    padding:.5em;
+    border:solid 1px;
+}
+</style>
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="sales-heading">Customer Bill</div>
+    <div id="without-error"></div>
+    <div class="clear"></div>
+    <%=form_for :sale, :url => sales_create_bill_path, :html => { :onsubmit => "return check_sales_fields()" } do |f| %>
+      <div class="sales-fields">
+        <div class="sales-lables">Customer Type<span class="necessary">*</span></div>
+        <div class="sales-boxes">
+        <span><%= radio_button "sale", "customer_type", "wholesaler" %>Wholesaler</span>
+        <span><%= radio_button "sale", "customer_type", "retailer" %>Retailer</span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Bill Book Number </div>
+        <div class="sales-boxes"><%= f.text_field :bill_book_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Invoice Number </div>
+        <div class="sales-boxes"><%= f.text_field :invoice_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Purchase Date(mm/dd/yyyy)<span class="necessary">*</span></div>
+        <div class="sales-boxes"><%= f.text_field :purchase_date, :class => "selectboxLength", :name => "sale[date]"%>
+        <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'purchase_date', :type => "button" }) %></span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Customer Name<span class="necessary">*</span> </div>
+        <div class="sales-boxes"><%= f.text_field :customer_name, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">House Number<span class="necessary">*</span> </div>
+        <div class="sales-boxes"><%= f.text_field :house_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Street </div>
+        <div class="sales-boxes"><%= f.text_field :street, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Colony </div>
+        <div class="sales-boxes"><%= f.text_field :colony, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Landmark </div>
+        <div class="sales-boxes"><%= f.text_field :landmark, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">City<span class="necessary">*</span> </div>
+        <div class="sales-boxes"><%= f.text_field :city, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Zipcode </div>
+        <div class="sales-boxes"><%= f.text_field :zipcode, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">State<span class="necessary">*</span> </div>
+        <div class="sales-boxes"><%= f.text_field :state, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Mobile Number </div>
+        <div class="sales-boxes"><%= f.text_field :mobile_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Phone Number</div>
+        <div class="sales-boxes"><%= f.text_field :phone_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="dynamic-sales-product-first-row">
+        <div class="serial-number-first">Sr No</div>
+        <div class="dynamic-sales-name-first">Products /Parts</div>
+        <div class="dynamic-sales-description-first">Desciption</div>
+        <div class="dynamic-sales-serial-number-first">Serial Number</div>
+        <div class="dynamic-sales-service-type-first">Service Type</div>
+        <div class="dynamic-sales-quantity-first">Quantity</div>
+        <div class="dynamic-sales-rate-first">Rate</div>
+        <div class="dynamic-sales-total-first">Total</div>
+      </div>
+      <div class="clear"></div>
+      <div id="1"></div>
+      <div class="clear"></div>
+      <div class="dynamic_rows"><%= link_to "Add", 'javascript:void(0);', :onclick => "sales_add_row()" %></div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Total </div>
+        <div class="sales-boxes"><%= f.text_field :total_amount, :value=> 0, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Paid Amount<span class="necessary">*</span> </div>
+        <div class="sales-boxes"><%= text_field :payments, :paid_amount, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Next Pay Date(mm/dd/yyyy)</div>
+        <div class="sales-boxes"><%= text_field :payments, :next_pay_date, :class => "selectboxLength"%>
+        <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'next_pay_date', :type => "button" }) %></span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Enquiry From </div>
+        <div class="sales-boxes"><%= f.text_field :enquiry_from, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+          <div class="sales-lables">Delivery Person<span class='necessary'>*</span></div>
+          <div class="sales-boxes"><%= collection_select "sale", "delivery_person_id", Technician.find(:all), :id, :name, {:prompt => true}, { :class => "selectboxLength"} %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+          <div class="sales-lables">Installation Person<span class='necessary'>*</span></div>
+          <div class="sales-boxes"><%= collection_select "sale", "installation_person_id", Technician.find(:all), :id, :name, {:prompt => true}, { :class => "selectboxLength"} %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Installation Date(mm/dd/yyyy)<span class="necessary">*</span></div>
+        <div class="sales-boxes"><%= f.text_field :installation_date, :class => "selectboxLength"%>
+        <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'installation_date', :type => "button" }) %></span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">P.O. Number </div>
+        <div class="sales-boxes"><%= f.text_field :po_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">P.O. Date(mm/dd/yyyy)</div>
+        <div class="sales-boxes"><%= f.text_field :po_date, :class => "selectboxLength"%>
+        <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'po_date', :type => "button" }) %></span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+          <div class="sales-lables">Remarks </div>
+          <div class="sales-boxes"><%= text_area :sale, :remarks, :rows => 2, :cols => 34, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="sales-button">
+          <%= submit_tag "Create Bill" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  Zapatec.Calendar.setup({
+            inputField     :    "sale_purchase_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "purchase_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "payments_next_pay_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "next_pay_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "sale_installation_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "installation_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+
+  Zapatec.Calendar.setup({
+            inputField     :    "sale_po_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "po_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+  var e=$('sale_customer_type_retailer');
+  e.checked = true;
+  window.onload = sales_add_row();
+</script>

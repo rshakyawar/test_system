@@ -1,0 +1,30 @@
+class CreateCustomers < ActiveRecord::Migration
+  def self.up
+    create_table :customers do |t|
+      t.string :identity
+      t.date :contract_date
+      t.string :amc_type
+      t.string :name
+      t.string :house_number
+      t.string :street
+      t.string :colony
+      t.string :landmark
+      t.string :city
+      t.string :zipcode
+      t.string :state
+      t.decimal :phone_number
+      t.decimal :mobile_number
+      t.string :cotract_person
+      t.string :model_name
+      t.string :pre_filter
+      t.float :contract_amount
+      t.text :remarks
+
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :customers
+  end
+end

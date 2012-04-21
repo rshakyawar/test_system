@@ -1,0 +1,264 @@
+class Order < ActiveRecord::Base
+
+  belongs_to :company
+  has_many :order_products, :dependent => :destroy
+  has_many :order_payments, :dependent => :destroy
+
+
+### Check the acceptance of product
+  def self.accept_product(name,description)
+    is_accepted = true;
+    name.blank? ? is_accepted = false : is_accepted
+    description.blank? ? is_accepted = false : is_accepted
+  end
+
+### Get Orders Status
+  def self.get_order_status( params )
+    @simple_data, @incomplete_status_data, @complete_status_data = [], [], []
+    if !params[:name].blank?
+      companies = ""
+      if params[:order_by] == 'name asc' || params[:order_by] == 'name desc'
+        companies = Company.all(:conditions => ["name ilike ?", "%#{params[:name]}%"], :order => params[:order_by])
+      else
+        companies = Company.all(:conditions => ["name ilike ?", "%#{params[:name]}%"])
+      end
+      unless companies.blank?
+        companies.each do |company|
+          if params[:from_date].blank?
+            @orders = ""
+            if params[:order_by] == 'order_date asc' || params[:order_by] == 'order_date desc'
+              @orders = company.orders.all(:order => params[:order_by])
+            else
+              @orders = company.orders
+            end
+            retrive_data if !@orders.blank?
+          else
+            if params[:order_by] == 'order_date asc' || params[:order_by] == 'order_date desc'
+              @orders = company.orders.find(:all, :conditions => ["order_date BETWEEN ? AND ?", Date.parse(params[:from_date]), Date.parse(params[:to_date])], :order => params[:order_by])
+            else
+              @orders = @orders = company.orders.find(:all, :conditions => ["order_date BETWEEN ? AND ?", Date.parse(params[:from_date]), Date.parse(params[:to_date])])
+            end
+            retrive_data if !@orders.blank?
+          end
+        end
+      end
+    elsif !params[:from_date].blank?
+      if params[:order_by] == 'order_date asc' || params[:order_by] == 'order_date desc'
+        @orders = Order.find(:all, :conditions => ["order_date BETWEEN ? AND ?", Date.parse(params[:from_date]), Date.parse(params[:to_date])], :order => params[:order_by])
+        retrive_data if !@orders.blank?
+      elsif params[:order_by] == 'name asc' || params[:order_by] == 'name desc'
+        companies = Company.all(:order => params[:order_by])
+        unless companies.blank?
+          companies.each do |company|
+            @orders = company.orders.find(:all, :conditions => ["order_date BETWEEN ? AND ?", Date.parse(params[:from_date]), Date.parse(params[:to_date])])
+            retrive_data if !@orders.blank?
+          end
+        end
+      else
+        @orders = Order.find(:all, :conditions => ["order_date BETWEEN ? AND ?", Date.parse(params[:from_date]), Date.parse(params[:to_date])])
+        retrive_data if !@orders.blank?
+      end
+    elsif params[:order_by] == 'name asc' || params[:order_by] == 'name desc'
+      companies = Company.all(:order => params[:order_by])
+      unless companies.blank?
+        companies.each do |company|
+          @orders = company.orders
+          retrive_data if !@orders.blank?
+        end
+      end
+    elsif params[:order_by] == 'order_date asc' || params[:order_by] == 'order_date desc'
+      @orders = Order.all(:order => params[:order_by])
+      retrive_data if !@orders.blank?
+    else
+      @orders = Order.all
+      retrive_data if !@orders.blank?
+    end
+
+    if params[:order_by] == 'complete'
+      @complete_status_data.concat(@incomplete_status_data)
+    elsif params[:order_by] == 'incomplete'
+      @incomplete_status_data.concat(@complete_status_data)
+    else
+      @simple_data
+    end
+  end
+
+### Getting Data for a particular Company
+  def self.retrive_data
+    @orders.each do |order|
+      company = order.company
+      unless company.blank?
+        ordered_quantity = order.order_products.sum("ordered_quantity")
+        received_quantity = order.order_products.sum("received_quantity")
+        status_hash = {}
+        status_hash["status"] = order.status.blank? ? "Incomplete" : order.status
+        status_hash["order_id"] = order.id
+        status_hash["company_name"] = order.company.name.capitalize
+        status_hash["order_date"] = order.order_date.nil? ? "-" : order.order_date.strftime('%d/%m/%Y') 
+        order_products = order.order_products
+        unless order_products.blank?
+          is_received_quantity = false
+          order_products.each do |order_product|
+            order_product.received_quantity.blank? ? "" : is_received_quantity = true
+          end
+        end
+
+ if (ordered_quantity == received_quantity || is_received_quantity)
+          status_hash["order_status"] = "Complete"
+         @complete_status_data << status_hash
+        else
+         status_hash["order_status"] = "Incomplete"
+         @incomplete_status_data << status_hash
+        end
+        @simple_data << status_hash
+      end
+end
+
+  end
+
+### Get Order status details
+  def self.get_order_status_details( order_id )   #call 
+    status_data = []
+    begin
+      order = Order.find(order_id)
+      order.status="Complete"
+      order.save
+      unless order.blank?
+        order_products = order.order_products
+        unless order_products.blank?
+          counter = 0
+          order_products.each do |order_product|
+            ordered_quantity = order_product.ordered_quantity
+            received_quantity = order_product.received_quantity.blank? ? 0 : order_product.received_quantity
+            product = order_product.product
+            data = {}
+            data["company_name"] = order.company.name.capitalize
+            data["order_product_id"] = order_product.id
+            data["ordered_quantity"] = ordered_quantity
+            data["received_quantity"] = received_quantity
+            data["remain_quantity"] = ordered_quantity - received_quantity
+            data["product_name"] = product.name.blank? ? "not exist" : product.name.capitalize
+            data["product_description"] = product.description.blank? ? "not exist" : product.description.capitalize
+            data["product_with_serial"] = product.is_serial_number
+
+status_data << data
+          end
+        end
+      end
+    rescue
+    end
+    status_data
+  end
+
+### Get an Order's product quantity and other informations
+  def self.get_product_quantity( order_product_id )
+    order_details = {}
+    begin
+      order_product = OrderProduct.find(order_product_id)
+      order_details["order_product_id"] = order_product_id
+      order_details["product_name"] = order_product.product.name.capitalize
+      order_details["ordered_quantity"] = order_product.ordered_quantity
+      order_details["received_quantity"] = order_product.received_quantity.blank? ? 0 : order_product.received_quantity
+      order_details["product_with_serial"] = order_product.product.is_serial_number
+    rescue
+    end
+    order_details
+  end
+
+### Get Company Balance Report
+  def self.get_order_balance( params )
+    status_data = []
+    begin
+      companies = Company.find(:all, :conditions => ["name ilike ? AND colony ilike ? AND landmark ilike ?", "%#{params[:name]}%", "%#{params[:colony]}%", "%#{params[:landmark]}%"])
+      unless companies.blank?
+        companies.each do |company|
+          ordered_balance = company.orders.sum("total_amount")
+          orders = company.orders
+          unless orders.blank?
+            paid_balance = 0
+            orders.each do |order|
+              paid_balance = paid_balance + order.order_payments.sum("paid_amount")
+            end
+            status_hash = {}
+            status_hash["company_id"] = company.id
+            status_hash["company_name"] = company.name.capitalize
+            status_hash["address"] = Customer.get_address( company )
+            status_hash["balance"] = paid_balance - ordered_balance
+            status_data << status_hash
+          end
+        end
+      end
+    rescue
+    end
+    order_by = params[:order_by]
+    if status_data.length > 0
+      if order_by == "name desc"
+        status_data.sort_by{ |name| name["company_name"] }.reverse!
+      elsif order_by == "name asc"
+        status_data.sort_by{ |name| name["company_name"] }
+      elsif order_by == "address desc"
+        status_data.sort_by{ |address| address["address"] }.reverse!
+      elsif order_by == "address asc"
+        status_data.sort_by{ |address| address["address"] }
+      elsif order_by == "balance desc"
+        status_data.sort_by{ |balance| balance["balance"] }.reverse!
+      elsif order_by == "balance asc"
+        status_data.sort_by{ |balance| balance["balance"] }
+      else
+        status_data
+      end
+    else
+      status_data
+    end
+  end
+
+### Get Company Balance Details
+  def self.get_order_balance_details( company_id )
+    details = []
+    begin
+      company = Company.find(company_id)
+      unless company.blank?
+        dates_encountered = {}
+        date_position = 0
+        orders = company.orders
+        unless orders.blank?
+          orders.each do |order|
+            position = dates_encountered[order.order_date]
+            if position.blank?
+              detail_hash = {}
+              detail_hash[:date] = (order.order_date).blank? ? "-" : order.order_date
+              detail_hash[:ordered_balance] = order.total_amount.blank? ? 0 : order.total_amount
+              detail_hash[:paid_balance] = 0.0
+              dates_encountered[order.order_date] = date_position
+              date_position = date_position + 1
+              details << detail_hash
+            else
+              previous = details[position.to_i][:ordered_balance]
+              details[position.to_i][:ordered_balance] = previous + (order.total_amount.blank? ? 0 : order.total_amount)
+            end
+            payments = order.order_payments
+            unless payments.blank?
+              payments.each do |payment|
+	          position = dates_encountered[payment.date] if payment.date != nil
+                if position.blank?
+                  detail_hash = {}
+                  detail_hash[:date] = payment.date.nil? ? "-" : payment.date
+                  detail_hash[:ordered_balance] = 0.0
+                  detail_hash[:paid_balance] = payment.paid_amount
+                  dates_encountered[payment.date] = date_position
+                  date_position = date_position + 1
+	          details << detail_hash
+                else
+                  previous = details[position.to_i][:paid_balance]
+                  details[position.to_i][:paid_balance] = previous + (payment.paid_amount.blank? ? 0 : payment.paid_amount)
+                end
+              end
+            end
+          end
+        end
+      end
+    rescue
+    end
+    details.sort_by { |date| date[:date] }.reverse!
+  end
+end

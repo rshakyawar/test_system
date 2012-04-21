@@ -1,0 +1,61 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="order-status-heading">Order Status</div>
+     <div class="bottom_padding"></div>
+     <div class="bottom_padding"></div>
+    <fieldset>
+      <legend>Serach By:</legend>
+      <div class="order-status-lables">Name</div>
+      <div class="order-status-boxes"><input type="text" id="company_name" class="search-length" onkeyup="ordered_status(this);"></div>
+      <div class="order-status-lables">From Date</div>
+      <div class="order-status-boxes">
+        <input type="text" id="from_date" class="search-length" onchange="ordered_status(this);">
+        <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_from_date', :type => "button" }) %></span>
+      </div>
+      <div class="order-status-lables">To Date</div>
+      <div class="order-status-boxes">
+        <input type="text" id="to_date" class="search-length" onchange="ordered_status(this);">
+        <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_to_date', :type => "button" }) %></span>
+      </div>
+    </fieldset>
+    <div class="clear"></div>
+    <div id="order-status-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="order-date-first" id="order_date desc" onclick="ordered_status(this);">Order Date</div>
+      <div class="order-status-company-name-first" id="name desc" onclick="ordered_status(this);">Company Name</div>
+      <div class="order-status-first" id="complete" onclick="ordered_status(this);">Status</div>
+      <div class=".order-status-operation-first">Operation</div>
+    </div>
+    <div class="clear"></div>
+    <div id="status-content"></div>
+    <div class="clear"></div>
+    <div class="bottom_padding"></div>
+    <div class="clear"></div>
+    <div class="print-stock"><%= image_tag "print1.jpeg", :onclick=>"print_order_status();", :id => "print-image-setup" %></div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  $("company_name").value = "";
+  $("from_date").value = "";
+  $("to_date").value = "";
+window.onload = ordered_status($);
+  Zapatec.Calendar.setup({
+            inputField     :    "from_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_from_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "to_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_to_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+</script>

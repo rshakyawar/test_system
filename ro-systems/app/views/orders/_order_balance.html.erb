@@ -1,0 +1,29 @@
+<% if orders.length > 0 %>
+  <% orders.each do |status| %>
+    <div class = "order-balance-rows">
+      <div class = "serial-numbers"><%= serial_number=(counter+1) %></div>
+      <div class = "order-balance-company-names"><%= link_to "#{status["company_name"]}",'javascript:void(0);', :onclick => "get_balance_detail(#{status["company_id"]},0)" %></div>
+      <div class = "order-balance-company-address"><%= status["address"] %></div>
+      <div class="order-balance-balances">
+        <%
+          balance = status["balance"]
+          if(balance < 0.0)
+        %>
+            <div id = "remaning">
+        <% else %>
+            <div id = "exceed">
+        <% end %>
+              <%= balance %></div>
+      </div>
+      <div id="<%= status["company_id"] %>"></div>
+      <% counter = counter + 1 %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% else %>
+  <div id = "rows-not-found">"No Record found"</div>
+  <div class="clear"></div>
+<% end %>
+<% current_page = (Float(counter) / 25).ceil %>
+<div class="clear"></div>
+<%= render :partial => "layouts/get_paginated", :locals => { :current_page => current_page, :total_pages => total_pages, :function_name => "ordered_order_balance_report" }%>

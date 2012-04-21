@@ -1,0 +1,11 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+<%unless flash[:notice].blank? %> 
+<div style="color:red;"><%=flash[:notice]%></div>
+<%end%>
+<div id="welcome", style="color:teal";>Welcome</div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>

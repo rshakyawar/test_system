@@ -1,0 +1,45 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="amc-expiry-heading">Order Status Detail</div>
+    <div id="order-status-detail-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="order-status-detail-name-first">Products/Parts</div>
+      <div class="order-status-detail-description-first">Description</div>
+      <div class="order-status-detail-qunatity-first">Ordered Quantity</div>
+      <div class="order-status-detail-qunatity-first">Received Quantity</div>
+      <div class="order-status-detail-qunatity-first">Remaining Quantity</div>
+      <div class="order-status-detail-update-first">Update Quantity</div>
+    </div>
+    <div class="clear"></div>
+    <% counter = 0 %>
+    <% if @orders.length > 0 %>
+      <% @orders.each do |status| %>
+        <div class= "order-status-detail-rows" >
+          <div class="serial-numbers"><%= serial_number=(counter+1) %></div>
+          <div class="order-status-detail-names"><%= status["product_name"] %></div>
+          <div class="order-status-detail-descriptions"><%= status["product_description"] %></div>
+          <div class="order-status-detail-qunatities"><%= status["ordered_quantity"] %></div>
+          <div class="order-status-detail-qunatities"><%= status["received_quantity"] %></div>
+          <div class="order-status-detail-qunatities"><%= status["remain_quantity"] %></div>
+          <div class="order-status-detail-updates">
+                <%= link_to image_tag("plus.jpeg", :width => 20, :height => 20),'javascript:void(0);', :onclick => "add_remaining_quantity(#{status["order_product_id"]},#{status["product_with_serial"]})" %>
+              <% if !status["product_with_serial"] %>
+                <%= link_to "same",'javascript:void(0);', :onclick => "add_same_remaining_quantity(#{status["order_product_id"]})" %>
+              <% end %>
+          </div>
+          <div id = "<%= status["order_product_id"] %>"></div>
+          <% counter = counter + 1 %>
+        </div>
+        <div class="clear"></div>
+      <% end %>
+    <% else %>
+      <div id = "rows-not-found">" No Details Found "</div>
+      <div class="clear"></div>
+    <% end %>
+     <div class="order-status-detail-rows"><%= link_to 'Back', order_status_path %> </div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>

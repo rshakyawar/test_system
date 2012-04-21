@@ -1,0 +1,52 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="user-heading">Create New User</div>
+    <% if flash[:notice] %>
+      <div id="error">
+        <%= flash[:notice] %>
+      </div>
+    <% else %>
+      <div id="without-error">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <div class="clear"></div>
+    <%= form_for @user, :url => user_create_path do |f|%>
+
+      <div class="user-fields">
+          <div class="user-lables"><%= f.label :user_name %></div>
+          <div class="user-boxes"><%= f.text_field :user_name, :class => "selectboxLength" %></div>
+      </div>
+
+    <div class="user-fields">
+          <div class="user-lables"><%= f.label :user_type %></div>
+          <div class="user-boxes"><%= collection_select(:user, :user_type_id, UserType.all, :id, :name, {:prompt => true}, :class => "selectboxLength" )%></div>
+      </div>
+
+              <%= check_box(:user, :is_admin)%>is_admin
+
+      <div class="clear"></div>
+      <div class="user-fields">
+          <div class="user-lables"><%= f.label :password %></div>
+          <div class="user-boxes"><%= f.password_field :password, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="user-fields">
+          <div class="user-lables">Confirm Password</div>
+          <div class="user-boxes"><%= f.password_field :password_confirmation, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="submit-button">
+        <%= f.submit %>
+      </div>
+
+    <% end %>
+    <div class="user-fields"><%= link_to 'Back', user_show_path %> </div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>   

@@ -1,0 +1,39 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/login_header" %></div>
+  <div class="clear"></div>
+  <div id="login-wrapper">
+    <div id="login-heading">Login</div>
+    <% if flash[:notice] %>
+      <div id="error">
+        <%= flash[:notice] %>
+      </div>
+    <% else %>
+      <div id="without-error">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <div class="clear"></div>
+    <form action="/user/check" method="post">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <div class="login-fields">
+        <div class="login-lables">User Name</div>
+        <div class="login-boxes">
+          <%=  text_field_tag("user_name") %>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="login-fields">
+        <div class="login-lables">Password</div>
+        <div class="login-boxes">
+          <%= password_field_tag("password") %>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div id="submit-button">
+        <input type="submit" name="Submit" value="Login" >
+      </div>
+    </form>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>

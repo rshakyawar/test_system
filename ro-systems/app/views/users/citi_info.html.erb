@@ -1,0 +1,43 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="user-heading">Create New User</div>
+    <% if flash[:notice] %>
+      <div id="error">
+        <%= flash[:notice] %>
+      </div>
+    <% else %>
+      <div id="without-error">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <div class="clear"></div>
+    <%= form_for :citi_info,:url => user_insert_citi_info_path  do |f|%>
+
+      <div class="user-fields">
+          <div class="user-lables"><%= f.label :city_name %></div>
+          <div class="user-boxes"><%= f.text_field :city_name, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="user-fields">
+          <div class="user-lables"><%= f.label :zip %></div>
+          <div class="user-boxes"><%= f.text_field :zip, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="user-fields">
+          <div class="user-lables"><%= f.label :std_code %></div>
+          <div class="user-boxes"><%= f.text_field :std_code, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="submit-button">
+        <%= f.submit %>
+      </div>
+
+    <% end %>
+   </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>   

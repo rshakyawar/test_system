@@ -1,0 +1,32 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="sales-heading">Edit Bill Book Series</div>
+  <% if flash[:notice] %>
+      <div id="error">
+        <%= flash[:notice] %>
+      </div>
+    <% else %>
+      <div id="without-error">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+<div class="clear"></div>
+    <%= form_for @bill_book_series, :url => "/bill_book_series/update/#{@bill_book_series.id}", :html => { :onsubmit => "return check_bill_book_series_field()"}  do |f|%>
+      <div class="sales-fields">
+      <div class="sales-lables">Bill Book Series Name </div>
+      <div class="sales-boxes"><%= f.text_field  :name, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="sales-button">
+        <%= f.submit %>
+      </div>
+    <% end %>
+      </div>
+<div class="technician-fields"><%= link_to 'Back', sales_bill_book_series_show_path %> </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>

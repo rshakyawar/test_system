@@ -1,0 +1,28 @@
+<%= form_for :order_product, :url => receive_quantity_path, :html => { :onsubmit => "return check_quantity();" } do |f| %>
+  <%= hidden_field :order_product, :id, :value => "#{@orders["order_product_id"]}" %>
+  <div class="serial-fields">
+    <div class="serial-lables">Ordered Quantity </div>
+    <div class="serial-boxes"><%= text_field :order_product, :ordered_quantity, :value => "#{@orders["ordered_quantity"]}", :onkeyup => "check_quantity_serial()", :class => "selectboxLength" %></div>
+  </div>
+  <div class="clear"></div>
+  <div class="serial-fields">
+    <div class="serial-lables">Received Quantity </div>
+    <div class="serial-boxes"><%= text_field :order_product, :received_quantity, :value => 0, :onkeyup => "check_quantity_serial()",:class => "selectboxLength" %></div>
+  </div>
+  <div class="clear"></div>
+  <div class="serial-fields">
+    <div class="serial-lables">Previously Received Quantity </div>
+    <div class="serial-boxes">
+      <%= hidden_field :order_product, :previous_quantity, :value => "#{@orders["received_quantity"]}", :disabled => true %>
+      <%= @orders["received_quantity"] %>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+  <div id="add_serial"></div>
+  <div class="clear"></div>
+  <div id="serial-button">
+    <%= submit_tag "Add" %>
+  </div>
+  <div class="clear"></div>
+<% end %>

@@ -1,0 +1,130 @@
+<html style="background :white;">
+<body style="background :white">
+<div id = "print-wrapper">
+  <div style="font-size :18px; text-align :center; font-weight :bold;">H<sub>2</sub>O Solutions</div>
+  <div style="padding-bottom :10px;"></div>
+  <div class="clear"></div>
+  <div style="text-align :center; font-size :16px; font-weight :bold;">Sales Bill</div>
+  <div style="padding-bottom :10px;"></div>
+  <div class="clear"></div>
+
+  <div id="print-table-wrapper">
+    <table style="text-align :left;" width="495px" cellspacing="5px">
+      <tr>
+        <th width="200px" style="padding-left :100px;">Bill Book Number </th>
+        <td><%= @bill_book_number %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Invoice Number </th>
+        <td><%= @invoice_number %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Purchase Date(dd/mm/yyyy)</th>
+        <td><%= @purchase_date %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Customer Name </th>
+        <td><%= @customer_name %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Address</th>
+        <td><%= @address %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Contact Number </th>
+        <td><%= @contact_numbers %></td>
+      </tr>
+      <% if @product_names.length > 0 %>
+        <tr>
+          <td colspan="2">
+            <table border="1px solid" style="border-collapse :collapse;" width="495px;">
+              <tr align="center">
+                <th>S No</th>
+                <th>Products /Parts</th>
+                <th>Desciption</th>
+                <th>Serial Number</th>
+                <th>Service Type</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Total</th>
+              </tr>
+              <% for i in 0...@product_names.length %>
+                <tr>
+                  <td align="center"><%= sr = i + 1 %></td>
+                  <td><%= @product_names[i] %></td>
+                  <td><%= @descriptions[i] %></td>
+                  <td><%= @serial_number[i] %></td>
+                  <td><%= @service_type[i] %></td>
+                  <td><%= @quantities[i] %></td>
+                  <td><%= @rates[i] %></td>
+                  <td><%= @total[i] %></td>
+                </tr>
+              <% end %>
+            </table>
+          </td>
+        </tr>
+      <% end %>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Total </th>
+        <td><%= @total_amount %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Total Paid Amount</th>
+        <td><%= @paid_amount %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Cash Amount</th>
+        <td><%= @cash_amount %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Cheque Amount</th>
+        <td><%= @cheque_amount %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Transfer Amount</th>
+        <td><%= @transfer_amount %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Card Paid Amount</th>
+        <td><%= @card_paid_amount %></td>
+      </tr>
+
+
+      <tr>
+        <th width="200px" style="padding-left :100px;">Next Pay Date(dd/mm/yyyy)</th>
+        <td><%= @next_pay_date %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Enquiry From </th>
+        <td><%= @enquiry_from %></td>
+      </tr>
+      <tr>
+          <th width="200px" style="padding-left :100px;">Delivery Person</th>
+          <td><%= @delivery_person %></td>
+      </tr>
+      <tr>
+          <th width="200px" style="padding-left :100px;">Installation Person</th>
+          <td><%= @installation_person %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">Installation Date(dd/mm/yyyy)</th>
+        <td><%= @installation_date %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">P.O. Number </th>
+        <td><%= @po_number %></td>
+      </tr>
+      <tr>
+        <th width="200px" style="padding-left :100px;">P.O. Date(dd/mm/yyyy)</th>
+        <td><%= @po_date %></td>
+      </tr>
+      <tr>
+          <th width="200px" style="padding-left :100px;">Remarks </th>
+          <td><%= @remarks %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<script type="text/javascript">
+  window.onload = window.print();
+</script>

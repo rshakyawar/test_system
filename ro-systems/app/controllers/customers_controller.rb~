@@ -1,0 +1,459 @@
+class CustomersController < ApplicationController
+
+### Check Authendication before calling any function
+  before_filter :authenticate
+  before_filter :amc_access, :only => [ :show_amc, :new_customer, :create_customer, :amc_expiry, :amc_not_serviced, :create_complaint ]
+  before_filter :service_access, :only =>  [ :complaint_form, :complaint_register, :service_register]
+  before_filter :is_admin, :only => [ :balance_report ]
+### Open Create Customer Form
+  def new_customer
+    @customer = Customer.new
+  end
+
+  def balance_report
+  end
+
+###View complaint
+  def view_complaint
+     @complaint = Complaint.find(params[:id]) 
+  end
+
+
+### Save Customer Information to Database
+  def amc_expiry
+  end
+
+  def amc_not_serviced
+  end
+
+  def create_customer
+    customer = Customer.new(params[:customer])
+    if customer.save
+      session[:customer_id] = customer.id
+      redirect_to customer_show_amc_path
+    else
+      render customer_new_path
+    end
+  end
+
+### Save Compalint to database
+  def add_complaint
+    customer = ""
+    if params[:customer][:id].blank?
+      params[:customer][:amc_type] = "others"
+      customer = Customer.create(params[:customer])
+    else
+      begin
+        customer = Customer.find(params[:customer][:id])
+      rescue
+      end
+    end
+    complaint_no = Customer.get_complaint_no()
+    register_complaint = customer.complaints.new(params[:complaint])
+    register_complaint.complaint_no = complaint_no
+    register_complaint.save
+    redirect_to complaint_path
+  end
+
+
+
+### Get Customer Information with selected ID
+  def selected_customer
+    begin
+      customer = Customer.find(params[:id])
+    rescue
+      customer = Customer.find(:first)
+    end
+    render :json => [{'customer_identity' => customer.identity, 'customer_house_number' => customer.house_number, 'customer_street' => customer.street, 'customer_colony' => customer.colony, 'customer_landmark' => customer.landmark, 'customer_city' => customer.city, 'customer_zipcode' => customer.zipcode, 'customer_state' => customer.state, 'customer_mobile_number' => Integer(customer.mobile_number), 'customer_phone_number' => Integer(customer.phone_number), 'customer_model_name' => customer.model_name}].to_json
+
+  end
+
+###Get Information of City
+  def selected_citi_info
+    begin
+       city_info = CitiInfo.find(:first,:conditions=>["city_name ilike '#{params[:citi_name]}'"])
+    rescue
+    end
+    if !city_info.nil?
+      render :json => [{ 'customer_city' => city_info.city_name, 'customer_zipcode' => Integer(city_info.zip), 'customer_phone_number' => city_info.std_code}].to_json
+    else
+      render :json => [{ 'customer_city' => params[:citi_name], 'customer_zipcode' => "", 'customer_phone_number' =>""}].to_json
+    end
+  end
+
+### Get Complaint in a Particular Order
+  def ordered_complaint_register
+    complaints = Complaint.get_complaints( params )
+    render_partial_pagination("complaint_register", complaints, params[:page], :complaints )
+  end
+
+### After providing service store service information
+  def process_complaint
+    params[:service].delete("complaint_no")
+    params[:service].delete("complaint_date")
+    service_entry = Service.create(params[:service])
+    payment = service_entry.payments.create(params[:payments])
+    payment.update_attribute(:pay_date, params[:service][:service_date])
+    names = params[:product][:name]
+    product_ids = params[:product][:description]
+    quantities = params[:product][:quantity]
+    rates = params[:product][:rate]
+    unless product_ids.blank?
+      product_ids.each_index do |index|
+        if Order.accept_product(names[index],product_ids[index])
+          product_save = ServiceProduct.create(:service_id => service_entry.id, :product_id => product_ids[index], :quantity => quantities[index], :rate => rates[index])
+        end
+      end
+    end
+    session[:service_id] = service_entry.id
+    redirect_to customer_complaint_register_path
+  end
+
+### Generate Service form
+  def service_form
+    begin
+
+      complaint = Complaint.find(params[:id])
+      @complaint = Complaint.find(params[:id])
+      @customer = complaint.customer
+    rescue
+    end
+  end
+#### get remaining balence in installment_pay
+  def pay_installment
+      @payment = Payment.find(params[:id])
+      paid_amount=@payment.reference.payments.sum('paid_amount')
+      @remaining_amount=@payment.reference.total_amount - paid_amount
+  end
+### Get Customer in a Particular Order
+  def ordered_balance_report
+    balance = Customer.balance_report( params )
+    render_partial_pagination("balance_report", balance, params[:page], :balance)
+  end
+
+### Get Customer Balance Details
+  def customer_balance_details
+    balance = Customer.detailed_balance_report(params[:id])
+    start_index = params[:page]=="0" ? 0 : (Integer(params[:page])-1)*5
+    total_pages = (Float(balance.size)/5).ceil
+    render :partial => "customer_balance_details", :locals => { :balance => balance[start_index,5], :total_pages => total_pages, :counter => start_index, :payment_id => params[:id] }
+  end
+
+### Installment Payment By Customer OR To Company
+  def installment_pay
+    if params[:act][:actions] == "customer_balance_details"
+      @payment = Payment.find(params[:payments][:id])
+      @customer_info = @payment.reference
+      unless @payment.blank?
+          if params[:payments][:is_cash] == "1"
+            @order_payment = Payment.cash_payment(@customer_info, params[:payments][:cash_amount],  params[:payments][:next_pay_date])
+          end
+          if params[:payments][:is_cheque] == "1"
+             @order_payment = Payment.cheque_payment(@customer_info, params[:payment], params[:payments][:next_pay_date])
+          end
+          if params[:payments][:is_by_transfer] == "1"
+            @order_payment = Payment.payment_transfer(@customer_info, params[:payments][:transfer_amount],  params[:payments][:next_pay_date], params[:payments][:transfer_to_account_no])
+          end
+          if params[:payments][:is_by_card] == "1"
+            @order_payment = Payment.card_payment(@customer_info, params[:payments][:card_paid_amount], params[:payments][:next_pay_date])
+          end
+        session[:payment_id] = @order_payment.id
+      end
+      redirect_to customer_balance_report_path
+    elsif params[:act][:actions] == "order_balance_details"
+      company = Company.find(params[:payments][:id])
+      unless company.blank? 
+      	company_arr = [] 
+      	unless company.blank?
+        company_hash = {}
+        company_hash["name"] = company.name
+        company_hash["id"] = company.id
+        company_hash["address"] = Customer.get_address( company )
+        company_arr << company_hash
+      end
+        order = company.orders.find(:last)
+      unless order.blank?
+          pay = order.order_payments.create(:date => params[:payments][:pay_date], :paid_amount => params[:payments][:paid_amount])
+          session[:payment_id] = pay.id
+       end
+      end
+      redirect_to order_balance_path
+     end
+   end
+
+### Get Service Register in a Particular Order
+  def ordered_service_register
+    services = Service.get_serviced_persons( params )
+    render_partial_pagination("service_register", services, params[:page], :services)
+  end
+
+### Get Service Details
+  def service_details
+    @services = Service.get_service_details(params[:id])
+debugger
+  end
+
+### Get AMC Expiry Report in a Particular Order
+  def ordered_amc_expiry
+    amc_expiry = Customer.get_amc_expiry( params )
+    render_partial_pagination("amc_expiry", amc_expiry, params[:page], :amc_expiry)
+  end
+
+### Generate A From to Renew A Customer's AMC
+  def renew_customer
+    begin
+      @customer = Customer.find(params[:id])
+      @customer.contract_date = @customer.contract_date + 1.year
+      @customer.contract_amount = 0
+    rescue
+    end
+  end
+  
+### Generate A Form to show the AMCs
+  def ordered_show_amc
+    amc_customer = Customer.find(:all, :order => params[:order_by])
+		from_date = params[:from_date].to_date.strftime("%Y-%0m-%d") if !params[:from_date].blank?
+		to_date =  params[:to_date].to_date.strftime("%Y-%0m-%d") if !params[:to_date].blank?
+		amc_customer = Customer.find(:all, :conditions =>["contract_date between  ? and ?  ",from_date,to_date]) if !from_date.blank? and !to_date.blank?
+  	amc_customer = Customer.find(:all, :conditions =>["trim(model_name) ilike ? ", "%#{params[:model_name]}%"]) if !params[:model_name].blank?
+    amc_customer = Customer.find(:all, :conditions =>["trim(amc_type) ilike ?" , "%#{params[:amc_type]}%"] ) if !params[:amc_type].blank?
+    amc_customer = Customer.find(:all, :conditions =>["trim(name) ilike ?  ","%#{params[:name]}%"]) if !params[:name].blank?
+		amc_customer = Customer.find(:all, :conditions =>["trim(colony) ilike ? ", "%#{params[:colony]}%"]) if !params[:colony].blank?
+    customer_arr = []
+    unless amc_customer.blank?
+      amc_customer.each do |customer|
+        customer_hash = {}
+        customer_hash["name"] = customer.name.blank? ? "-" : customer.name
+        customer_hash["contract_date"] = customer.contract_date.blank? ? "-" : customer.contract_date
+        customer_hash["model_name"] = customer.model_name.blank? ? "-" : customer.model_name
+        customer_hash["contract_amount"] = customer.contract_amount.blank? ? "0" : customer.contract_amount 
+        customer_hash["id"] = customer.id
+        customer_hash["amc_type"] = customer.amc_type.blank? ? "-" : customer.amc_type
+        customer_hash["address"] = Customer.get_address( customer )
+        customer_arr << customer_hash
+      end
+    end
+    render_partial_pagination("show_amc", customer_arr, params[:page], :amc_customer)
+  end
+  
+### Open Edit Product Form
+  def edit_amc
+    begin
+      @customer = Customer.find(params[:id])
+    rescue
+    end
+  end
+
+###To view the whole detail of AMC
+  def view_amc
+    begin
+      @customer = Customer.find(params[:id])
+    rescue
+    end
+ end
+
+### Update Product Information to Database
+  def update_amc
+    begin
+      @customer = Customer.find(params[:id])
+      if @customer.update_attributes(params[:customer])
+        redirect_to customer_show_amc_path
+      else
+        flash[:notice] = "Please enter correct Informations"
+        render product_edit_amc_path
+      end
+    rescue
+    end
+  end
+  
+  
+### Destroy the AMC Customer
+
+  def destroy
+    begin
+      amc_customer = Customer.find(params[:id])
+      amc_customer.destroy
+    rescue
+    end
+    redirect_to customer_show_amc_path
+  end  
+  
+### Renew A Customer's AMC
+  def update
+    begin
+      @customer = Customer.find(params[:customer][:id])
+      @customer.update_attributes(params[:customer]) ? session[:customer_id] = @customer.id : render( customer_amc_expiry_report_path )
+    rescue
+    end
+    redirect_to customer_amc_expiry_report_path
+  end
+
+### Get Ordered AMC Not Serviced Report in a Particular Order
+  def ordered_amc_not_serviced
+    services = Service.get_amc_not_serviced( params )
+    render_partial_pagination("amc_not_serviced", services, params[:page], :services)
+  end
+
+### Generate A Routine Service for A AMC Customer
+  def create_complaint
+    customer = Customer.find(params[:id])
+    complaint_no = Customer.get_complaint_no()
+    register_complaint = customer.complaints.create(:description => "Routine Service Provied", :date => Time.now, :complaint_no =>complaint_no)
+    redirect_to customer_amc_not_serviced_path
+  end
+
+###Edit Complaint
+  def edit_complaint
+     @complaint = Complaint.find(params[:id]) 
+  end
+
+
+###Delete Complaint
+  def delete_complaint
+     @complaint = Complaint.find(params[:id]) 
+		 @complaint.destroy
+		 redirect_to customer_complaint_register_path
+  end
+
+###Update Complaint
+ def update_complaint
+#   begin
+    @complaint=Complaint.find(params[:complaint][:id])
+    if (params[:customer][:amc_type] != "others")
+     @complaint = Complaint.find(params[:complaint][:id])
+     if @complaint.update_attributes(:description => params[:complaint][:description],:date => params[:complaint][:date])
+       redirect_to customer_complaint_register_path
+     else
+       flash[:notice] = "Please enter correct Informations"
+       render :action => :edit_complain
+     end
+    else
+     if (params[:customer][:name]!="" && params[:customer][:state]!=""&& params[:customer][:city]!="" && params[:customer][:model_name]!="")
+       @complaint = Complaint.find(params[:complaint][:id])
+       @customer  =Customer.find(params[:customer][:id])
+
+       if (@complaint.update_attributes(:description => params[:complaint][:description],:date =>   params[:complaint][:date]) && @customer.update_attributes(:name => params[:customer][:name],:house_number => params[:customer][:house_number],:colony => params[:customer][:colony],:street => params[:customer][:street],:landmark => params[:customer][:landmark],:city => params[:customer][:city],:zipcode => params[:customer][:zipcode],:phone_number => params[:customer][:phone_number],:mobile_number => params[:customer][:mobile_number],:model_name => params[:customer][:model_name],:state => params[:customer][:state]))
+       	redirect_to customer_complaint_register_path
+       else
+         flash[:notice] = "Please fill name,city,state,model_name"
+         render :action => :edit_complaint
+       end
+     else
+         flash[:notice] = "Please fill name,city,state,model_name"
+         render :action => :edit_complaint
+     end
+    end
+#   rescue
+# #      redirect_to customer_complaint_register_path
+#   end
+  
+ end
+
+### Print AMC Expiry Report
+  def print_amc_expiry
+    @customer_name, @remarks, @address, @serial, @contact_numbers, @expiry_date = params[:customer], params[:remarks], params[:address], params[:serials], params[:contact_numbers], params[:expiry_date]
+  end
+
+### Print Customer Balance Report
+  def print_customer_balance_report
+    @customer_name, @payment_dates, @next_payment_dates, @serial, @contact_numbers, @payment_for, @remain_balance = params[:customer], params[:payment_dates], params[:next_payment_dates], params[:serials], params[:contact_numbers], params[:payment_for], params[:remain_balance]
+  end
+
+### Print Complaint Register
+  def print_complaint_register
+    @customer_name, @dates, @address, @serial, @contact_numbers, @model_name, @description = params[:names], params[:dates], params[:address], params[:serials], params[:contacts], params[:model_names], params[:descriptions]
+  end
+
+### Print AND/OR Reprint Service form
+  def reprint_service_form 
+    service = Service.find(params[:id])
+    unless service.blank?
+      customer = service.complaint.customer
+      unless customer.blank?
+
+        @customer_name = customer.name 
+        @contact_numbers = Customer.get_contacts( customer )
+        @address = Customer.get_address( customer )
+        @service_date = service.service_date.strftime("%d/%m/%Y")
+        @technician = service.technician.blank? ? "-" : service.technician.name
+        @service_charge = service.service_charge.blank? ? "-" : service.service_charge
+        @total_amount = service.amount
+       @complaint_no = service.complaint.complaint_no
+       @complaint_date = service.complaint.date.strftime("%d/%m/%Y")
+        payments = service.payments.first
+        @paid_amount = payments.paid_amount
+        @next_pay_date = payments.next_pay_date.blank? ? "-" : payments.next_pay_date.strftime("%d/%m/%Y")
+        @remarks = service.remarks.blank? ? "-" : service.remarks
+        products = service.service_products
+        @product_names, @descriptions, @quantities, @rates, @total = [], [], [], [], []
+        unless products.blank?
+          index = 0
+          products.each do |product|
+            @product_names[index] = product.product.name
+            @descriptions[index] = product.product.description
+            @quantities[index] = product.quantity
+            @rates[index] = product.rate
+            @total[index] = @quantities[index] * @rates[index]
+            index = index + 1
+          end
+        end
+      end
+    end
+  end
+
+### Print AMC Registration Report
+  def print_amc
+    customer = Customer.find(params[:customer_id])
+    unless customer.blank?
+      @identity = customer.identity.blank? ? "-" : customer.identity
+      @contract_date = customer.contract_date.blank? ? "-" : customer.contract_date.strftime("%d/%m/%Y")
+      @amc_type = customer.amc_type
+      @name = customer.name
+      @address = Customer.get_address( customer )
+      @contract_person = customer.contract_person
+      @contact_numbers = Customer.get_contacts( customer )
+      @contract_amount = customer.contract_amount
+      @model_name = customer.model_name
+      @prefilter = customer.prefilter.blank? ? "-" : customer.prefilter
+      @remarks = customer.remarks.blank? ? "-" : customer.remarks
+    end
+  end
+
+### Print Customer Installment Payment
+  def print_customer_installment
+    payment = Payment.find(params[:payment_id])
+    unless payment.blank?
+      customer = ""
+      if payment.reference_type == "Sale"
+        customer = Sale.find(payment.reference_id)
+        @customer_name = customer.customer_name
+      else
+        customer = Service.find(payment.reference_id).complaint.customer
+        @customer_name = customer.name
+      end
+      @address = Customer.get_address( customer )
+      @contact_numbers = Customer.get_contacts( customer )
+      @pay_date = payment.pay_date.blank? ? "-" : payment.pay_date.strftime("%d/%m/%Y")
+      @amount = payment.paid_amount
+      sale =  payment.reference
+      payments = sale.payments.payment_to_print
+      @total_paid_amount = payments.sum(:paid_amount)
+      payments.each do |payment|
+              payment.update_attributes(:is_print=>true)
+            if(payment.pay_mode == "cash")
+              @cash_amount = payment.paid_amount
+            end
+          if(payment.pay_mode == "cheque")
+          @cheque_amount = payment.paid_amount
+          end
+              if(payment.pay_mode == "transfer")
+                @transfer_amount = payment.paid_amount
+              end
+        if(payment.pay_mode == "card")
+        @card_paid_amount = payment.paid_amount
+        end
+      end
+      @next_pay_date = payment.next_pay_date.blank? ? "-" : payment.next_pay_date.strftime("%d/%m/%Y")
+    end
+  end
+end

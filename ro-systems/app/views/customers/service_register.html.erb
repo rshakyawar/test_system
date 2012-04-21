@@ -1,0 +1,85 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="service-register-heading">Service Register</div>
+    <div class="bottom_padding"></div>
+    <div class="bottom_padding"></div>
+    <fieldset>
+      <legend>Serach By:</legend>
+      <div class="service-register-fields">
+        <div class="service-register-lables">Name</div>
+        <div class="service-register-boxes"><input type="text" id="name" class="search-length" onkeyup="ordered_service_register(this);"></div>
+      </div>
+      <div class="service-register-fields">
+        <div class="service-register-lables">From Date</div>
+        <div class="service-register-boxes">
+          <input type="text" id="from_date" class="search-length" onchange="ordered_service_register(this);">
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_from_date', :type => "button" }) %></span>
+        </div>
+      </div>
+      <div class="service-register-fields">
+      <div class="service-register-lables">To Date</div>
+        <div class="service-register-boxes">
+          <input type="text" id="to_date" class="search-length" onchange="ordered_service_register(this);">
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_to_date', :type => "button" }) %></span>
+        </div>
+      </div>
+      <div class="service-register-fields">
+        <div class="service-register-lables">Colony</div>
+        <div class="service-register-boxes"><input type="text" id="colony" class="search-length" onkeyup="ordered_service_register(this);"></div>
+      </div>
+      <div class="service-register-fields">
+        <div class="service-register-lables">Landmark</div>
+        <div class="service-register-boxes"><input type="text" id="landmark" class="search-length" onkeyup="ordered_service_register(this);"></div>
+      </div>
+      <div class="service-register-fields">
+      <div class="service-register-amc-lables">AMC Type</div>
+      <div class="service-register-boxes"><select id="amc_type" class="search-length" onchange="ordered_service_register(this);">
+                                        <option value="all">all</option>
+                                        <option value="with parts">with parts</option>
+                                        <option value="without parts">without parts</option>
+																				<option value="within warrunty">within warrunty</option>
+                                        <option value="others">others</option>
+                                      </select></div>
+      </div>
+    </fieldset>
+    <div id="service-register-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="service-register-last-service-date-first" id="date desc" onclick="ordered_service_register(this);">Last Service Date</div>
+      <div class="service-register-name-first" id="name desc" onclick="ordered_service_register(this);">Customer Name</div>
+      <div class="service-register-address-first" id="address desc" onclick="ordered_service_register(this);">Address</div>
+      <div class="service-register-contact-first">Contact Numbers</div>
+      <div class="service-register-model-first">Model Name</div>
+      <div class="service-register-amc-type-first" id="amc_type desc" onclick="ordered_service_register(this);">AMC Type</div>
+    </div>
+    <div class="clear"></div>
+    <div id="service-register-content"></div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  $("name").value = "";
+  $("from_date").value = "";
+  $("to_date").value = "";
+  $("colony").value = "";
+  $("landmark").value = "";
+  $("amc_type").selectedIndex = 0;
+window.onload = ordered_service_register($);
+  Zapatec.Calendar.setup({
+            inputField     :    "from_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_from_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "to_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_to_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+</script>

@@ -1,0 +1,23 @@
+<% if sales_info.length > 0 %>
+  <% sales_info.each do |status| %>
+    <div class = "sales-reg-rows">
+      <div class = "serial-numbers"><%= serial_number=(counter+1) %></div>
+      <div class = "sales-reg-dates"><%= status["date"] %></div>
+      <div class = "sales-reg-dates"><%= status["customer_type"] %></div>
+      <div class = "sales-reg-names"><%= status["customer_name"] %></div>
+      <div class = "sales-reg-addresses"><%= status["address"] %></div>
+      <div class = "sales-reg-contacts"><%= status["contact_numbers"] %></div>
+      <div class = "sales-reg-amounts"><%= status["amount"] %></div>
+      <div style="float:left;"><%= link_to image_tag("close.jpeg", :height =>20, :width =>20),"/sales_destroy/#{status["order_id"]}", :confirm => 'Are you sure?', :method => :delete  %></div>
+      <div id="<%= status["sale_id"] %>"></div>
+      <% counter = counter + 1 %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% else %>
+  <div id = "rows-not-found">" No Details Found "</div>
+  <div class="clear"></div>
+<% end %>
+<% current_page = (Float(counter) / 25).ceil %>
+<div class="clear"></div>
+<%= render :partial => "layouts/get_paginated", :locals => { :current_page => current_page, :total_pages => total_pages, :function_name => "ordered_sale_register" }%>

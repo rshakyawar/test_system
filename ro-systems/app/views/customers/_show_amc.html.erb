@@ -1,0 +1,52 @@
+<% serial_number = 0 %>
+<% if amc_customer.length>0 %>
+  <% amc_customer.each do |customer| %>
+    <%if customer["amc_type"] != "others" %>
+    <div class="show-user-row5">
+      <div class="serial-numbers"> <%= serial_number = counter + 1 %> </div>
+      <div class="show-amc-date"><%= (customer["contract_date"]).strftime("%d-%m-%Y") %></div>
+      <div class="show-amc-names"><%= customer["name"] %></div>
+      <div class="show-amc-type"><%= customer["amc_type"] %></div>
+      <div class="show-amc-address"><%= customer["address"]%></div>
+      <div class="show-amc-model-name"><%= customer["model_name"] %></div>
+      <div class="show-amc-amount"><%= customer["contract_amount"] %></div>
+      <%if session[:user_type]%> 
+        <div class="show-user-operation-amc1"><%= link_to 'View',customer_view_amc_path(customer) %>
+        <%= link_to 'Edit', customer_edit_amc_path(customer) %>
+        <%= link_to 'Delete', amc_customer_delete_path(customer), :confirm => 'Are   you sure?', :method => :delete %></div>
+      <%else%>
+        <div class="show-user-operation-amc1" align="center" ><%= link_to 'View',customer_view_amc_path(customer) %>
+        <%# link_to 'Edit',"/edit_amc/#{customer.id}" %><%# link_to 'Delete', amc_customer_delete_path(customer), :confirm => 'Are   you sure?', :method => :delete %></div>
+     
+      <%end%>
+    
+    <% counter = counter + 1 %>
+    </div> 
+    <div class="clear"></div>
+    <% end %>
+    <% end %>
+<% else %>
+  <div id = "rows-not-found">"No AMC found"</div>
+  <div class="clear"></div>
+<% end %>
+<% current_page = (Float(counter) / 25).ceil %>
+<div class="clear"></div>
+<%= render :partial => "layouts/get_paginated", :locals => { :current_page => current_page, :total_pages => total_pages, :function_name => "ordered_show_amc" }%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

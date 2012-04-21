@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>RoSystems</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= stylesheet_link_tag "chrometheme/chromestyle2.css" %>
+  <%= javascript_include_tag "chromejs/chrome.js" %>
+  <%= javascript_include_tag "ro_ajax.js" %>
+  <% if(is_calender_neccessary(action_name))%>
+    <%= stylesheet_link_tag "zpcal/themes/winxp.css", "zpcal/doc/css/zpcal.css", "zpcal/doc/css/template.css" %>
+    <%= javascript_include_tag "zpcal/src/utils.js", "zpcal/src/calendar.js", "zpcal/lang/calendar-en.js", "zpcal/src/calendar-setup.js" %>
+  <% end %>
+</head>
+<body>
+<%= csrf_meta_tag %>
+<%= yield %>
+
+</body>
+</html>

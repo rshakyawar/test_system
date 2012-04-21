@@ -1,0 +1,39 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="stock-heading">Stock</div>
+     <div class="bottom_padding"></div>
+     <div class="bottom_padding"></div>
+    <fieldset>
+      <legend>Serach By:</legend>
+      <div class="stock-lables">Products/Parts </div>
+      <div class="stock-boxes"><input type="text" id="name" class="search-length" onkeyup="ordered_stock(this);"></div>
+      <div class="stock-lables">Description </div>
+      <div class="stock-boxes"><input type="text" id="description" class="search-length" onkeyup="ordered_stock(this);"></div>
+    </fieldset>
+    <div id="stock-detail-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="stock-detail-name-first" id="name desc" onclick="ordered_stock(this);">Products/Parts</div>
+      <div class="stock-detail-description-first" id="description desc" onclick="ordered_stock(this);">Description</div>
+      <div class="stock-detail-quantity-first" id="quantity desc" onclick="ordered_stock(this);">Quantity</div>
+      <div class="stock-detail-quantity-first" id="average rate">Avg Rate</div>
+      <div class="stock-detail-operation-first">Operations</div>
+    </div>
+    <div class="clear"></div>
+    <div id="stock-content"></div>
+    <div class="clear"></div>
+    <div class="bottom_padding"></div>
+    <div class="clear"></div>
+    <div class="print-stock"><%= image_tag "print1.jpeg", :onclick=>"print_stock();", :id => "print-image-setup" %></div>
+    <div class="clear"></div>
+    <div class="bottom_padding"></div>
+  </div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  $("name").value = "";
+  $("description").value = "";
+window.onload = ordered_stock($);
+</script>

@@ -1,0 +1,149 @@
+<% if session[:order_id].present? %>
+  <% order_id = session[:order_id] %>
+  <% session[:order_id] = nil %>
+  <script type="text/javascript">
+    window.onload = print_order(<%= order_id %>);
+  </script>
+<% end %>
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="order-heading">Purchase Order</div>
+    <div id="without-error"></div>
+    <div class="clear"></div>
+    <%=form_for :order,@order, :url => order_update_path , :html => { :onsubmit => "return check_edit_order_fields()" } do |f| %>
+      <div class="order-fields">
+        <div class="order-lables">Company Name<span class="necessary">*</span></div>
+          <div class="order-boxes"><%= collection_select(:company, :id, Company.find(:all, :select => ["DISTINCT(name), id"]), :id, :name,{:prompt => true, :name => "order[company_id]", :class => "selectboxLength", :selected => @order.company.id.to_i },{ :onchange=> "var e=$('company_id'); company_select(e.options[e.selectedIndex].value)"} )  %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">House Number </div>
+        <div class="order-boxes"><%= text_field_tag "company[house_number]",@order.company.house_number,  :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Street </div>
+        <div class="order-boxes"><%= text_field_tag "company[street]",@order.company.street, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Colony </div>
+        <div class="order-boxes"><%= text_field_tag "company[colony]",@order.company.colony, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Landmark </div>
+        <div class="order-boxes"><%= text_field_tag "company[landmark]",@order.company.landmark, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">City </div>
+        <div class="order-boxes"><%= text_field_tag "company[city]",@order.company.city, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Zipcode </div>
+        <div class="order-boxes"><%= text_field_tag "company[zipcode]",@order.company.zipcode, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">State </div>
+        <div class="order-boxes"><%= text_field_tag "company[state]" ,@order.company.state, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Date(mm/dd/yyyy)<span class="necessary">*</span></div>
+        <div class="order-boxes"><%= text_field_tag "order[order_date]", @order.order_date.strftime('%m/%d/%Y'), :class => "selectboxLength" %>
+        <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'order_date', :type => "button" }) %></span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Contact Person </div>
+        <div class="order-boxes"><%= text_field "order", :contact_person, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Mobile Number </div>
+        <div class="order-boxes"><%= text_field :order, :mobile_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Phone Number</div>
+        <div class="order-boxes"><%= text_field :order, :phone_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="dynamic-product-first-row">
+        <div class="serial-number-first">S. No.</div>
+        <div class="dynamic-name-first">Products/Parts</div>
+        <div class="dynamic-description-first">Desciption</div>
+        <div class="dynamic-quantity-first">Quantity</div>
+        <div class="dynamic-rate-first">Rate</div>
+        <div class="dynamic-total-first">Total</div>
+      </div>
+    <div class="clear"></div>
+<% count =1%>
+<% total_amount=0%>
+<% @order.order_products.each do |order_product|%>
+<%total_amount  = total_amount + (order_product.ordered_quantity)*(order_product.rate)%>
+<%=render :partial=>"product_row" ,:locals=>{:order_product=>order_product, :count=>count}%>
+<% count =count + 1 %>
+<% end %>
+      <div id="<%=count%>"></div>
+<input type="hidden" value="<%=count%>" id="counter">
+<input type="hidden" value="<%=@order.order_products.find(:last).id%>" id="product_counter">
+      <div class="clear"></div>
+      <div class="dynamic_rows"><%#= link_to "Add", 'javascript:void(0);', :onclick => "edit_add_row($('counter').value, $('product_counter').value)" %></div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Total </div>
+        <div class="order-boxes"><%= text_field_tag :order_total_amount, :total_amount, :value=> "#{total_amount}", :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+          <div class="order-lables">Payment Date(mm/dd/yyyy)</div>
+          <div class="order-boxes"><%= text_field_tag "order_payments[date]", @order.order_payments.first.date.strftime('%m/%d/%Y'), :class => "selectboxLength" %>
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'payment_date', :type => "button" }) %></span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+          <div class="order-lables">Amount Paid<span class='necessary'>*</span></div>
+          <div class="order-boxes"><%= text_field_tag "order_payments[paid_amount]", get_total_paidamount(@order), :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+          <div class="order-lables">Remarks </div>
+          <div class="order-boxes"><%= text_area_tag "order_payments[remarks]", @order.order_payments.first.remarks, :rows => 2, :cols => 34, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="order-button">
+          <%= submit_tag "Update Order" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+
+<script type="text/javascript">
+  Zapatec.Calendar.setup(
+    {
+      inputField  :  "order_order_date",         // ID of the input field
+      ifFormat    : "%m/%d/%Y",    // the date format
+      button      : "order_date",       // ID of the button
+      showsTime      :     false      //don't show time, only date
+    }
+  );
+
+  Zapatec.Calendar.setup({
+            inputField     :    "order_payments_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "payment_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+</script>
+

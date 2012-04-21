@@ -1,0 +1,121 @@
+<% if session[:payment_id].present? %>
+  <% payment_id = session[:payment_id] %>
+  <% session[:payment_id] = nil %>
+  <script type="text/javascript">
+    window.onload = print_customer_installment_pay(<%= payment_id %>);
+  </script>
+<% end %>
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="customer-balance-heading">Customer Balance Report</div>
+    <div class="bottom_padding"></div>
+    <div class="bottom_padding"></div>
+    <fieldset>
+      <legend>Serach By:</legend>
+      <div class="order-balance-fields">
+        <div class="order-balance-lables">Name</div>
+        <div class="show-order-balance-boxes"><input type="text" id="name" class="search-length" onkeyup="ordered_customer_balance_register(this);"></div>
+      </div>
+      <div class="order-balance-fields">
+        <div class="order-balance-lables">Payment For</div>
+        <div class="show-order-balance-boxes"><select id="payment_for" class="search-length" onchange="ordered_customer_balance_register(this);">
+                                                <option value="all">All</option>
+                                                <option value="sale">Sale</option>
+                                                <option value="service">Service</option>
+                                              </select>
+        </div>
+      </div>
+      <fieldset>
+        <legend>Last Payment Date:</legend>
+        <div class="order-balance-fields">
+          <div class="order-balance-date-lables">From Date</div>
+          <div class="show-order-balance-boxes">
+            <input type="text" id="from_last_pay_date" class="search-length" onchange="ordered_customer_balance_register(this);">
+            <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_from_last_pay_date', :type => "button" }) %></span>
+          </div>
+        </div>
+        <div class="order-balance-fields">
+          <div class="order-balance-date-lables">To Date</div>
+          <div class="show-order-balance-boxes">
+            <input type="text" id="to_last_pay_date" class="search-length" onchange="ordered_customer_balance_register(this);">
+            <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_to_last_pay_date', :type => "button" }) %></span>
+          </div>
+        </div>
+      </fieldset>
+      <div class="clear"></div>
+      <fieldset>
+        <legend>Next Payment Date:</legend>
+        <div class="order-balance-fields">
+          <div class="order-balance-date-lables">From Date</div>
+          <div class="show-order-balance-boxes">
+            <input type="text" id="from_next_pay_date" class="search-length" onchange="ordered_customer_balance_register(this);">
+            <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_from_next_pay_date', :type => "button" }) %></span>
+          </div>
+        </div>
+        <div class="order-balance-fields">
+          <div class="order-balance-date-lables">To Date</div>
+          <div class="show-order-balance-boxes">
+            <input type="text" id="to_next_pay_date" class="search-length" onchange="ordered_customer_balance_register(this);">
+            <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_to_next_pay_date', :type => "button" }) %></span>
+          </div>
+        </div>
+      </fieldset>
+    </fieldset>
+    <div id="customer-balance-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="customer-balance-payment-date-first" id="last_pay desc" onclick="ordered_customer_balance_register(this);">Last Payment Date</div>
+      <div class="customer-balance-name-first" id="name desc" onclick="ordered_customer_balance_register(this);">Customer Name</div>
+      <div class="customer-balance-contact-first">Contact Numbers</div>
+      <div class="customer-balance-remain-first" id="remaining desc" onclick="ordered_customer_balance_register(this);">Balance Remaining</div>
+      <div class="customer-balance-payment-date-first" id="next_pay desc" onclick="ordered_customer_balance_register(this);">Next Payment Date</div>
+      <div class="customer-balance-payment-for-first" id="payment_for desc" onclick="ordered_customer_balance_register(this);">Payment For</div>
+    </div>
+    <div class="clear"></div>
+    <div id="customer-balance-content"></div>
+    <div class="clear"></div>
+    <div class="bottom_padding"></div>
+    <div class="clear"></div>
+    <div class="print-stock"><%= image_tag "print1.jpeg", :onclick=>"print_customer_balance();", :id => "print-image-setup" %></div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  $("name").value = "";
+  $("from_last_pay_date").value = "";
+  $("to_last_pay_date").value = "";
+  $("from_next_pay_date").value = "";
+  $("to_next_pay_date").value = "";
+  window.onload = ordered_customer_balance_register($);
+  Zapatec.Calendar.setup({
+            inputField     :    "from_last_pay_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_from_last_pay_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "to_last_pay_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_to_last_pay_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+  Zapatec.Calendar.setup({
+            inputField     :    "from_next_pay_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_from_next_pay_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "to_next_pay_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_to_next_pay_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+</script>

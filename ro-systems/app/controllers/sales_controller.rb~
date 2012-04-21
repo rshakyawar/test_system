@@ -1,0 +1,117 @@
+class SalesController < ApplicationController
+
+### Check Authendication before calling any function
+  before_filter :authenticate
+protect_from_forgery :except => [:sales_destroy]
+
+### Get Product Serial Numbers of a particular product
+  def selected_description
+    response = []
+    begin
+      @products = Product.find(params[:id])
+      if @products.is_serial_number
+        @serials = @products.product_serial_numbers.find(:all, :conditions => ["is_sold = FALSE"])
+        @serials.each do |serial|
+          serial.serial_number.blank? ? '' : response << {'id' => serial.id, 'serial_number' => serial.serial_number}
+        end
+      end
+    rescue
+    end
+    render :json => response.to_json
+  end
+
+### Create Bill for Sale
+  def create_bill
+    @customer_info = Sale.new(params[:sale])
+    if @customer_info.save
+      @order_payment = @customer_info.payments.create(params[:payments])
+      @order_payment.update_attribute(:pay_date, params[:sale][:date])
+      names = params[:product][:name]
+      product_ids = params[:product][:description]
+      serial_numbers = params[:product][:serial_number]
+      service_types = params[:product][:service_type]
+      quantities = params[:product][:quantity]
+      rates = params[:product][:rate]
+      product_ids.each_index do |index|
+        if Order.accept_product(names[index],product_ids[index])
+          reference_object = ""
+          if !serial_numbers[index].blank?
+            reference_object = ProductSerialNumber.find(serial_numbers[index])
+            reference_object.update_attribute(:is_sold, true)
+          else
+            reference_object = Product.find(product_ids[index])
+          end
+          product_save = reference_object.sale_products.create(:sale_id => @customer_info.id, :quantity => quantities[index], :rate => rates[index], :service_type_id => service_types[index])
+        end
+      end
+      session[:sale_id] = @customer_info.id
+      redirect_to sales_sale_path
+    else
+      render sales_sale_path
+    end
+  end
+
+### Get Sales Register In Particular order
+  def ordered_sales_register
+    sales_info = Sale.get_sale_information( params )
+    render_partial_pagination("sales_register", sales_info, params[:page], :sales_info)
+  end
+
+### Print Sales Register
+  def print_sales_register
+    @customer_name, @payment_dates, @address, @serial, @contact_numbers, @customer_type, @balance = params[:customer], params[:dates], params[:address], params[:serials], params[:contact_numbers], params[:customer_type], params[:balance]
+  end
+
+### Generate Bill
+  def print_sales
+    sales = Sale.find(params[:sale_id])
+    unless sales.blank?
+      @bill_book_number = sales.bill_book_number.blank? ? "-" : sales.bill_book_number
+      @invoice_number = sales.invoice_number.blank? ? "-" : sales.invoice_number
+      @purchase_date = sales.date.blank? ? "-" : sales.date.strftime("%d/%m/%Y")
+      @customer_name = sales.customer_name.blank? ? "-" : sales.customer_name
+      @address = Customer.get_address( sales )
+      @contact_numbers = Customer.get_contacts( sales )
+      products = sales.sale_products
+      @product_names, @descriptions, @quantities, @serial_number, @service_type, @rates, @total = [], [], [], [], [], [], []
+      unless products.blank?
+        index = 0
+        products.each do |product|
+          if product.product_reference_type == "ProductSerialNumber"
+            serial_product = ProductSerialNumber.find(product.product_reference_id)
+            @serial_number[index] = serial_product.serial_number
+            @product_names[index] = serial_product.product.name
+            @descriptions[index] = serial_product.product.description
+          else
+            @serial_number[index] = "-"
+            row_product = Product.find(product.product_reference_id)
+            @product_names[index] = row_product.name
+            @descriptions[index] = row_product.description
+          end
+          @service_type[index] =  product.service_type_id.blank? ? "-" : product.service_type.time_limit
+          @quantities[index] = product.quantity
+          @rates[index] = product.rate
+          @total[index] = @quantities[index] * @rates[index]
+          index = index + 1
+        end
+      end
+      @total_amount = sales.total_amount
+      payment = sales.payments.first
+      @paid_amount = payment.paid_amount
+      @next_pay_date = payment.next_pay_date.blank? ? "-" : payment.next_pay_date.strftime("%d/%m/%Y")
+      @enquiry_from = sales.enquiry_from.blank? ? "-" : sales.enquiry_from
+      @delivery_person = Technician.find(sales.delivery_person_id).name
+      @installation_person = Technician.find(sales.installation_person_id).name
+      @installation_date = sales.installation_date.blank? ? "-" : sales.installation_date.strftime("%d/%m/%Y")
+      @po_number = sales.po_number
+      @po_date = sales.po_date.blank? ? "-" : sales.po_date.strftime("%d/%m/%Y")
+      @remarks = sales.remarks.blank? ? "-" : sales.remarks
+    end
+  end
+
+  def sales_destroy
+    sale = Sale.find(params[:id])
+    sale.destroy
+    redirect_to sales_sales_register_path
+  end
+end

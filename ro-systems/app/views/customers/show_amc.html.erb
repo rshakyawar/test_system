@@ -1,0 +1,94 @@
+    <%= stylesheet_link_tag "zpcal/themes/winxp.css", "zpcal/doc/css/zpcal.css", "zpcal/doc/css/template.css" %>
+    <%= javascript_include_tag "zpcal/src/utils.js", "zpcal/src/calendar.js", "zpcal/lang/calendar-en.js", "zpcal/src/calendar-setup.js" %>
+
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper1">
+    <div id="show-user-heading">AMC Customers List</div>
+    <div class="clear"></div><br>
+		    <fieldset>
+      <legend>Serach By:</legend>
+      <div class="service-register-fields">
+        <div class="service-register-lables">Name</div>
+        <div class="service-register-boxes"><input type="text" id="name" class="search-length" onkeyup="ordered_show_amc(this);"></div>
+      </div>
+      <div class="service-register-fields">
+        <div class="service-register-lables">From Date</div>
+        <div class="service-register-boxes">
+          <input type="text" id="from_date" class="search-length" onchange="ordered_show_amc(this);">
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_from_date', :type => "button" }) %></span>
+        </div>
+      </div>
+      <div class="service-register-fields">
+      <div class="service-register-lables">To Date</div>
+        <div class="service-register-boxes">
+          <input type="text" id="to_date" class="search-length" onchange="ordered_show_amc(this);">
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_to_date', :type => "button" }) %></span>
+        </div>
+      </div>
+      <div class="service-register-fields">
+        <div class="service-register-lables">Colony</div>
+        <div class="service-register-boxes"><input type="text" id="colony" class="search-length" onkeyup="ordered_show_amc(this);"></div>
+      </div>
+     <!-- <div class="service-register-fields">
+        <div class="service-register-lables">Landmark</div>
+        <div class="service-register-boxes"><input type="text" id="landmark" class="search-length" onkeyup="ordered_show_amc(this);"></div>
+      </div>-->
+			 <div class="service-register-fields">
+        <div class="service-register-lables">Amc Type</div>
+        <div class="service-register-boxes"><input type="text" id="amc_type" class="search-length" onkeyup="ordered_show_amc(this);"></div>
+      </div>
+			 <div class="service-register-fields">
+        <div class="service-register-lables">Model Name</div>
+        <div class="service-register-boxes"><input type="text" id="model_name" class="search-length" onkeyup="ordered_show_amc(this);"></div>
+      </div>
+    </fieldset>
+    <div id="show-user-first-row5">
+      <div class="serial-number-first1">S. No.</div>
+      <div class="show-amc-date-first" id="contract_date desc" onclick="ordered_show_amc(this);">Contract Date</div>
+      <div class="show-amc-name-first" id="name desc" onclick="ordered_show_amc(this);">Customer Name</div>
+      <div class="show-amc-type-first" id="amc_type desc" onclick="ordered_show_amc(this);">Amc Type</div>
+      <div class="show-amc-address-first" id="address desc" onclick="ordered_show_amc(this);">Address</div>
+      <div class="show-amc-model-name-first" id="model_name desc" onclick="ordered_show_amc(this);">Model Name</div>
+      <div class="show-amc-amount-first" id="contract_amount desc" onclick="ordered_show_amc(this);">Amount</div>
+      <div class="technicain-operation-first-amc" >Operations</div>
+    </div>
+    <div class="clear"></div>
+    <div id="amc-content"></div>
+    <div class="clear"></div>
+    <div class="bottom_padding"></div>
+    <div class="clear"></div>
+    <div id = "left-padding"><%= link_to "New AMC", customer_new_path %></div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+
+<script type="text/javascript">
+  $("name").value = "";
+  $("from_date").value = "";
+  $("to_date").value = "";
+  $("colony").value = "";
+  //$("landmark").value = "";
+	$("amc_type").value = ""
+	$("model_name").value = ""
+  window.onload = ordered_show_amc($);
+  Zapatec.Calendar.setup({
+            inputField     :    "from_date",     // id of the input field
+            ifFormat       :    "%d-%m-%Y",     // format of the input field
+            button         :    "btn_from_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "to_date",     // id of the input field
+            ifFormat       :    "%d-%m-%Y",     // format of the input field
+            button         :    "btn_to_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+</script>
+

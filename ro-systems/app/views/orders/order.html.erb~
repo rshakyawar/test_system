@@ -1,0 +1,137 @@
+<% if session[:order_id].present? %>
+  <% order_id = session[:order_id] %>
+  <% session[:order_id] = nil %>
+  <script type="text/javascript">
+    window.onload = print_order(<%= order_id %>);
+  </script>
+<% end %>
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="order-heading">Purchase Order</div>
+    <div id="without-error"></div>
+    <div class="clear"></div>
+    <%=form_for :order, :url => order_create_path, :html => { :onsubmit => "return check_fields()" } do |f| %>
+      <div class="order-fields">
+        <div class="order-lables">Company Name<span class="necessary">*</span></div>
+        <div class="order-boxes"><%= collection_select(:company, :id, Company.all, :id, :name, {:prompt => true}, { :onchange=> "var e=$('company_id'); company_select(e.options[e.selectedIndex].value)", :name => "order[company_id]", :class => "selectboxLength" } )%></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">House Number </div>
+        <div class="order-boxes"><%= text_field :company, :house_number, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Street </div>
+        <div class="order-boxes"><%= text_field :company, :street, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Colony </div>
+        <div class="order-boxes"><%= text_field:company, :colony, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Landmark </div>
+        <div class="order-boxes"><%= text_field :company, :landmark, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">City </div>
+        <div class="order-boxes"><%= text_field :company, :city, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Zipcode </div>
+        <div class="order-boxes"><%= text_field:company, :zipcode, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">State </div>
+        <div class="order-boxes"><%= text_field:company, :state, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Date(mm/dd/yyyy)<span class="necessary">*</span></div>
+        <div class="order-boxes"><%= f.text_field :order_date, :value => Date.today.strftime('%m/%d/%Y'), :class => "selectboxLength"%>
+        <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'order_date', :type => "button" }) %></span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Contact Person </div>
+        <div class="order-boxes"><%= text_field :order, :contact_person, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Mobile Number </div>
+        <div class="order-boxes"><%= text_field :order, :mobile_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Phone Number</div>
+        <div class="order-boxes"><%= text_field :order, :phone_number, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="dynamic-product-first-row">
+        <div class="serial-number-first">S. No.</div>
+        <div class="dynamic-name-first">Products/Parts</div>
+        <div class="dynamic-description-first">Desciption</div>
+        <div class="dynamic-quantity-first">Quantity</div>
+        <div class="dynamic-rate-first">Rate</div>
+        <div class="dynamic-total-first">Total</div>
+      </div>
+      <div class="clear"></div>
+      <div id="1"></div>
+      <div class="clear"></div>
+      <div class="dynamic_rows"><%= link_to "Add", 'javascript:void(0);', :onclick => "add_row()" %></div>
+      <div class="clear"></div>
+      <div class="order-fields">
+        <div class="order-lables">Total </div>
+        <div class="order-boxes"><%= text_field :order, :total_amount, :value=> 0, :disabled => true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+          <div class="order-lables">Payment Date(mm/dd/yyyy)</div>
+          <div class="order-boxes"><%= text_field :order_payments, :date, :value => Date.today.strftime('%m/%d/%Y'), :class => "selectboxLength" %>
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'payment_date', :type => "button" }) %></span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+          <div class="order-lables">Amount Paid<span class='necessary'>*</span></div>
+          <div class="order-boxes"><%= text_field :order_payments, :paid_amount, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="order-fields">
+          <div class="order-lables">Remarks </div>
+          <div class="order-boxes"><%= text_area :order_payments, :remarks, :rows => 2, :cols => 34, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="order-button">
+          <%= submit_tag "Create Order" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  Zapatec.Calendar.setup({
+            inputField     :    "order_order_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "order_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "order_payments_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "payment_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  window.onload = add_row();
+</script>

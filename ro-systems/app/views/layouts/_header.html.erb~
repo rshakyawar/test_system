@@ -1,0 +1,12 @@
+<%= image_tag "images1.jpeg", :width => '165' %>
+<ul id="menu">
+  <li><a href="/">Login</a></li>
+  <li><a href="/user/new">Create User</a></li>
+  <li><a href="/complaint">Complaint Form</a></li>
+  <li><a href="/customer/new">Create AMCs</a></li>
+  <li><a href="/order">Create Orders</a> </li>
+  <li><a href="/order/status">Order Status</a></li>
+  <li><a href="/product/show">Show Products</a></li>
+  <li><a href="/technician/show">Show Technicians</a></li>
+  <li><a href="/logout">Logout</a></li>
+</ul>

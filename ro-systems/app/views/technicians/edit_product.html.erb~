@@ -1,0 +1,33 @@
+<p> &nbsp;</p>
+<div class="container">
+<div class="heading"><%= render "layouts/header" %></div>
+<div class="heading"><b>Edit Product</b></div>
+
+<%= form_for @technician, :url => update_technician_path do |f|%>
+  <% if flash[:notice] %>
+    <%= flash[:notice] %>
+  <% end %>
+  <% if @technician.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@technician.errors.count, "error") %> prohibited this login from being saved:</h2>
+
+      <ul>
+        <% @technician.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="fields">
+    <div class="label_set"><%= f.label :name %></div>
+    <div class="boxSetting"><%= f.text_field :name %></div>
+    </p>
+  </div>
+
+  <div class="heading">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+</div>

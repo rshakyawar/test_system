@@ -1,0 +1,90 @@
+<a href = "/" style = "border :none;"><%= image_tag "images1.jpeg", :width => '165' %></a>
+
+<div class="chromestyle" id="chromemenu">
+<ul>
+<li><a href="/">Home</a></li>
+<% if session[:user_type] %>
+  <li><a href="javascript:void(0);" rel="user_menu">Users</a></li>
+<% else %>
+  <li><a href="/user/change_password">Change Password</a></li>
+<% end %>
+<li><a href="/product/stock">Stock</a></li>
+<li><a href="/technician/show">Technicians</a></li>
+<li><a href="javascript:void(0);" rel="order_menu">Orders</a></li>
+<li><a href="javascript:void(0);" rel="amc_menu">AMCs</a></li>
+<li><a href="javascript:void(0);" rel="sale_menu">Sales</a></li>
+<li><a href="javascript:void(0);" rel="service_menu">Services</a></li>
+<li><a href="/logout">Logout</a></li>
+</ul>
+</div>
+
+<!--User drop down menu -->
+<div id="user_menu" class="dropmenudiv" style="width: 130px;">
+<a href="/user/show">View Users</a>
+<a href="/user/change_password">Change Password</a>
+</div>
+
+<!--Order drop down menu -->
+<div id="order_menu" class="dropmenudiv" style="width: 130px;">
+<a href="/company/show">Show Companies</a>
+<a href="/order">Create Order</a>
+<a href="/order/status">Order Status</a>
+<a href="/order/balance">Balance Report</a>
+</div>
+
+<!--AMC drop down menu -->
+<div id="amc_menu" class="dropmenudiv" style="width: 130px;">
+<a href="/customer/new">Create AMC</a>
+<a href="/customer/amc_expiry_report">AMC Expiry Report</a>
+<a href="/customer/amc_not_serviced">AMC Not Serviced</a>
+</div>
+
+<!--Sale drop down menu -->
+<div id="sale_menu" class="dropmenudiv" style="width: 180px;">
+<a href="/sales/sale">Create Bill</a>
+<a href="/customer/balance_report">Customer Balance Report</a>
+<a href="/sales/sales_register">Sales Register</a>
+</div>
+
+<!--Service drop down menu -->
+<div id="service_menu" class="dropmenudiv" style="width: 140px;">
+<a href="/complaint">Complaint Form</a>
+<a href="/customer/complaint_register">Complaint Register</a>
+<a href="/customer/service_register">Service Register</a>
+</div>
+
+<script type="text/javascript">
+
+cssdropdown.startchrome("chromemenu")
+
+</script>
+
+<div class="bottom_padding"></div>
+<div class="bottom_padding"></div>
+
+
+
+
+
+
+
+
+<!--
+<ul id="menu">
+  <li><a href="/user/new">Create User</a></li>
+  <li><a href="/complaint">Complaint Form</a></li>
+  <li><a href="/customer/complaint_register">Complaint Register</a></li>
+  <li><a href="/customer/service_register">Service Register</a></li>
+  <li><a href="/customer/new">Create AMCs</a></li>
+  <li><a href="/customer/amc_expiry_report">AMC Report</a> </li>
+  <li><a href="/order">Create Orders</a> </li>
+  <li><a href="/order/status">Order Status</a></li>
+  <li><a href="/order/balance">Balance</a></li>
+  <li><a href="/product/stock">Stock</a></li>
+  <li><a href="/customer/balance_report">Customer Balance Report</a></li>
+  <li><a href="/product/show">Show Products</a></li>
+  <li><a href="/technician/show">Show Technicians</a></li>
+  <li><a href="/sales/sale">Create Bill</a></li>
+  <li><a href="/sales/sales_register">Sales Register</a></li>
+  <li><a href="/logout">Logout</a></li>
+</ul>-->

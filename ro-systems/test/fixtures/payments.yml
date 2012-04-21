@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  reference_type: MyString
+  reference_id: 1
+  pay_date: 2010-12-07
+  next_pay_date: 2010-12-07
+  paid_amount: 1.5
+
+two:
+  reference_type: MyString
+  reference_id: 1
+  pay_date: 2010-12-07
+  next_pay_date: 2010-12-07
+  paid_amount: 1.5

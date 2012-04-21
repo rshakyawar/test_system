@@ -1,0 +1,23 @@
+<% if balance.length > 0 %>
+    <% balance.each do |status| %>
+      <div class = "customer-balance-rows">
+        <div class = "serial-numbers"><%= serial_number=(counter+1) %></div>
+        <div class = "customer-balance-payment-dates"><%= status["last_pay_date"] %></div>
+        <div class = "customer-balance-names"><%= link_to "#{status["customer_name"]}",'javascript:void(0);', :onclick => "customer_balance_detail(#{status["payment_id"]}, 0)" %></div>
+        <div class = "customer-balance-contacts"><%= status["contact_numbers"] %></div>
+        <div class = "customer-balance-remain"><%= status["remaining_balance"] %></div>
+        <div class = "customer-balance-payment-dates"><%= status["next_pay_date"] %></div>
+        <div class = "customer-balance-payment-for"><%= status["payment_for"] %></div>
+ </div>
+        <div id="<%= status["payment_id"] %>"></div>
+        <% counter = counter + 1 %>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+<% else %>
+  <div id = "rows-not-found">"No Order found"</div>
+  <div class="clear"></div>
+<% end %>
+<% current_page = (Float(counter) / 25).ceil %>
+<div class="clear"></div>
+<%= render :partial => "layouts/get_paginated", :locals => { :current_page => current_page, :total_pages => total_pages, :function_name => "ordered_customer_balance_register" }%>

@@ -1,0 +1,30 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="product-heading">Products and Parts List</div>
+    <div id="product-first-row">
+      <div class="serial-number-first"> Serial Number</div>
+      <div class="product-name-first">Product /Part</div>
+      <div class="product-description-first">Desciption</div>
+      <div class="product-stock-first">Current Stock</div>
+      <div class="product-operation-first">Operations</div>
+    </div>
+    <div class="clear"></div>
+    <% serial_number = 0 %>
+    <% @product.each do |product| %>
+      <div class="product-rows">
+        <div class="serial-numbers"><%= serial_number=(serial_number+1) %></div>
+        <div class="product-names"><%= product.name %></div>
+        <div class="product-description"><%= product.description %></div>
+        <div class="product-stock"><%= product.current_stock %></div>
+        <div class="operations-first"><%= link_to "Edit", product_edit_path(product) %></div>
+        <div class="operations-second"><%= link_to 'Destroy', product_delete_path(product), :confirm => 'Are you sure?', :method => :delete %></div>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+  </div>
+  <div id = "left-padding"><%= link_to "New Product/Part", product_new_path%></div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>

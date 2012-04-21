@@ -1,0 +1,23 @@
+<% if orders.length > 0 %>
+  <% orders.each do |status| %>
+    <div class="order-status-rows">
+      <div class="serial-numbers"><%= serial_number=(counter+1) %></div>
+      <div class="order-dates"><%= status["order_date"] %></div>
+      <div class="company-names"><%= status["company_name"] %></div>
+      <div class="order-status"><%= link_to "#{status["status"]}",'javascript:void(0);', :onclick => "get_status_detail(#{status["order_id"]})" %></div>
+     <div class="order-status"><%= link_to "View",'javascript:void(0);', :onclick => "show_order_status(#{status["order_id"]});" %><%= link_to "Edit",'javascript:void(0);', :onclick => "edit_order(#{status["order_id"]});" %><% if is_admin %><%= link_to( "Delete", "/order_destroy/#{status["order_id"]}", :confirm => 'Are you sure?', :method => :delete) %><%end%></div>
+      <div class="order-operations">
+<div class="order-status-detail-updates2"><%= image_tag "print2.png", :onclick=>"print_order(#{status["order_id"]});", :id => "print-image-setup2" %></div>
+<%= status["status"] == "Complete" ? "" : link_to( "Destroy", "/order_destroy/#{status["order_id"]}", :confirm => 'Are you sure?', :method => :delete) %>    </div>
+      <div id="<%= serial_number %>"></div>
+      <% counter = counter + 1 %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% else %>
+  <div id = "rows-not-found">"No Item found"</div>
+  <div class="clear"></div>
+<% end %>
+<% current_page = (Float(counter) / 25).ceil %>
+<div class="clear"></div>
+<%= render :partial => "layouts/get_paginated", :locals => { :current_page => current_page, :total_pages => total_pages, :function_name => "ordered_status" }%>

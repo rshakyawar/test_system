@@ -1,0 +1,41 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  identity: MyString
+  contract_date: 2010-12-07
+  amc_type: MyString
+  name: MyString
+  house_number: MyString
+  street: MyString
+  colony: MyString
+  landmark: MyString
+  city: MyString
+  zipcode: MyString
+  state: MyString
+  phone_number: 9.99
+  mobile_number: 9.99
+  cotract_person: MyString
+  model_name: MyString
+  pre_filter: MyString
+  contract_amount: 1.5
+  remarks: MyText
+
+two:
+  identity: MyString
+  contract_date: 2010-12-07
+  amc_type: MyString
+  name: MyString
+  house_number: MyString
+  street: MyString
+  colony: MyString
+  landmark: MyString
+  city: MyString
+  zipcode: MyString
+  state: MyString
+  phone_number: 9.99
+  mobile_number: 9.99
+  cotract_person: MyString
+  model_name: MyString
+  pre_filter: MyString
+  contract_amount: 1.5
+  remarks: MyText

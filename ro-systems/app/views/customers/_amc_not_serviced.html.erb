@@ -1,0 +1,22 @@
+<% if services.length > 0 %>
+  <% services.each do |status| %>
+    <div class = "amc-not-serviced-rows">
+      <div class = "serial-numbers"><%= serial_number=(counter+1) %></div>
+      <div class = "amc-not-serviced-last-service-dates"><%= status["last_service_date"] %></div>
+      <div class = "amc-not-serviced-names"><%= link_to "#{status["customer_name"]}",'javascript:void(0);', :onclick => "confirm('do you want to create Routie Service Complaint', 'Create Complaint') ? create_complaint(#{status["customer_id"]}) : '';" %></div>
+      <div class = "amc-not-serviced-addresses"><%= status["address"] %></div>
+      <div class = "amc-not-serviced-contacts"><%= status["contact_numbers"] %></div>
+      <div class = "amc-not-serviced-models"><%= status["model_name"] %></div>
+      <div class = "amc-not-serviced-amc-type"><%= status["amc_type"] %></div>
+      <div id="<%= status["customer_id"] %>"></div>
+      <% counter = counter + 1 %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% else %>
+  <div id = "rows-not-found">"Not Serviced Yet"</div>
+  <div class="clear"></div>
+<% end %>
+<% current_page = (Float(counter) / 25).ceil %>
+<div class="clear"></div>
+<%= render :partial => "layouts/get_paginated", :locals => {:current_page => current_page, :total_pages => total_pages, :function_name => "ordered_amc_not_serviced"}%>

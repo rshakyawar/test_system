@@ -1,0 +1,61 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+<% param = params[:id].split('&')%>
+    <div id="installment-pay-heading">Installment</div>
+    <div id="without-error"></div>
+    <div class="clear"></div>
+    <%= form_for :payments, :url => customer_installment_pay_path, :html => { :onsubmit => "return check_installment()" } do |f| %>
+      <%= f.hidden_field :id, :value => "#{param[0]}" %>
+      <%= hidden_field :act, :actions, :value => "#{param[1]}" %>
+      <div class="installment-pay-fields">
+        <div class="installment-pay-lables">Payment Date<span class='necessary'>*</span></div>
+        <div class="installment-pay-boxes">
+          <%= f.text_field :pay_date , :class => "selectboxLength" %>
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'pay_date', :type => "button" }) %></span>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="installment-pay-fields">
+        <div class="installment-pay-lables">Paid Amount<span class='necessary'>*</span></div>
+        <div class="installment-pay-boxes"><%= f.text_field :paid_amount, :value => 0, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="installment-pay-fields">
+        <div class="installment-pay-lables">Next Payment Date </div>
+        <div class="installment-pay-boxes">
+          <%= f.text_field :next_pay_date, :class => "selectboxLength" %>
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'next_pay_date', :type => "button" }) %></span>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div id="installment-pay-button">
+        <%= submit_tag "Paid" %>
+      </div>
+    <% end %>
+    <div class="installment-pay-fields">
+      <%= param[1] == "order_balance_details" ? link_to('Back', order_balance_path) : link_to('back',  customer_balance_report_path) %>
+    </div>
+
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  Zapatec.Calendar.setup({
+            inputField     :    "payments_pay_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "pay_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "payments_next_pay_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "next_pay_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+</script>

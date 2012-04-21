@@ -1,0 +1,1 @@
+<%="#{customer_selected.identity},#{customer_selected.house_number},#{customer_selected.street},#{customer_selected.colony},#{customer_selected.landmark},#{customer_selected.city},#{customer_selected.zipcode},#{customer_selected.state},#{Integer(customer_selected.mobile_number)},#{customer_selected.phone_number},#{customer_selected.model_name}"%>

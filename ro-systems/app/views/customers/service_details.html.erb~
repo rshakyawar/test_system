@@ -1,0 +1,53 @@
+<!--<div id= "service-register-detail-first-row" >
+  <div class="serial-number-first">S. No.</div>
+  <div class="service-register-detail-date-first">Complaint Date</div>
+  <div class="service-register-detail-date-first">Service Date</div>
+  <div class="service-register-detail-remark-first">Remark</div>
+	<div class="service-register-detail-remark-first">Spare Parts</div>
+  <div class="service-register-detail-amount-first">Amount</div>
+  <div class="service-register-detail-technician-first">Technician</div>
+  <div class="service-register-detail-print-first">Print</div>
+</div>
+-->
+<div id= "service-register-detail-first-row" >
+<table>
+	<tr >
+		<td>S. No.</td>
+		<td>Complaint Date</td>
+		<td>Service Date</td>
+		<td>Remark</td>
+		<td>Spare Parts</td>
+		<td>Amount</td>
+		<td>Technician</td>
+		<td>Print</td>
+	</tr>
+
+
+
+<% counter = 0 %>
+<% @services.each do |status| %>
+  
+  <div class= "service-register-detail-rows" >
+
+<%abc=status["service_id"].service_products%>
+   <!-- <div class="serial-numbers"><%= serial_number=(counter+1) %></div>
+    <div class="service-register-detail-dates"><%= status["complaint_date"] %></div>
+    <div class="service-register-detail-dates"><%= status["service_date"] %></div>
+    <div class="service-register-detail-remarks"><%= status["remarks"] %></div>
+		<div class="service-register-detail-remarks"><%= product.name if product%></div>
+    <div class="service-register-detail-amounts"><%= status["amount"] %></div>
+    <div class="service-register-detail-technicians"><%= status["technician"] %></div>
+    <div class="service-register-detail-print-first"><%= image_tag("print1.jpeg", :height => 20, :width => 20, :onclick => "reprint_service_form(#{status["service_id"]});", :style => "cursor : pointer;") %></div>
+    <% counter = counter + 1 %>-->
+<tr>
+<td><div class="serial-numbers"><%= serial_number=(counter+1) %>  </div></td>
+<td><%= status["complaint_date"] %></td>
+<td><%= status["service_date"]%></td>
+<td><%= status["remarks"] %></td>
+<td><% abc.each do |service_product| %><%=  service_product.product.name if service_product %><%end%></td>
+<td><%= status["amount"] %></td>
+<td><%=  status["technician"]%></td>
+<td><%=  image_tag("print1.jpeg", :height => 20, :width => 20, :onclick => "reprint_service_form(#{status["service_id"]});", :style => "cursor : pointer;") %></td>
+</tr></div>
+<% end %>
+

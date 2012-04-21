@@ -1,0 +1,53 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="product-heading">Add Product</div>
+    <% if flash[:notice] %>
+      <div id="error">
+        <%= flash[:notice] %>
+      </div>
+    <% else %>
+      <div id="without-error">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <div class="clear"></div>
+    <%= form_for @product, :url => product_create_path do |f|%>
+
+      <div class="product-fields">
+        <div class="product-lables"><%= f.label :name %></div>
+        <div class="product-boxes"><%= f.text_field :name, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="product-fields">
+        <div class="product-lables"><%= f.label :description %></div>
+        <div class="product-boxes"><%= f.text_field :description, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="product-fields">
+        <div class="product-lables"><%= f.label :current_stock %></div>
+        <div class="product-boxes"><%= f.text_field :current_stock, :value => 0, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="product-fields">
+        <div class="product-lables">Serial Numbers</div>
+        <div class="product-boxes">
+          <%= f.radio_button :is_serial_number, true %>Yes
+          <%= f.radio_button :is_serial_number, false %>No
+        </div>
+      </div>
+
+      <div class="clear"></div>
+      <div id="product-button">
+        <%= f.submit %>
+      </div>
+
+    <% end %>
+    <div class="product-fields"><%= link_to 'Back', product_stock_path %> </div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>

@@ -1,0 +1,262 @@
+<%= javascript_include_tag :defaults %>
+<% if session[:sale_id].present? %>
+  <% sale_id = session[:sale_id] %>
+  <% session[:sale_id] = nil %>
+<% end %>
+<style type="text/css">
+.navigation {
+    text-align:left;
+    vertical-align:top;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 140%;
+    line-height: 16px;
+    font-weight: bold;
+    background-color: #DAE5EF;
+    color: #003066;
+    text-decoration:none;
+    margin-top: .5em;
+    padding:.5em;
+    border:solid 1px;
+}
+</style>
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="sales-heading">Sales Bill</div>
+    <div id="without-error"></div>
+    <div class="clear"></div>
+    <%=form_for @sale, :url => sales_update_path do |f| %>
+      <div class="sales-fields">
+        <div class="sales-lables">Customer Type<span class="necessary">*</span></div>
+        <div class="sales-boxes">
+                <span><%= radio_button_tag "sale", "customer_type", "wholesaler", :checked => true if @sale.customer_type == "wholesaler"  %>Wholesaler</span>
+                <span><%= radio_button "sale", "customer_type", "retailer", :checked => true if @sale.customer_type == "retailer"  %>Retailer</span></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Bill Book Number </div>
+        <div class="sales-boxes"><%= f.text_field :bill_book_number,:disabled =>true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Invoice Number </div>
+        <div class="sales-boxes"><%= f.text_field :invoice_number,:disabled =>true, :class => "selectboxLength" %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Purchase Date(mm/dd/yyyy)<span class="necessary">*</span></div>
+        <div class="sales-boxes"><%= text_field_tag "sale[date]", @sale.date.strftime('%m/%d/%Y'), :class => "selectboxLength", :name => "sale[date]",:disabled =>true%>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Customer Name</div>
+        <div class="sales-boxes"><%= text_field :sale, :customer_name, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">House Number </div>
+        <div class="sales-boxes"><%= text_field :sale, :house_number, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Street </div>
+        <div class="sales-boxes"><%= text_field :sale, :street, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Colony </div>
+        <div class="sales-boxes"><%= text_field :sale, :colony, :class => "selectboxLength" ,:disabled =>true%></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Landmark </div>
+        <div class="sales-boxes"><%= text_field :sale, :landmark, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">City</div>
+        <div class="sales-boxes"><%= text_field :sale, :city, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Zipcode </div>
+        <div class="sales-boxes"><%= text_field :sale, :zipcode, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">State</div>
+        <div class="sales-boxes"><%= text_field :sale, :state, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Mobile Number </div>
+        <div class="sales-boxes"><%= text_field :sale, :mobile_number, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Phone Number</div>
+        <div class="sales-boxes"><%= text_field :sale, :phone_number, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div id="dynamic-sales-product-first-row">
+        <div class="serial-number-first">Sr No</div>
+        <div class="dynamic-sales-name-first">Products /Parts</div>
+        <div class="dynamic-sales-description-first">Desciption</div>
+        <div class="dynamic-sales-serial-number-first">Serial Number</div>
+        <div class="dynamic-sales-service-type-first">Service Type</div>
+        <div class="dynamic-sales-quantity-first">Quantity</div>
+        <div class="dynamic-sales-rate-first">Rate</div>
+        <div class="dynamic-sales-total-first">Total</div>
+      </div>
+      <div class="clear"></div>
+      <div id="1"></div>
+      <div class="clear"></div>
+      <% total_amount=0%>
+      <% count =1%>
+      <% @sale.sale_products.each do |sale_product|%>
+      <%sale_product.quantity = 1 if sale_product.quantity == nil %>
+      <%total_amount  = total_amount + (sale_product.quantity)*(sale_product.rate)%>
+      <%=render :partial=>"sale_product_view_row" ,:locals=>{:sale_product=>sale_product, :count=>count}%>
+      <% count =count + 1 %>
+      <% end %>
+        <div class="sales-fields">
+        <div class="sales-lables">Total </div>
+        <div class="sales-boxes"><%= f.text_field :total_amount, :value=> "#{total_amount}", :disabled => true, :class => "selectboxLength",:checked => true ,:disabled =>true%></div>
+        </div>
+       <%= check_box(:fulpaid, unchecked_value = "1", :checked => true,:onclick =>'javascript:ful_amount_paid();')%>
+        <div class="clear"></div>
+        <div class="sales-fields">
+        <div class="sales-lables">Total Paid Amount</div>
+        <div class="sales-boxes"><%= text_field :payments, :paid_amount, :class => "selectboxLength",:disabled =>true %></div>
+        </div>
+        <div class="clear"></div>
+      <%cheque_count=1%>
+      <%@sale.payments.each do |sale_payment|%>
+                     <% if sale_payment.pay_mode == "cash" %>
+                <div class="sales-fields" id="cash_div">
+                 <%=check_box("payment", "is_cash", :checked => true,:disabled => true, :onclick =>'javascript:cash_payment();' )%>By Cash
+                  <div class="sales-lables">Cash Amount </div>
+                   <div class="sales-boxes"><%= text_field_tag "payments[cash_amount]", sale_payment.paid_amount, :class => "selectboxLength" ,:disabled =>true%>
+                   </div>
+                 </div>
+             <%end%>
+            <% if sale_payment.pay_mode == "cheque" %>
+                  <div class="sales-fields", id="cheque_div", style="border:1px solid grey;" >
+                    <%= (check_box("payment", "is_cheque", :checked => true,:disabled => true, :onclick =>'javascript:cheque_payment();')) %>By Cheque<%="#{cheque_count}"%>
+                      <div class="sales-lables">Cheque Number <%="#{cheque_count}"%></div>
+                      <div class="sales-boxes"><%= text_field_tag "payments[cheque_number][#{cheque_count}]", sale_payment.cheque_no, :class => "selectboxLength",:disabled =>true %></div>
+                      <div class="sales-lables">Cheque Amount <%="#{cheque_count}"%></div>
+                      <div class="sales-boxes"><%= text_field_tag "payments[cheque_amount][#{cheque_count}]", sale_payment.paid_amount, :class => "selectboxLength",:disabled =>true %></div>
+                      <div class="sales-lables">Cheque Post Date <%="#{cheque_count}"%> </div>
+                      <div class="sales-boxes"><%= text_field_tag "payments[cheque_post_date][#{cheque_count}]", sale_payment.post_cheque_date.nil? ? "" : sale_payment.post_cheque_date.strftime('%m/%d/%Y'), :class => "selectboxLength",:disabled =>true %></div>
+                      <div class="sales-lables">Cheque Bank Name <%="#{cheque_count}"%></div>
+                      <div class="sales-boxes"><%= text_field_tag "payments[cheque_bank_name][#{cheque_count}]",   sale_payment.bank_name, :class => "selectboxLength",:disabled =>true %></div>
+                      <%cheque_count=cheque_count+1%>
+                    </div>
+             <%end%>
+            <%if sale_payment.pay_mode == "transfer"%>
+                 <div class="sales-fields", id="transfer_div" >
+                    <%= check_box("payment", "is_by_transfer", :checked => true,:disabled => true)  %>By Transfer
+                  <div class="sales-lables">Transfer Amount </div>
+                  <div class="sales-boxes"><%= text_field_tag "payments[transfer_amount]", sale_payment.paid_amount, :class => "selectboxLength",:disabled =>true %></div>
+                  <div class="sales-lables">To Account No </div>
+                  <div class="sales-boxes"> <%= text_field_tag "payments[transfer_to_acount_no]", sale_payment.transfer_to_account_no, :class => "selectboxLength", :disabled =>true %></div>
+                </div> 
+                <div class="clear"></div>
+              <%end%>
+              <% if sale_payment.pay_mode == "card"%>
+                <div class="sales-fields", id="card_div">
+                 <%= (check_box("payment", "is_by_card", :checked => true,:disabled => true)) %> By Card
+                <div class="sales-lables">Card Paid Amount </div>
+                <div class="sales-boxes"><%= text_field_tag "payments[card_paid_amount]", sale_payment.paid_amount, :class => "selectboxLength",:disabled =>true %></div>
+                </div>
+                <div class="clear"></div>
+              <%end%>
+       <%end%>
+      <div class="sales-fields">
+        <div class="sales-lables">Next Pay Date(mm/dd/yyyy)</div>
+        <div class="sales-boxes"><%= text_field_tag "payments[next_pay_date]", @sale.payments.first.next_pay_date.nil? ? "" : @sale.payments.first.next_pay_date.strftime('%m/%d/%Y'), :class => "selectboxLength",:disabled =>true%>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Enquiry From </div>
+        <div class="sales-boxes"><%= text_field :sale, :enquiry_from, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+          <div class="sales-lables">Delivery Person</div>
+          <div class="sales-boxes"><%= text_field :sale, :delivery_person_name, :class => "selectboxLength" ,:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+          <div class="sales-lables">Installation Person</div>
+          <div class="sales-boxes"><%= text_field :sale, :installation_person_name, :class => "selectboxLength" ,:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">Installation Date(mm/dd/yyyy)</span></div>
+        <div class="sales-boxes"><%= text_field_tag "sale[installation_date]", @sale.installation_date.nil? ? "" : @sale.installation_date.strftime('%m/%d/%Y'), :class => "selectboxLength",:disabled =>true%>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">P.O. Number </div>
+        <div class="sales-boxes"><%= text_field :sale, :po_number, :class => "selectboxLength",:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+        <div class="sales-lables">P.O. Date(mm/dd/yyyy)</div>
+        <div class="sales-boxes"><%= text_field_tag "sale[po_date]", @sale.po_date.nil? ? "" : @sale.po_date.strftime('%m/%d/%Y') , :class => "selectboxLength",:disabled =>true%>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="sales-fields">
+          <div class="sales-lables">Remarks </div>
+          <div class="sales-boxes"><%= text_area :sale, :remarks, :rows => 2, :cols => 34, :class => "selectboxLength",:disabled =>true,:disabled =>true %></div>
+      </div>
+      <div class="clear"></div>
+    <div class="sales-fields">
+          <div class="edit-sales-view" style="css" margin-left :200px><%= link_to "Edit",'javascript:void(0);', :onclick => "edit_sales_order(#{@sale.id});" %></div>
+      </div>
+      <div class="clear"></div>
+     <% end %>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+//   Zapatec.Calendar.setup({
+//             inputField     :    "sale_purchase_date",     // id of the input field
+//             ifFormat       :    "%m/%d/%Y",     // format of the input field
+//             button         :    "purchase_date",  // What will trigger the popup of the calendar
+//             showsTime      :     false      //don't show time, only date
+//     });
+
+//   Zapatec.Calendar.setup({
+//             inputField     :    "payments_next_pay_date",     // id of the input field
+//             ifFormat       :    "%m/%d/%Y",     // format of the input field
+//             button         :    "next_pay_date",  // What will trigger the popup of the calendar
+//             showsTime      :     false      //don't show time, only date
+//     });
+
+//   Zapatec.Calendar.setup({
+//             inputField     :    "sale_installation_date",     // id of the input field
+//             ifFormat       :    "%m/%d/%Y",     // format of the input field
+//             button         :    "installation_date",  // What will trigger the popup of the calendar
+//             showsTime      :     false      //don't show time, only date
+//     });
+// 
+// 
+//   Zapatec.Calendar.setup({
+//             inputField     :    "sale_po_date",     // id of the input field
+//             ifFormat       :    "%m/%d/%Y",     // format of the input field
+//             button         :    "po_date",  // What will trigger the popup of the calendar
+//             showsTime      :     false      //don't show time, only date
+//     });
+ </script>

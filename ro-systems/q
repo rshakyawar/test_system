@@ -1,0 +1,44 @@
+                      List of relations
+ Schema |             Name              |   Type   |  Owner   
+--------+-------------------------------+----------+----------
+ public | bill_book_series              | table    | postgres
+ public | bill_book_series_id_seq       | sequence | postgres
+ public | citi_infos                    | table    | postgres
+ public | citi_infos_id_seq             | sequence | postgres
+ public | companies                     | table    | postgres
+ public | companies_id_seq              | sequence | postgres
+ public | complaints                    | table    | postgres
+ public | complaints_id_seq             | sequence | postgres
+ public | customers                     | table    | postgres
+ public | customers_id_seq              | sequence | postgres
+ public | order_payments                | table    | postgres
+ public | order_payments_id_seq         | sequence | postgres
+ public | order_products                | table    | postgres
+ public | order_products_id_seq         | sequence | postgres
+ public | orders                        | table    | postgres
+ public | orders_id_seq                 | sequence | postgres
+ public | payments                      | table    | postgres
+ public | payments_id_seq               | sequence | postgres
+ public | product_serial_numbers        | table    | postgres
+ public | product_serial_numbers_id_seq | sequence | postgres
+ public | products                      | table    | postgres
+ public | products_id_seq               | sequence | postgres
+ public | sale_products                 | table    | postgres
+ public | sale_products_id_seq          | sequence | postgres
+ public | sales                         | table    | postgres
+ public | sales_id_seq                  | sequence | postgres
+ public | schema_migrations             | table    | postgres
+ public | service_products              | table    | postgres
+ public | service_products_id_seq       | sequence | postgres
+ public | service_types                 | table    | postgres
+ public | service_types_id_seq          | sequence | postgres
+ public | services                      | table    | postgres
+ public | services_id_seq               | sequence | postgres
+ public | technicians                   | table    | postgres
+ public | technicians_id_seq            | sequence | postgres
+ public | user_types                    | table    | postgres
+ public | user_types_id_seq             | sequence | postgres
+ public | users                         | table    | postgres
+ public | users_id_seq                  | sequence | postgres
+(39 rows)
+

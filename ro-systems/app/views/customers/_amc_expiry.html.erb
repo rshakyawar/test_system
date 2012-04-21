@@ -1,0 +1,28 @@
+<% if amc_expiry.length > 0 %>
+  <% amc_expiry.each do |status| %>
+    <div class = "amc-expiry-rows">
+      <div class = "serial-numbers"><%= serial_number=(counter+1) %></div>
+      <div class = "amc-expiry-names"><%= status["customer_name"] %></div>
+      <div class = "amc-expiry-addresses"><%= status["address"] %></div>
+      <div class = "amc-expiry-contacts"><%= status["contact_numbers"] %></div>
+      <div class = "amc-expiry-expiries">
+					<% if status["expiry_date"].to_date < Date.today%>
+						<font color="#C11B17"><b><%= status["expiry_date"] %></b></font>
+					<%else%>
+						<font color="#E8A317"><b><%= status["expiry_date"] %></b></font>
+					<%end%>
+			</div>
+      <div class = "amc-expiry-remarks"><%= status["remarks"] %></div>
+      <div class = "amc-expiry-options"><%= link_to "Renew",'javascript:void(0);', :onclick => "renew_user(#{status["customer_id"]})" %></div>
+      <div id="<%= status["customer_id"] %>"></div>
+      <% counter = counter + 1 %>
+    </div>
+    <div class="clear"></div>
+  <% end %>
+<% else %>
+  <div id = "rows-not-found">" No AMC Expiry "</div>
+  <div class="clear"></div>
+<% end %>
+<% current_page = (Float(counter) / 25).ceil %>
+<div class="clear"></div>
+<%= render :partial => "layouts/get_paginated", :locals => { :current_page => current_page, :total_pages => total_pages, :function_name => "ordered_amc_expiry_register" }%>

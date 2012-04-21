@@ -1,0 +1,36 @@
+<html style="background :white;">
+<body style="background :white">
+<div id = "print-wrapper">
+  <div style="font-size :18px; text-align :center; font-weight :bold;">H<sub>2</sub>O Solutions</div>
+  <div style="padding-bottom :10px;"></div>
+  <div class="clear"></div>
+  <div style="text-align :center; font-size :16px; font-weight :bold;">Order Balance Report</div>
+  <div style="padding-bottom :10px;"></div>
+  <div class="clear"></div>
+
+  <div id="print-table-wrapper">
+    <table align="center" border="1px solid" style="border-collapse :collapse;">
+      <tr>
+        <th width="65" style="padding :5px;">Sr No.</th>
+        <th width="175">Company Name</th>
+        <th width="200">Address</th>
+        <th width="110">Balance</th>
+      </tr>
+      <% if @serial.length > 0 %>
+        <% for i in 0...@serial.length %>
+          <tr>
+            <td width="65" style="padding :5px; text-align :center;"><%= @serial[i] %></td>
+            <td width="175" style="padding :5px;"><%= @company_name[i] %></td>
+            <td width="175" style="padding :5px;"><%= @address[i] %></td>
+            <td width="110" style="padding :5px;"><%= @order_balance[i] %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+  window.onload = window.print();
+</script>

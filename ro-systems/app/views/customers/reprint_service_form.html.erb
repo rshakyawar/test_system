@@ -1,0 +1,95 @@
+<html style="background :white;">
+<body style="background :white">
+<div id = "print-wrapper">
+  <div style="font-size :18px; text-align :center; font-weight :bold;">H<sub>2</sub>O Solutions</div>
+  <div style="padding-bottom :10px;"></div>
+  <div class="clear"></div>
+  <div style="text-align :center; font-size :16px; font-weight :bold;">Service Form</div>
+  <div style="padding-bottom :10px;"></div>
+  <div class="clear"></div>
+
+  <div id="print-table-wrapper">
+    <table style="text-align :left;" width="495px" cellspacing="5px">
+      <tr>
+        <th width="150px" style="padding-left :100px;">Customer Name</th>
+        <td><%= @customer_name %></td>
+      </tr>
+      <tr>
+        <th width="150px" style="padding-left :100px;">Address</th>
+        <td><%= @address %></td>
+      </tr>
+      <tr>
+        <th width="150px" style="padding-left :100px;">Contact Number</th>
+        <td><%= @contact_numbers %></td>
+      </tr>
+      <tr>
+        <th width="150px" style="padding-left :100px;">Service Date</th>
+        <td><%= @service_date %></td>
+      </tr>
+
+<tr>
+        <th width="150px" style="padding-left :100px;">Complaint Date</th>
+        <td><%= @complaint_date %></td>
+      </tr>
+<tr>
+        <th width="150px" style="padding-left :100px;">Complaint No.</th>
+        <td><%= @complaint_no %></td>
+      </tr>
+
+      <tr>
+        <th width="150px" style="padding-left :100px;">Technician</th>
+        <td><%= @technician %></td>
+      </tr>
+      <% if @product_names.length > 0 %>
+        <tr>
+          <td colspan="2">
+            <table border="1px solid" style="border-collapse :collapse;" width="495px;">
+              <tr align="center">
+                <th>Sr No</th>
+                <th>Products /Parts</th>
+                <th>Desciption</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Total</th>
+              </tr>
+              <% for i in 0...@product_names.length %>
+                <tr>
+                <td align="center"><%= sr = i + 1 %></td>
+                <td><%= @product_names[i] %></td>
+                <td><%= @descriptions[i] %></td>
+                <td><%= @quantities[i] %></td>
+                <td><%= @rates[i] %></td>
+                <td><%= @total[i] %></td>
+              </tr>
+              <% end %>
+            </table>
+          </td>
+        </tr>
+      <% end %>
+      <tr>
+        <th width="150px" style="padding-left :100px;">Service Charge</th>
+        <td><%= @service_charge %></td>
+      </tr>
+      <tr>
+        <th width="150px" style="padding-left :100px;">Total</th>
+        <td><%= @total_amount %></td>
+      </div>
+      <tr>
+        <th width="150px" style="padding-left :100px;">Paid Amount</th>
+        <td><%= @paid_amount %></td>
+      </tr>
+      <tr>
+        <th width="150px" style="padding-left :100px;">Next Pay Date</th>
+        <td><%= @next_pay_date %></td>
+      </tr>
+      <tr>
+        <th width="150px" style="padding-left :100px;">Remarks</th>
+        <td><%= @remarks %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="clear"></div>
+</div>
+<script type="text/javascript">
+  window.onload = window.print();
+</script>

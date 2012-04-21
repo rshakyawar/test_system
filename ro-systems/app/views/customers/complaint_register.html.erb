@@ -1,0 +1,85 @@
+<% if session[:service_id].present? %>
+  <% service_id = session[:service_id] %>
+  <% session[:service_id] = nil %>
+  <script type="text/javascript">
+    window.onload = reprint_service_form(<%= service_id %>);
+  </script>
+<% end %>
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="complaint-reg-heading">Complaint Register</div>
+    <div class="bottom_padding"></div>
+     <div class="bottom_padding"></div>
+    <fieldset>
+      <legend>Serach By:</legend>
+      <div class="complaint-reg-fields">
+        <div class="complaint-reg-lables">Name</div>
+        <div class="complaint-reg-boxes"><input type="text" id="name" class="search-length" onkeyup="ordered_complaint_register(this);"></div>
+      </div>
+      <div class="complaint-reg-fields">
+        <div class="complaint-reg-lables">From Date</div>
+        <div class="complaint-reg-boxes">
+          <input type="text" id="from_date" class="search-length" onchange="ordered_complaint_register(this);">
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_from_date', :type => "button" }) %></span>
+        </div>
+      </div>
+      <div class="complaint-reg-fields">
+      <div class="complaint-reg-lables">To Date</div>
+        <div class="complaint-reg-boxes">
+          <input type="text" id="to_date" class="search-length" onchange="ordered_complaint_register(this);">
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_to_date', :type => "button" }) %></span>
+        </div>
+      </div>
+      <div class="complaint-reg-fields">
+        <div class="complaint-reg-lables">Colony</div>
+        <div class="complaint-reg-boxes"><input type="text" id="colony" class="search-length" onkeyup="ordered_complaint_register(this);"></div>
+      </div>
+      <div class="complaint-reg-fields">
+        <div class="complaint-reg-lables">Landmark</div>
+        <div class="complaint-reg-boxes"><input type="text" id="landmark" class="search-length" onkeyup="ordered_complaint_register(this);"></div>
+      </div>
+    </fieldset>
+    <div id="complaint-reg-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="complaint-reg-date-first" id="date desc" onclick="ordered_complaint_register(this);">Complaint Date</div>
+      <div class="complaint-reg-name-first" id="name desc" onclick="ordered_complaint_register(this);">Customer Name</div>
+      <div class="complaint-reg-address-first" id="address desc" onclick="ordered_complaint_register(this);">Address</div>
+      <div class="complaint-reg-contact-first">Contact Numbers</div>
+      <div class="complaint-reg-model-name-first">Model Name</div>
+      <div class="complaint-reg-description-first">Complaint Description</div>
+      </div>
+    <div class="clear"></div>
+    <div id="complaint-reg-content"></div>
+    <div class="clear"></div>
+    <div class="bottom_padding"></div>
+    <div class="clear"></div>
+    <div class="print-stock"><%= image_tag "print1.jpeg", :onclick=>"print_complaint_register();", :id => "print-image-setup" %></div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  $("name").value = "";
+  $("from_date").value = "";
+  $("to_date").value = "";
+  $("colony").value = "";
+  $("landmark").value = "";
+window.onload = ordered_complaint_register($);
+  Zapatec.Calendar.setup({
+            inputField     :    "from_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_from_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "to_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_to_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+</script>

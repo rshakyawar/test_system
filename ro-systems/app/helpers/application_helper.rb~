@@ -1,0 +1,8 @@
+module ApplicationHelper
+
+  def is_calender_neccessary( called_action )
+    actions = ['amc_expiry', 'balance_report', 'complaint_form', 'complaint_register', 'new_customer', 'order', 'order_status', 'pay_installment', 'renew_customer', 'sales', 'sales_register', 'service_form', 'service_register']
+    actions.include?(called_action)
+  end
+
+end

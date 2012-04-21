@@ -1,0 +1,32 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="technician-heading">Technician List</div>
+    <div class="clear"></div>
+    <div id="technician-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="technicain-name-first">Technician</div>
+      <div class="technicain-operation-first">Operations</div>
+    </div>
+    <div class="clear"></div>
+    <% serial_number = 0 %>
+    <% @technician.each do |technician| %>
+      <div class="technician-rows">
+        <div class="serial-numbers"><%= serial_number=(serial_number+1) %></div>
+        <div class="technicain-names"><%= technician.name %></div>
+        <div class="operations-first"><%= link_to "Edit", technician_edit_path(technician) %></div>
+        <div class="operations-second"><%= link_to 'Destroy', technician_delete_path(technician), :confirm => 'Are you sure?', :method => :delete %></div>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+  <div class="clear"></div>
+  <div id = "technician-left-padding"><div id = "left-padding"><%= link_to "New Technician", technician_new_path%></div></div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>

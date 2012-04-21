@@ -1,0 +1,24 @@
+<div id= "customer-balance-detail-first-row" >
+  <div class="serial-number-first">S. No.</div>
+  <div class="customer-balance-detail-date-first">Payment Date</div>
+  <div class="customer-balance-detail-amount-first">Total Balance</div>
+  <div class="customer-balance-detail-amount-first">Paid Amount</div>
+  <div class="customer-balance-detail-amount-first">Remain Balance</div>
+</div>
+
+<% counter = 0
+   payment_id = 0 %>
+<% @balance.each do |status| %>
+  <div class="clear"></div>
+  <div class= "customer-balance-detail-rows" >
+    <div class="serial-numbers"><%= serial_number=(counter+1) %></div>
+    <div class="customer-balance-detail-dates"><%= status["pay_date"] %></div>
+    <div class="customer-balance-detail-remain"><%= status["total_amount"] %></div>
+    <div class="customer-balance-detail-remain"><%= status["paid"] %></div>
+    <div class="customer-balance-detail-remain"><%= status["remaining_balance"] %></div>
+    <% counter = counter + 1 %>
+    <% payment_id = status["payment_id"] %>
+  </div>
+<% end %>
+<div class="clear"></div>
+<%= link_to "Pay",'javascript:void(0);', :onclick => "pay_installment(#{payment_id},'customer_balance_details')" %>

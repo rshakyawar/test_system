@@ -1,0 +1,87 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="sales-reg-heading">Sales Register</div>
+    <div class="bottom_padding"></div>  <div class="bottom_padding"></div>
+    <fieldset>
+      <legend>Serach By:</legend>
+      <div class="service-register-fields">
+        <div class="service-register-lables">Name</div>
+        <div class="service-register-boxes"><input type="text" id="name" class="search-length" onkeyup="ordered_sale_register(this);"></div>
+      </div>
+      <div class="service-register-fields">
+        <div class="service-register-lables">From Date</div>
+        <div class="service-register-boxes">
+          <input type="text" id="from_date" class="search-length" onchange="ordered_sale_register(this);">
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_from_date', :type => "button" }) %></span>
+        </div>
+      </div>
+      <div class="service-register-fields">
+      <div class="service-register-lables">To Date</div>
+        <div class="service-register-boxes">
+          <input type="text" id="to_date" class="search-length" onchange="ordered_sale_register(this);">
+          <span class="date_button"><%= submit_tag("...", { :name => 'button', :id => 'btn_to_date', :type => "button" }) %></span>
+        </div>
+      </div>
+      <div class="service-register-fields">
+        <div class="service-register-lables">Colony</div>
+        <div class="service-register-boxes"><input type="text" id="colony" class="search-length" onkeyup="ordered_sale_register(this);"></div>
+      </div>
+      <div class="service-register-fields">
+        <div class="service-register-lables">Landmark</div>
+        <div class="service-register-boxes"><input type="text" id="landmark" class="search-length" onkeyup="ordered_sale_register(this);"></div>
+      </div>
+      <div class="service-register-fields">
+      <div class="service-register-amc-lables">Customer Type</div>
+      <div class="service-register-boxes"><select id="customer_type" class="search-length" onchange="ordered_sale_register(this);">
+                                            <option value="all">all</option>
+                                            <option value="retailer">retailer</option>
+                                            <option value="wholesaler">wholesaler</option>
+                                          </select></div>
+      </div>
+    </fieldset>
+    <div id="sales-reg-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="sales-reg-date-first" id="date desc" onclick="ordered_sale_register(this);">Date</div>
+      <div class="sales-reg-date-first" id="customer_type desc" onclick="ordered_sale_register(this);">Customer Type</div>
+      <div class="sales-reg-name-first" id="customer_name desc" onclick="ordered_sale_register(this);">Customer Name</div>
+      <div class="sales-reg-address-first" id="address desc" onclick="ordered_sale_register(this);">Address</div>
+      <div class="sales-reg-contact-first">Contact Numbers</div>
+      <div class="sales-reg-amount-first" id="total_amount desc" onclick="ordered_sale_register(this);">Amount</div>
+      <div class="sales-reg-date-first">Operation</div>
+    </div>
+    <div class="clear"></div>
+    <div id="sale-reg-content"></div>
+    <div class="clear"></div>
+    <div class="bottom_padding"></div>
+    <div class="clear"></div>
+    <div class="print-stock"><%= image_tag "print1.jpeg", :onclick=>"print_sales_register();", :id => "print-image-setup" %></div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>
+<script type="text/javascript">
+  $("name").value = "";
+  $("from_date").value = "";
+  $("to_date").value = "";
+  $("colony").value = "";
+  $("landmark").value = "";
+  $("customer_type").selectedIndex = 0;
+window.onload = ordered_sale_register($);
+  Zapatec.Calendar.setup({
+            inputField     :    "from_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_from_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+
+  Zapatec.Calendar.setup({
+            inputField     :    "to_date",     // id of the input field
+            ifFormat       :    "%m/%d/%Y",     // format of the input field
+            button         :    "btn_to_date",  // What will trigger the popup of the calendar
+            showsTime      :     false      //don't show time, only date
+    });
+</script>

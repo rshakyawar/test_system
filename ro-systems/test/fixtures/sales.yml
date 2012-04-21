@@ -1,0 +1,45 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  customer_type: MyString
+  date: 2010-12-07
+  bill_book_number: MyString
+  customer_name: MyString
+  invoice_number: MyString
+  house_number: MyString
+  street: MyString
+  colony: MyString
+  landmark: MyString
+  city: MyString
+  zipcode: MyString
+  state: MyString
+  phone_number: 9.99
+  mobile_number: 9.99
+  installation_date: 2010-12-07
+  delivery_person_id: 1
+  installation_person_id: 1
+  po_number: MyString
+  po_date: 2010-12-07
+  total_amount: 1.5
+
+two:
+  customer_type: MyString
+  date: 2010-12-07
+  bill_book_number: MyString
+  customer_name: MyString
+  invoice_number: MyString
+  house_number: MyString
+  street: MyString
+  colony: MyString
+  landmark: MyString
+  city: MyString
+  zipcode: MyString
+  state: MyString
+  phone_number: 9.99
+  mobile_number: 9.99
+  installation_date: 2010-12-07
+  delivery_person_id: 1
+  installation_person_id: 1
+  po_number: MyString
+  po_date: 2010-12-07
+  total_amount: 1.5

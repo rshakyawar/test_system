@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  order_id: 1
+  product_id: 1
+  ordered_quantity: 1
+  received_quantity: 1
+  rate: 1.5
+
+two:
+  order_id: 1
+  product_id: 1
+  ordered_quantity: 1
+  received_quantity: 1
+  rate: 1.5

@@ -1,0 +1,17 @@
+<script>sales_add_row.counter = '<%=count %>'</script>
+<div class=clear></div><div class=dynamic-product-rows><div class=serial-numbers><%= count %></div>
+
+<div class="dynamic-sales-product-names"><%= collection_select (:product, "name_#{count}",  Product.find(:all, :select => ["DISTINCT(name),id"], :conditions => "is_enable = TRUE"), :id, :name, {:prompt => true, :selected =>sale_product.product_reference_type == 'ProductSerialNumber' ? sale_product.product_reference_id.to_i : sale_product.product_reference.id.to_i}, {:onchange=> "var e=$('product_name_#{ count}'); product_select(e.options[e.selectedIndex].value,'#{ count}')", :name => "product[name][]", :class => "dynamic-sales-name-box-length"}) %></div>
+
+<div class="dynamic-sales-product-description"><%= collection_select(:description, "#{count}", Product.find(:all,:select => ["DISTINCT(description),id"], :conditions => "is_enable = TRUE"), :id, :description, {:prompt => true, :selected => sale_product.product_reference_type == 'ProductSerialNumber' ? sale_product.product_reference_id.to_i : sale_product.product_reference.id.to_i}, {:onchange=> "var e=$('description_#{ count}'); description_select(e.options[e.selectedIndex].value,'#{ count}')", :name => "product[description][]", :class => "dynamic-sales-description-box-length", :disabled => true }) %></div>
+
+<div class="dynamic-sales-serial-number"><%= collection_select (:serial_number, "#{ count}", ProductSerialNumber.all, :id, :serial_number, {:prompt => true, :selected => sale_product.product_reference_type == 'ProductSerialNumber' ? sale_product.serial_number_reference_id.to_i : false },  {:name => "product[serial_number][]", :class => "dynamic-sales-box-length", :disabled => true } ) %></div>
+
+<div class="dynamic-sales-service-type"><%= collection_select (:time_limit, "#{ count}", ServiceType.all, :id, :time_limit, {:prompt => true,:selected => sale_product.service_type_id.to_i}, {:name => "product[service_type][]", :class => "dynamic-sales-service-box-length" })  %></div>
+
+<div class="dynamic-sales-product-quantity"><%= text_field_tag "product[quantity]", sale_product.quantity, :onblur => "sales_get_total(#{ count})", :id => "product_quantity_#{ count}",:name => "product[quantity][]",:class => "dynamic-sales-quantity-box-length" %></div>
+
+<div class="dynamic-sales-product-rate"><%= text_field_tag "product[rate]",sale_product.rate.to_i, :onblur => "sales_get_total(#{ count})", :id => "product_rate_#{ count}", :name => "product[rate][]", :class => "dynamic-sales-rate-box-length" %></div>
+
+<div class="dynamic-sales-product-total"><%= text_field_tag "product[total]", (sale_product.quantity)*(sale_product.rate), :disabled => true, :id => "product_total_#{count}", :class => "dynamic-sales-box-length" %></div>
+</div>

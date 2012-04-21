@@ -1,0 +1,32 @@
+<div id = "wrapper">
+  <div id = "header"><%= render "layouts/common_header" %></div>
+  <div class="clear"></div>
+  <div id="inner-wrapper">
+    <div id="technician-heading">Bill Book Series List</div>
+    <div class="clear"></div>
+    <div id="technician-first-row">
+      <div class="serial-number-first">S. No.</div>
+      <div class="technicain-name-first">Bill Book Series</div>
+      <div class="technicain-operation-first">Operations</div>
+    </div>
+    <div class="clear"></div>
+    <% serial_number = 0 %>
+    <% @bill_book_series.each do |bill_book_series| %>
+      <div class="technician-rows">
+        <div class="serial-numbers"><%= serial_number=(serial_number+1) %></div>
+        <div class="technicain-names"><%= bill_book_series.name %></div>
+        <div class="operations-first"><%= link_to "Edit", bill_book_series_edit_path(bill_book_series) %></div>
+      <div class="operations-second"><%= link_to 'Destroy', bill_book_series_delete_path(bill_book_series), :confirm => 'Are you sure?', :method => :delete %></div>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+  <div class="clear"></div>
+  <div id = "technician-left-padding"><%= link_to "New Bill Book Series", sales_bill_book_series_new_path%></div>
+  </div>
+  <div class="clear"></div>
+  <div class="bottom_padding"></div>
+</div>
+<div class="clear"></div>
+<div id = "header" align="center"><%= render "layouts/footer" %></div>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  service_id: 1
+  product_id: 1
+  quantity: 1
+  rate: 1.5
+
+two:
+  service_id: 1
+  product_id: 1
+  quantity: 1
+  rate: 1.5

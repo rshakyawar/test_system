@@ -1,0 +1,6 @@
+class ActsAsFerret::SearchResults
+  def total_pages
+    @total_pages
+  end
+end
+
